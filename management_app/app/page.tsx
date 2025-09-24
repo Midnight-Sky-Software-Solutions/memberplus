@@ -1,5 +1,7 @@
 import { auth0 } from "@/lib/auth0";
-import Image from "next/image";
+import { Button } from 'primereact/button';                             
+import { Column } from "primereact/column";
+import { DataTable } from "primereact/datatable";
 
 export default async function Home() {
 
@@ -12,12 +14,16 @@ export default async function Home() {
   }).then(res => res.json());
 
   return (
-    <div>
-      <ul>
-        {items.map(item => (
-          <li key={item.id}>{item.name}</li>
-        ))}
-      </ul>
+    <div className="space-y-5">
+      <h1 className="text-4xl">Tenants</h1>
+      <Button label="New Tenant" className="mb-5" />
+      <div>
+        <DataTable value={items}>
+          <Column field="id" header="Id"></Column>
+          <Column field="name" header="Name"></Column>
+          <Column field="externalId" header="External Id"></Column>
+        </DataTable>
+      </div>
     </div>
   );
 }
