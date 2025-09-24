@@ -1,6 +1,11 @@
+using MemberPlus.Core;
+using MemberPlus.Core.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddScoped<DatabaseProvider, LocalHostDatabaseProvider>();
+builder.Services.AddScoped<TenantService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
