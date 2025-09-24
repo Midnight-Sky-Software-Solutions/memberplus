@@ -37,8 +37,10 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased flex`}
         >
           <Menu model={menuItems} className="h-[100vh]" />
-          <div className="grow p-8">
-            {children}
+          <div className="grow flex justify-center">
+            <div className="grow p-8 max-w-6xl">
+              {children}
+            </div>
           </div>
         </body>
       </PrimeReactProvider>

@@ -1,4 +1,5 @@
 import { auth0 } from "@/lib/auth0";
+import Link from "next/link";
 import { Button } from 'primereact/button';                             
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
@@ -16,14 +17,17 @@ export default async function Home() {
   return (
     <div className="space-y-5">
       <h1 className="text-4xl">Tenants</h1>
-      <Button label="New Tenant" className="mb-5" />
-      <div>
-        <DataTable value={items}>
-          <Column field="id" header="Id"></Column>
-          <Column field="name" header="Name"></Column>
-          <Column field="externalId" header="External Id"></Column>
-        </DataTable>
-      </div>
+      <DataTable value={items} header={<TenantsHeader />}>
+        <Column field="id" header="Id"></Column>
+        <Column field="name" header="Name"></Column>
+        <Column field="externalId" header="External Id"></Column>
+      </DataTable>
     </div>
+  );
+}
+
+function TenantsHeader() {
+  return (
+    <Link className="p-button" href="/tenants/create">New Tenant</Link>
   );
 }
