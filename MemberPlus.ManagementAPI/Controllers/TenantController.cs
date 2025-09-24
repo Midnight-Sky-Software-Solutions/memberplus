@@ -9,6 +9,7 @@ namespace MemberPlus.ManagementAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize(Policy = "ManageTenants")]
     public class TenantController : ControllerBase
     {
         public TenantController(TenantService tenantService) 
@@ -16,8 +17,19 @@ namespace MemberPlus.ManagementAPI.Controllers
             this.tenantService = tenantService;
         }
 
+        [HttpGet]
+        public async Task<IEnumerable<ReadTenantsDTO>> ReadTenants()
+        {
+            var tenants = await this.tenantService.ReadTenants();
+            return tenants.Select(tenant => new ReadTenantsDTO()
+            {
+                Id = tenant.Id,
+                Name = tenant.Name,
+                ExternalId = tenant.ExternalId,
+            });
+        }
+
         [HttpPost]
-        [Authorize(Policy = "ManageTenants")]
         public async Task CreateTenant(CreateTenantDTO request)
         {
             await tenantService.CreateTenant(new Core.Model.Tenant.CreateTenant

@@ -21,6 +21,11 @@ namespace MemberPlus.Core.Services
             await db.Connection.ExecuteAsync("EXEC sp_Tenant_CreateTenant @Id, @Name, @ExternalId", tenant);
         }
 
+        public async Task<IEnumerable<ReadTenants>> ReadTenants()
+        {
+            return await db.Connection.QueryAsync<ReadTenants>("EXEC sp_Tenant_ReadTenants");
+        }
+
         private DatabaseProvider db;
     }
 }
