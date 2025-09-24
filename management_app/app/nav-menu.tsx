@@ -7,8 +7,7 @@ import { ReactNode } from "react";
 
 
 const menuItems: MenuItem[] = [
-  { id: 'Tenants', label: 'Tenants', template: (item, options) => (<NavMenuItem>{item.label}</NavMenuItem>) },
-  { id: '2', label: '2' }
+  { id: 'Tenants', label: 'Tenants', template: (item, _) => (<NavMenuItem>{item.label}</NavMenuItem>) },
 ];
 
 export default function NavMenu() {
