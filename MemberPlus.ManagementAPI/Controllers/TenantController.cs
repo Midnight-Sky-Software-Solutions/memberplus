@@ -1,6 +1,7 @@
 using MemberPlus.Core;
 using MemberPlus.Core.Services;
 using MemberPlus.ManagementAPI.DTO.Tenant;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 
@@ -16,6 +17,7 @@ namespace MemberPlus.ManagementAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "ManageTenants")]
         public async Task CreateTenant(CreateTenantDTO request)
         {
             await tenantService.CreateTenant(new Core.Model.Tenant.CreateTenant
