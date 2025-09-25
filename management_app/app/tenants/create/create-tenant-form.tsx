@@ -37,7 +37,7 @@ export default function CreateTenantForm() {
         <InputText id="externalId" name="externalId" value={tenantExternalId} onChange={e => setTenantExternalId(e.target.value)} required />
         <label htmlFor="externalId">External Id</label>
       </FloatLabel>
-      <Button label="Save" type="submit" disabled={pending} />
+      <Button label="Save" type="submit" disabled={pending} size="small" />
     </form>
   );
 
