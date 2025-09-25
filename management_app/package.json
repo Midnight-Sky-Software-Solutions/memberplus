@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "genclient": "openapi-typescript ../MemberPlus.ManagementAPI/obj/Debug/net8.0/EndpointInfo/MemberPlus.ManagementAPI.json -o ./lib/api.d.ts"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^4.10.0",
@@ -25,6 +26,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.5.4",
+    "openapi-typescript": "^7.9.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
