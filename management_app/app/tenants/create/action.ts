@@ -34,9 +34,18 @@ export async function createTenant(previousState: CreateTenantStateType, formDat
   });
 
   if (!res.ok) {
-    console.error(await res.text());
-    return {
-      message: 'There was an unexpected error trying to create the tenant.'
+    const errorText = await res.text();
+    console.error(errorText);
+    try {
+      const response = JSON.parse(errorText);
+      return {
+        message: response.title
+      }
+    } catch(e) {
+      console.error(e);
+      return {
+        message: 'There was an unexpected error trying to create the tenant.'
+      }
     }
   }
 
