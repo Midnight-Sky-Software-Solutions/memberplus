@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,11 @@ namespace MemberPlus.Core.Services
         public async Task<IEnumerable<ReadTenants>> ReadTenants()
         {
             return await db.Connection.QueryAsync<ReadTenants>("EXEC sp_Tenant_ReadTenants");
+        }
+
+        public async Task<ReadTenant> ReadTenant(Guid tenantId)
+        {
+            return await db.Connection.QuerySingleAsync<ReadTenant>("EXEC sp_Tenant_ReadTenant @TenantId", new { TenantId = tenantId });
         }
 
         private DatabaseProvider db;

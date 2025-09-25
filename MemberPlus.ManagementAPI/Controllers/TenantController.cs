@@ -29,6 +29,18 @@ namespace MemberPlus.ManagementAPI.Controllers
             });
         }
 
+        [HttpGet("{tenantId:guid}")]
+        public async Task<ReadTenantDTO> ReadTenant([FromRoute] Guid tenantId)
+        {
+            var tenant = await tenantService.ReadTenant(tenantId);
+            return new ReadTenantDTO()
+            {
+                Id = tenant.Id,
+                Name = tenant.Name,
+                ExternalId = tenant.ExternalId,
+            };
+        }
+
         [HttpPost]
         public async Task CreateTenant(CreateTenantDTO request)
         {
