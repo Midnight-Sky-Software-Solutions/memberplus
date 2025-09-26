@@ -15,7 +15,9 @@ export default function DashboardLayout({
         end={<a className="p-button p-button-sm" 
         href="/auth/logout">Logout</a>} 
       />
-      {children}
+      <main className="px-5 mt-5">
+        {children}
+      </main>
     </>
   ) 
 }
