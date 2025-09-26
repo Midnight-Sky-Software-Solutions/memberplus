@@ -19,7 +19,7 @@ export default function CreateTenantForm() {
   const [tenantExternalId, setTenantExternalId] = useState('');
 
   return (
-    <form className="space-y-10" action={formAction}>
+    <form className="space-y-10 pt-10" action={formAction}>
       {state.message && (
         <div>
           <Message severity="error" text={state.message} />
