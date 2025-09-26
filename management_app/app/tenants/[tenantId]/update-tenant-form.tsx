@@ -49,11 +49,11 @@ export default function UpdateTenantForm({
       )}
       <input type="hidden" name="id" value={id} />
       <FloatLabel>
-        <InputText id="name" name="name" value={tenantName} onChange={e => setTenantName(e.target.value)} required />
+        <InputText id="name" name="name" value={tenantName} onChange={e => setTenantName(e.target.value)} className="w-full" required />
         <label htmlFor="name">Name</label>
       </FloatLabel>
       <FloatLabel>
-        <InputText id="externalId" name="externalId" value={tenantExternalId} onChange={e => setTenantExternalId(e.target.value)} required />
+        <InputText id="externalId" name="externalId" value={tenantExternalId} onChange={e => setTenantExternalId(e.target.value)} className="w-full" required />
         <label htmlFor="externalId">External Id</label>
       </FloatLabel>
       <Button label="Save" type="submit" disabled={pending} size="small" />
