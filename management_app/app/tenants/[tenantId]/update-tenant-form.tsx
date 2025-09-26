@@ -4,8 +4,9 @@ import { Button } from "primereact/button";
 import { FloatLabel } from "primereact/floatlabel";
 import { InputText } from "primereact/inputtext";
 import { Message } from "primereact/message";
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { updateTenant } from "./action";
+import { Toast } from "primereact/toast";
 
 
 const initialState = {
@@ -27,8 +28,28 @@ export default function UpdateTenantForm({
   const [tenantName, setTenantName] = useState(name);
   const [tenantExternalId, setTenantExternalId] = useState(externalId);
 
+  const toast = useRef<Toast>(null);
+
+  const showSuccess = () => {
+    toast.current?.show({
+      severity: "success",
+      summary: "Success",
+      detail: "The operation completed successfully!",
+      life: 3000, // how long to show (ms)
+    });
+  };
+
+  useEffect(() => {
+    if (state.success) {
+      showSuccess();
+    }
+  });
+
   return (
     <form className="space-y-10" action={formAction}>
+      <Toast
+        ref={toast}
+      />
       {state.message && (
         <div>
           <Message severity="error" text={state.message} />
