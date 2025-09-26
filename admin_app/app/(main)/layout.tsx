@@ -8,7 +8,7 @@ export default function DashboardLayout({
 }) {
   return (
     <>
-      <Menubar model={menuItems} />
+      <Menubar model={menuItems} end={<a className="p-button p-button-sm" href="/auth/logout">Logout</a>} />
       {children}
     </>
   ) 
