@@ -31,11 +31,13 @@ export default function UpdateTenantForm({
   const toast = useToast();
 
   useEffect(() => {
-    toast({
-      severity: "success",
-      summary: "Saved",
-      detail: 'The tenant was updated successfully!'
-    })
+    if (state.success) {
+      toast({
+        severity: "success",
+        summary: "Saved",
+        detail: 'The tenant was updated successfully!'
+      })
+    }
   }, [state])
 
   return (
