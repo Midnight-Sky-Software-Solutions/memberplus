@@ -18,6 +18,7 @@ namespace MemberPlus.Core
         public void CommitTransaction()
         {
             this.transaction!.Commit();
+            Connection.Close();
         }
 
         public IDbTransaction? Transaction => transaction;
