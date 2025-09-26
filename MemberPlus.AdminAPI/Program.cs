@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<DatabaseProvider, LocalHostDatabaseProvider>();
+builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<AdminDashboardService>();
 builder.Services.AddScoped<TenantService>();
 
