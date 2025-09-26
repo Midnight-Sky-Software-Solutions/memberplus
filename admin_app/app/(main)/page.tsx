@@ -8,8 +8,6 @@ export default async function Home() {
     const dashboard = data!;
     return (
       <div className="">
-        <a href="/auth/login">Login</a>
-        <a href="/auth/logout">Logout</a>
         <p>Welcome, {dashboard.tenantName}</p>
       </div>
     );
