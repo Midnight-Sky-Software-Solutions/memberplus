@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { PrimeReactProvider } from 'primereact/api';
 import NavMenu from "./nav-menu";
+import { ToastProvider } from "@/components/toast-provider";
 
 
 const geistSans = Geist({
@@ -31,12 +32,14 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased flex`}
         >
-          <NavMenu />
-          <div className="grow flex justify-center">
-            <div className="grow p-8 max-w-6xl">
-              {children}
+          <ToastProvider>
+            <NavMenu />
+            <div className="grow flex justify-center">
+              <div className="grow p-8 max-w-6xl">
+                {children}
+              </div>
             </div>
-          </div>
+          </ToastProvider>
         </body>
       </PrimeReactProvider>
     </html>
