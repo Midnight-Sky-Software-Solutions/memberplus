@@ -1,5 +1,6 @@
 ﻿using MemberPlus.AdminAPI.DTO.Dashboard;
 using MemberPlus.Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace MemberPlus.AdminAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class DashboardController : ControllerBase
     {
         public DashboardController(AdminDashboardService adminDashboardService) 

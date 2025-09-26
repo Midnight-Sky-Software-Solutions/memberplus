@@ -1,5 +1,9 @@
+import OnboardTenantForm from "./onboard-tenant-form";
+
 export default function OnboardingPage() {
   return (
-    <p>Onboarding page works!</p>
+    <div className="flex items-center justify-center h-[100vh] w-[100vw]">
+      <OnboardTenantForm />
+    </div>
   )
 }
