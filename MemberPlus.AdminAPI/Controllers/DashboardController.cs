@@ -19,7 +19,7 @@ namespace MemberPlus.AdminAPI.Controllers
         {
             try
             {
-                var tenantId = Guid.Parse("A710C9B8-C3A1-4951-A63C-7858683B15E7"); // TODO: get this from auth token
+                var tenantId = HttpContext.GetTenantId();
                 var dashboard = await adminDashboardService.ReadDashboard(tenantId);
                 return new DashboardDTO()
                 {

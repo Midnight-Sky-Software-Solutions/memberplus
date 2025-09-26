@@ -8,10 +8,12 @@ import { middleware } from "@/middleware";
 export class ApiError extends Error {
 
   public body: string;
+  public statusCode: number;
 
-  constructor(body: string, message: string) {
+  constructor(body: string, message: string, statusCode: number) {
     super(message);
     this.body = body;
+    this.statusCode = statusCode;
   }
 
   getJSON() {
@@ -42,7 +44,7 @@ const apiMiddleware: Middleware = {
       const responseText = await response.text();
       console.error(`API error with status code ${response.status}`);
       console.error(responseText);
-      throw new ApiError(responseText, errorMessage);
+      throw new ApiError(responseText, errorMessage, response.status);
     }
   }
 
