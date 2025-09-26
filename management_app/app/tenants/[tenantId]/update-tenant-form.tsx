@@ -1,0 +1,49 @@
+'use client'
+
+import { Button } from "primereact/button";
+import { FloatLabel } from "primereact/floatlabel";
+import { InputText } from "primereact/inputtext";
+import { Message } from "primereact/message";
+import { useActionState, useState } from "react";
+import { updateTenant } from "./action";
+
+
+const initialState = {
+  message: '',
+  success: false
+};
+
+export default function UpdateTenantForm({
+  id,
+  name,
+  externalId
+}: {
+  id: string,
+  name: string,
+  externalId: string
+}) {
+
+  const [state, formAction, pending] = useActionState(updateTenant, initialState);
+  const [tenantName, setTenantName] = useState(name);
+  const [tenantExternalId, setTenantExternalId] = useState(externalId);
+
+  return (
+    <form className="space-y-10" action={formAction}>
+      {state.message && (
+        <div>
+          <Message severity="error" text={state.message} />
+        </div>
+      )}
+      <input type="hidden" name="id" value={id} />
+      <FloatLabel>
+        <InputText id="name" name="name" value={tenantName} onChange={e => setTenantName(e.target.value)} required />
+        <label htmlFor="name">Name</label>
+      </FloatLabel>
+      <FloatLabel>
+        <InputText id="externalId" name="externalId" value={tenantExternalId} onChange={e => setTenantExternalId(e.target.value)} required />
+        <label htmlFor="externalId">External Id</label>
+      </FloatLabel>
+      <Button label="Save" type="submit" disabled={pending} size="small" />
+    </form>
+  )
+}

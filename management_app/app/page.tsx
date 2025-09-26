@@ -5,7 +5,7 @@ import apiClient from "@/lib/api";
 
 export default async function Home() {
 
-  const { data: items } = await apiClient.GET('/Tenant');
+  const { data: items } = await apiClient.GET('/Tenants');
 
   return (
     <div className="space-y-5">

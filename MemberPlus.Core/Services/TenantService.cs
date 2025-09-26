@@ -32,6 +32,11 @@ namespace MemberPlus.Core.Services
             return await db.Connection.QuerySingleAsync<ReadTenant>("EXEC sp_Tenant_ReadTenant @TenantId", new { TenantId = tenantId });
         }
 
+        public async Task UpdateTenant(UpdateTenant tenant)
+        {
+            await db.Connection.ExecuteAsync("EXEC sp_Tenant_UpdateTenant @Id, @Name, @ExternalId", tenant);
+        }
+
         private DatabaseProvider db;
     }
 }

@@ -10,9 +10,9 @@ namespace MemberPlus.ManagementAPI.Controllers
     [ApiController]
     [Route("[controller]")]
     [Authorize(Policy = "ManageTenants")]
-    public class TenantController : ControllerBase
+    public class TenantsController : ControllerBase
     {
-        public TenantController(TenantService tenantService) 
+        public TenantsController(TenantService tenantService) 
         {
             this.tenantService = tenantService;
         }
@@ -49,6 +49,17 @@ namespace MemberPlus.ManagementAPI.Controllers
                 Id = request.Id,
                 ExternalId = request.ExternalId,
                 Name = request.Name,
+            });
+        }
+
+        [HttpPut]
+        public async Task UpdateTenant(UpdateTenantDTO request)
+        {
+            await tenantService.UpdateTenant(new Core.Model.Tenant.UpdateTenant
+            {
+                Id = request.Id,
+                Name = request.Name,
+                ExternalId = request.ExternalId,
             });
         }
 

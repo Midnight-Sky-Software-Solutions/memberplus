@@ -23,7 +23,9 @@ export async function createTenant(previousState: CreateTenantStateType, formDat
   }
 
   try {
-    await apiClient.POST('/Tenant');
+    await apiClient.POST('/Tenants', {
+      body: data
+    });
   }
   catch (e) {
     return {
