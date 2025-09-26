@@ -1,7 +1,6 @@
 'use server'
 
-import { auth0 } from "@/lib/auth0";
-import { cfg } from "@/lib/cfg";
+import apiClient from "@/lib/api";
 import { redirect } from "next/navigation";
 import * as z from "zod";
 
@@ -23,29 +22,12 @@ export async function createTenant(previousState: CreateTenantStateType, formDat
     }
   }
 
-  const session = await auth0.getSession();
-  const res = await fetch(`${cfg.apiBaseUrl}/tenant`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${session?.tokenSet.accessToken}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  });
-
-  if (!res.ok) {
-    const errorText = await res.text();
-    console.error(errorText);
-    try {
-      const response = JSON.parse(errorText);
-      return {
-        message: response.title
-      }
-    } catch(e) {
-      console.error(e);
-      return {
-        message: 'There was an unexpected error trying to create the tenant.'
-      }
+  try {
+    await apiClient.POST('/Tenant');
+  }
+  catch (e) {
+    return {
+      message: 'There was an unexpected error trying to create the tenant.'
     }
   }
 

@@ -12,6 +12,7 @@
   "dependencies": {
     "@auth0/nextjs-auth0": "^4.10.0",
     "next": "15.5.4",
+    "openapi-fetch": "^0.14.0",
     "primeicons": "^7.0.0",
     "primereact": "^10.9.7",
     "react": "19.1.0",
