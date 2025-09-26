@@ -37,6 +37,6 @@ namespace MemberPlus.Core.Services
             await db.Connection.ExecuteAsync("EXEC sp_Tenant_UpdateTenant @Id, @Name, @ExternalId", tenant);
         }
 
-        private DatabaseProvider db;
+        private readonly DatabaseProvider db;
     }
 }

@@ -1,8 +1,12 @@
+using MemberPlus.Core;
+using MemberPlus.Core.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddScoped<DatabaseProvider, LocalHostDatabaseProvider>();
+builder.Services.AddScoped<AdminDashboardService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
