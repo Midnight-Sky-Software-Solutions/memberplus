@@ -3,8 +3,6 @@ import { redirect } from "next/navigation";
 
 export default async function Home() {
 
-
-
   try {
     const { data } = await apiClient.GET("/api/Dashboard");
     const dashboard = data!;

@@ -19,7 +19,7 @@ namespace MemberPlus.Core.Services
 
         public async Task CreateTenant(CreateTenant tenant)
         {
-            await db.Connection.ExecuteAsync("EXEC sp_Tenant_CreateTenant @Id, @Name, @ExternalId", tenant);
+            var rowsAffected = await db.Connection.ExecuteAsync("EXEC sp_Tenant_CreateTenant @Id, @Name, @ExternalId", tenant);
         }
 
         public async Task<IEnumerable<ReadTenants>> ReadTenants()
