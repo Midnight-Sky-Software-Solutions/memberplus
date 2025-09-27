@@ -3,7 +3,8 @@ import { menuItems } from "./menu-items"
 import Image from "next/image"
 import apiClient, { ApiError } from "@/lib/api"
 import { redirect } from "next/navigation"
-import { cookies } from "next/headers"
+import SideNav from "./side-nav"
+import Link from "next/link"
 
 export default async function DashboardLayout({
   children,
@@ -16,13 +17,16 @@ export default async function DashboardLayout({
       <>
         <Menubar 
           model={menuItems}
-          start={<Image width={120} height={12.8} src="/memberPLUS.svg" alt="MemberPlus logo" />}
+          start={<Link href="/"><Image width={120} height={12.8} src="/memberPLUS.svg" alt="MemberPlus logo" /></Link>}
           end={<a className="p-button p-button-sm" 
           href="/auth/logout">Logout</a>} 
         />
-        <main className="px-5 mt-5">
-          {children}
-        </main>
+        <div className="grow flex">
+          <SideNav />
+          <div className="p-5">
+            {children}
+          </div>
+        </div>
       </>
     )
   }

@@ -28,7 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <PrimeReactProvider>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col h-[100vh]`}
         >
           {children}
         </body>
