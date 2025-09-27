@@ -5,6 +5,7 @@ import apiClient, { ApiError } from "@/lib/api"
 import { redirect } from "next/navigation"
 import SideNav from "./side-nav"
 import Link from "next/link"
+import ProfileContextProvider from "@/hooks/profile-context"
 
 export default async function DashboardLayout({
   children,
@@ -14,7 +15,9 @@ export default async function DashboardLayout({
   try  {
     const { data } = await apiClient.GET('/api/Dashboard');
     return (
-      <>
+      <ProfileContextProvider
+        value={{tenantName: data?.tenantName!, accountId: data?.accountId}}
+      >
         <Menubar 
           model={menuItems}
           start={<Link href="/"><Image width={120} height={12.8} src="/memberPLUS.svg" alt="MemberPlus logo" /></Link>}
@@ -27,7 +30,7 @@ export default async function DashboardLayout({
             {children}
           </div>
         </div>
-      </>
+      </ProfileContextProvider>
     )
   }
   catch (e) {

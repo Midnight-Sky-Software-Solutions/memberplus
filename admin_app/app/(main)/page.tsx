@@ -1,10 +1,11 @@
+import WelcomeComponent from "./welcome-message";
 
 export default function Home() {
 
   return (
     <div className="">
-      <p className="text-6xl">Welcome!</p>
+      <WelcomeComponent />
     </div>  
-  )
+  );
   
 }
