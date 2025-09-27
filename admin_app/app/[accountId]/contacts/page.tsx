@@ -10,10 +10,10 @@ export default async function ContactsPage({ params }: {
   return (
     <div className="space-y-8">
       <div className="flex">
-        <h1 className="text-3xl">Contacts</h1>
+        <h1 className="text-4xl font-bold">Contacts</h1>
         <div className="grow" />
         <div>
-          <Link className="p-button p-button-sm" href={`/${accountId}/contacts/create`}>Create Contact</Link>
+          <Link className="p-button p-button-sm font-bold" href={`/${accountId}/contacts/create`}><span className="p-button-icon p-c p-button-icon-left pi pi-plus"></span>Create Contact</Link>
         </div>
       </div>
       <p className="text-gray-600">
