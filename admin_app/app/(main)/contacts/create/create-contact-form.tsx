@@ -30,15 +30,15 @@ export default function CreateContactForm() {
       )}
       <input type="hidden" id="accountId" name="accountId" value={profile.accountId} />
       <FloatLabel>
-        <InputText id="firstName" name="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
+        <InputText id="firstName" name="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} required maxLength={50} />
         <label htmlFor="firstName">First Name *</label>
       </FloatLabel>
       <FloatLabel>
-        <InputText id="middleName" name="middleName" value={middleName} onChange={(e) => setMiddleName(e.target.value)} />
+        <InputText id="middleName" name="middleName" value={middleName} onChange={(e) => setMiddleName(e.target.value)} maxLength={50} />
         <label htmlFor="middleName">Middle Name</label>
       </FloatLabel>
       <FloatLabel>
-        <InputText id="lastName" name="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
+        <InputText id="lastName" name="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} maxLength={50} required />
         <label htmlFor="lastName">Last Name *</label>
       </FloatLabel>
       <FloatLabel>
