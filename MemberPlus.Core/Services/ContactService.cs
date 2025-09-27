@@ -20,9 +20,18 @@ namespace MemberPlus.Core.Services
             return await db.Connection.QuerySingleAsync<Guid>("EXEC sp_Contact_CreateContact @AccountId, @FirstName, @MiddleName, @LastName, @DateOfBirth", contact, transaction: db.Transaction);
         }
 
-        public async Task<IEnumerable<ViewContacts>> QueryContacts(Guid accountId)
+        public async Task<IEnumerable<ViewContacts>> QueryContacts(Guid accountId, string? searchTerm)
         {
-            return await db.Connection.QueryAsync<ViewContacts>("SELECT * FROM vwContacts WHERE AccountId = @AccountId", new { AccountId = accountId }, transaction: db.Transaction);
+            var sql = new StringBuilder("SELECT * FROM vwContacts WHERE AccountId = @AccountId ");
+            if (searchTerm is not null)
+            {
+                sql.AppendLine("AND (");
+                sql.AppendLine("  FirstName LIKE @SearchTerm");
+                sql.AppendLine("  OR MiddleName LIKE @SearchTerm");
+                sql.AppendLine("  OR LastName LIKE @SearchTerm");
+                sql.AppendLine(")");
+            }
+            return await db.Connection.QueryAsync<ViewContacts>(sql.ToString(), new { AccountId = accountId, SearchTerm = $"%{searchTerm}%" }, transaction: db.Transaction);
         }
 
         private readonly DatabaseProvider db;
