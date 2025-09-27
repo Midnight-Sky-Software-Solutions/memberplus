@@ -10,6 +10,7 @@ namespace MemberPlus.AdminAPI.Controllers
     [Route("api/accounts/{accountId:guid}/[controller]/")]
     [ApiController]
     [Authorize]
+    [AuthorizeAccount]
     public class ContactsController : ControllerBase
     {
         public ContactsController(ContactService contactService)
