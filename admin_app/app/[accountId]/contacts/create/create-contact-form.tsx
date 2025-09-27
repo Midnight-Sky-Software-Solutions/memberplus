@@ -5,12 +5,13 @@ import { Calendar } from "primereact/calendar";
 import { FloatLabel } from "primereact/floatlabel";
 import { InputText } from "primereact/inputtext";
 import { Nullable } from "primereact/ts-helpers";
-import { useActionState, useContext, useState } from "react";
+import { useActionState, useState } from "react";
 import { createContact } from "./action";
-import { ProfileContext } from "@/hooks/profile-context";
 import { Message } from "primereact/message";
 
-export default function CreateContactForm() {
+export default function CreateContactForm({ accountId }: {
+  accountId: string
+}) {
 
   const [firstName, setFirstName] = useState('');
   const [middleName, setMiddleName] = useState('');
@@ -19,8 +20,6 @@ export default function CreateContactForm() {
 
   const [state, action, pending] = useActionState(createContact, {});
 
-  const profile = useContext(ProfileContext);
-
   return (
     <form className="space-y-8" action={action}>
       {state.message && (
@@ -28,7 +27,7 @@ export default function CreateContactForm() {
           <Message severity="error" text={state.message} />
         </div>
       )}
-      <input type="hidden" id="accountId" name="accountId" value={profile.accountId} />
+      <input type="hidden" id="accountId" name="accountId" value={accountId} />
       <FloatLabel>
         <InputText id="firstName" name="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} required maxLength={50} />
         <label htmlFor="firstName">First Name *</label>

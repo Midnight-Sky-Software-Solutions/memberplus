@@ -6,19 +6,18 @@ import apiClient, { ApiError } from "@/lib/api"
 import { redirect } from "next/navigation"
 import SideNav from "./side-nav"
 import Link from "next/link"
-import ProfileContextProvider from "@/hooks/profile-context"
 
 export default async function DashboardLayout({
   children,
+  params
 }: {
-  children: React.ReactNode
+  children: React.ReactNode,
+  params: Promise<{accountId: string}>
 }) {
   try  {
-    const { data } = await apiClient.GET('/api/Dashboard');
+    const { accountId } = await params;
     return (
-      <ProfileContextProvider
-        value={{tenantName: data?.tenantName!, accountId: data?.accountId}}
-      >
+      <>
         <Menubar 
           model={menuItems}
           start={<Link href="/"><Image width={120} height={12.8} src="/memberPLUS.svg" alt="MemberPlus logo" /></Link>}
@@ -26,12 +25,14 @@ export default async function DashboardLayout({
           href="/auth/logout">Logout</a>} 
         />
         <div className="grow flex">
-          <SideNav />
+          <SideNav
+            accountId={accountId} 
+          />
           <div className="p-5 w-full">
             {children}
           </div>
         </div>
-      </ProfileContextProvider>
+      </>
     )
   }
   catch (e) {

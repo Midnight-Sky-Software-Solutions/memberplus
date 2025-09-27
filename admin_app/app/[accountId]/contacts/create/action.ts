@@ -43,5 +43,5 @@ export async function createContact(prevState: CreateContactState, formData: For
       message: 'An unexpected error occured.'
     };
   }
-  redirect(`/contacts/${id}`);
+  redirect(`/${data.accountId}/contacts/${id}`);
 }

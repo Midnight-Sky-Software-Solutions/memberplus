@@ -4,13 +4,15 @@ import { Menu } from "primereact/menu";
 import { MenuItem } from "primereact/menuitem";
 import { ReactNode } from "react";
 
-const menuItems: MenuItem[] = [
-  { id: 'Contacts', label: 'Contacts', template: (item, _) => (<NavMenuItem href='/contacts'>{item.label}</NavMenuItem>) },
+const menuItems = (accountId: string): MenuItem[] => [
+  { id: 'Contacts', label: 'Contacts', template: (item, _) => (<NavMenuItem href={`/${accountId}/contacts`}>{item.label}</NavMenuItem>) },
 ];
 
-export default function SideNav() {
+export default function SideNav({ accountId }: {
+  accountId: string
+}) {
   return (
-    <Menu model={menuItems} className="h-full" />
+    <Menu model={menuItems(accountId)} className="h-full" />
   );
 }
 
