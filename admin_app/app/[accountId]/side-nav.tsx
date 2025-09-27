@@ -5,7 +5,7 @@ import { MenuItem } from "primereact/menuitem";
 import { ReactNode } from "react";
 
 const menuItems = (accountId: string): MenuItem[] => [
-  { id: 'Contacts', label: 'Contacts', template: (item, _) => (<NavMenuItem href={`/${accountId}/contacts`}>{item.label}</NavMenuItem>) },
+  { id: 'Contacts', label: 'Contacts', template: (item, _) => (<NavMenuItem href={`/${accountId}/contacts`}><span className="p-menuitem-icon pi pi-users" />{item.label}</NavMenuItem>) },
 ];
 
 export default function SideNav({ accountId }: {
@@ -21,6 +21,6 @@ function NavMenuItem({ children, href }: {
   href: string
 }) {
   return (
-    <div className="p-menuitem-content"><Link className="p-menuitem-link" href={href}><span className="p-menuitem-text">{children}</span></Link></div>
-  )
+    <div className="p-menuitem-content font-bold"><Link className="p-menuitem-link" href={href}><span className="p-menuitem-text">{children}</span></Link></div>
+  );
 }
