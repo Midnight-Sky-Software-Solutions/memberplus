@@ -31,7 +31,7 @@ export default function ContactsTable() {
 
   return (
     <>
-      <DataTable header={<Link className="p-button p-button-sm" href='/contacts/create'>Create Contact</Link>} value={contacts} loading={loading}>
+      <DataTable value={contacts} loading={loading}>
         <Column field="firstName" header="First Name"></Column>
         <Column field="middleName" header="Middle Name"></Column>
         <Column field="lastName" header="Last Name"></Column>
