@@ -3,10 +3,11 @@ using MemberPlus.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 
 namespace MemberPlus.AdminAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/accounts/{accountId:guid}/[controller]/")]
     [ApiController]
     [Authorize]
     public class ContactsController : ControllerBase
@@ -17,11 +18,11 @@ namespace MemberPlus.AdminAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Guid>> CreateContact(CreateContactDTO request)
+        public async Task<ActionResult<Guid>> CreateContact([FromRoute]Guid accountId, CreateContactDTO request)
         {
             return await contactService.CreateContact(new Core.Model.Contact.CreateContact
             {
-                AccountId = request.AccountId,
+                AccountId = accountId,
                 FirstName = request.FirstName,
                 MiddleName = request.MiddleName,
                 LastName = request.LastName,
@@ -30,7 +31,7 @@ namespace MemberPlus.AdminAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<ViewContactsDTO>> QueryContacts([FromQuery]Guid accountId)
+        public async Task<IEnumerable<ViewContactsDTO>> QueryContacts([FromRoute]Guid accountId)
         {
             return (await contactService.QueryContacts(accountId)).Select(conact => new ViewContactsDTO
             {

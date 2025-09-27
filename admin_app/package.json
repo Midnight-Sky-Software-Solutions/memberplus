@@ -7,7 +7,7 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "genclient": "openapi-typescript ../MemberPlus.AdminAPI/obj/Debug/net8.0/EndpointInfo/MemberPlus.AdminAPI.json -o ./lib/api.d.ts"
+    "genclient": "openapi-typescript ../MemberPlus.AdminAPI/obj/MemberPlus.AdminAPI.json -o ./lib/api.d.ts"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^4.10.0",

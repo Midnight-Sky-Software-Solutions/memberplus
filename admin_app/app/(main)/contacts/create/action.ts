@@ -27,8 +27,13 @@ export async function createContact(prevState: CreateContactState, formData: For
 
   let id: string;
   try {
-    const { data: contactId } = await apiClient.POST('/api/Contacts', {
-      body: data
+    const { data: contactId } = await apiClient.POST('/api/accounts/{accountId}/Contacts', {
+      body: data,
+      params: {
+        path: {
+          accountId: data.accountId
+        }
+      }
     });
     id = contactId!;
   }

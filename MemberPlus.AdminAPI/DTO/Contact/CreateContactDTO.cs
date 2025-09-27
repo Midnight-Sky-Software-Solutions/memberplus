@@ -5,8 +5,6 @@ namespace MemberPlus.AdminAPI.DTO.Contact
     public class CreateContactDTO
     {
         [Required]
-        public Guid AccountId { get; set; }
-        [Required]
         [MaxLength(50)]
         public string FirstName { get; set; } = string.Empty;
         [MaxLength(50)]

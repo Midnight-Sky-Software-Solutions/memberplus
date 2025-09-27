@@ -2,9 +2,9 @@
 import apiClient from "@/lib/api";
 
 export default async function GetContacts(accountId: string) {
-  const { data } = await apiClient.GET("/api/Contacts", {
+  const { data } = await apiClient.GET('/api/accounts/{accountId}/Contacts', {
     params: {
-      query: {
+      path: {
         accountId: accountId
       }
     }
