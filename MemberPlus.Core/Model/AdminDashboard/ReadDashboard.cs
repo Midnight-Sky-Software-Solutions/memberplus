@@ -9,5 +9,6 @@ namespace MemberPlus.Core.Model.AdminDashboard
     public class ReadDashboard
     {
         public string TenantName { get; set; } = String.Empty;
+        public Guid AccountId { get; set; }
     }
 }

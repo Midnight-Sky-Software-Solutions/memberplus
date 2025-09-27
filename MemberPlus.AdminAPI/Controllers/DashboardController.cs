@@ -26,6 +26,7 @@ namespace MemberPlus.AdminAPI.Controllers
                 return new DashboardDTO()
                 {
                     TenantName = dashboard.TenantName,
+                    AccountId = dashboard.AccountId,
                 };
             }
             catch (InvalidOperationException)

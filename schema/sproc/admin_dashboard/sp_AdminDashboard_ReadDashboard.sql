@@ -4,7 +4,14 @@ AS
 BEGIN
 
 SELECT
-    t.[Name] [TenantName]
+    t.[Name] [TenantName],
+    (
+        SELECT TOP 1 ID
+        FROM
+            dbo.Account
+        WHERE
+            TenantId = @TenantId
+    ) [AccountId]
 FROM
     dbo.Tenant t
 WHERE
