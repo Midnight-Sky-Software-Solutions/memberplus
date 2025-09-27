@@ -32,9 +32,9 @@ namespace MemberPlus.AdminAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<ViewContactsDTO>> QueryContacts([FromRoute]Guid accountId, [FromQuery]string? searchTerm)
+        public async Task<IEnumerable<ViewContactsDTO>> QueryContacts([FromRoute]Guid accountId, [FromQuery]string? searchTerm, [FromQuery]int? sortOrder, [FromQuery]string? sortField)
         {
-            return (await contactService.QueryContacts(accountId, searchTerm)).Select(conact => new ViewContactsDTO
+            return (await contactService.QueryContacts(accountId, searchTerm, sortOrder, sortField)).Select(conact => new ViewContactsDTO
             {
                 FirstName = conact.FirstName,
                 MiddleName = conact.MiddleName,

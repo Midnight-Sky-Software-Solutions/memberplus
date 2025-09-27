@@ -20,7 +20,7 @@ namespace MemberPlus.Core.Services
             return await db.Connection.QuerySingleAsync<Guid>("EXEC sp_Contact_CreateContact @AccountId, @FirstName, @MiddleName, @LastName, @DateOfBirth", contact, transaction: db.Transaction);
         }
 
-        public async Task<IEnumerable<ViewContacts>> QueryContacts(Guid accountId, string? searchTerm)
+        public async Task<IEnumerable<ViewContacts>> QueryContacts(Guid accountId, string? searchTerm, int? sortOrder, string? sortField)
         {
             var sql = new StringBuilder("SELECT * FROM vwContacts WHERE AccountId = @AccountId ");
             if (searchTerm is not null)
@@ -30,6 +30,26 @@ namespace MemberPlus.Core.Services
                 sql.AppendLine("  OR MiddleName LIKE @SearchTerm");
                 sql.AppendLine("  OR LastName LIKE @SearchTerm");
                 sql.AppendLine(")");
+            }
+            if (sortField is not null)
+            {
+                sql.AppendLine("ORDER BY ");
+                switch (sortField)
+                {
+                    case "firstName":
+                        sql.Append("FirstName"); break;
+                    case "middleName":
+                        sql.Append("MiddleName"); break;
+                    case "lastName":
+                        sql.Append("LastName"); break;
+                    case "dateOfBirth":
+                        sql.Append("DateOfBirth"); break;
+                }
+                if (sortOrder == -1)
+                {
+                    sql.Append(" DESC");
+                    sql.AppendLine();
+                }
             }
             return await db.Connection.QueryAsync<ViewContacts>(sql.ToString(), new { AccountId = accountId, SearchTerm = $"%{searchTerm}%" }, transaction: db.Transaction);
         }
