@@ -25,13 +25,12 @@ export async function createContact(prevState: CreateContactState, formData: For
     };
   }
 
-  console.log(data)
-
+  let id: string;
   try {
     const { data: contactId } = await apiClient.POST('/api/Contacts', {
       body: data
-    })
-    redirect(`/contacts/${contactId}`);
+    });
+    id = contactId!;
   }
   catch (e) {
     console.error(e);
@@ -39,4 +38,5 @@ export async function createContact(prevState: CreateContactState, formData: For
       message: 'An unexpected error occured.'
     };
   }
+  redirect(`/contacts/${id}`);
 }
