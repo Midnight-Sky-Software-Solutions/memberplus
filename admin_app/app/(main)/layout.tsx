@@ -1,3 +1,4 @@
+'use server'
 import { Menubar } from "primereact/menubar"
 import { menuItems } from "./menu-items"
 import Image from "next/image"
@@ -26,7 +27,7 @@ export default async function DashboardLayout({
         />
         <div className="grow flex">
           <SideNav />
-          <div className="p-5">
+          <div className="p-5 w-full">
             {children}
           </div>
         </div>

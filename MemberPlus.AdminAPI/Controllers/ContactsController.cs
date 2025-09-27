@@ -29,6 +29,18 @@ namespace MemberPlus.AdminAPI.Controllers
             });
         }
 
+        [HttpGet]
+        public async Task<IEnumerable<ViewContactsDTO>> QueryContacts([FromQuery]Guid accountId)
+        {
+            return (await contactService.QueryContacts(accountId)).Select(conact => new ViewContactsDTO
+            {
+                FirstName = conact.FirstName,
+                MiddleName = conact.MiddleName,
+                LastName = conact.LastName,
+                DateOfBirth = conact.DateOfBirth,
+            });
+        }
+
         private ContactService contactService;
     }
 }

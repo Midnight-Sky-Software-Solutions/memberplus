@@ -20,6 +20,11 @@ namespace MemberPlus.Core.Services
             return await db.Connection.QuerySingleAsync<Guid>("EXEC sp_Contact_CreateContact @AccountId, @FirstName, @MiddleName, @LastName, @DateOfBirth", contact, transaction: db.Transaction);
         }
 
+        public async Task<IEnumerable<ViewContacts>> QueryContacts(Guid accountId)
+        {
+            return await db.Connection.QueryAsync<ViewContacts>("SELECT * FROM vwContacts WHERE AccountId = @AccountId", new { AccountId = accountId }, transaction: db.Transaction);
+        }
+
         private readonly DatabaseProvider db;
     }
 }
