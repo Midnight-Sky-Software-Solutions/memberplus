@@ -8,8 +8,8 @@ export default function WelcomeComponent() {
   const profile = useContext(ProfileContext);
 
   return (
-    <h2 className="text-4xl">
+    <h2 className="text-2xl">
       Welcome, {profile.tenantName}!
     </h2>
-  )
+  );
 }

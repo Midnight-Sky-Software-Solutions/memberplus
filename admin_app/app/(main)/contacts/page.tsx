@@ -1,6 +1,9 @@
+import Link from "next/link";
 
 export default function ContactsPage() {
   return (
-    <p>Contacts works!</p>
+    <>
+      <Link href="/contacts/create">New Contact</Link>
+    </>
   );
 }

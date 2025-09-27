@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<DatabaseProvider, LocalHostDatabaseProvider>();
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<AdminDashboardService>();
+builder.Services.AddScoped<ContactService>();
 builder.Services.AddScoped<TenantService>();
 
 builder.Services.AddControllers();
