@@ -1,4 +1,5 @@
-﻿using MemberPlus.AdminAPI.DTO.Contact;
+﻿using MemberPlus.AdminAPI.DTO;
+using MemberPlus.AdminAPI.DTO.Contact;
 using MemberPlus.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -32,15 +33,20 @@ namespace MemberPlus.AdminAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<ViewContactsDTO>> QueryContacts([FromRoute]Guid accountId, [FromQuery]string? searchTerm, [FromQuery]int? sortOrder, [FromQuery]string? sortField)
+        public async Task<PaginatedResultDTO<ViewContactsDTO>> QueryContacts([FromRoute]Guid accountId, [FromQuery]int perPage, [FromQuery]int pageNumber, [FromQuery]string? searchTerm, [FromQuery]int? sortOrder, [FromQuery]string? sortField)
         {
-            return (await contactService.QueryContacts(accountId, searchTerm, sortOrder, sortField)).Select(conact => new ViewContactsDTO
+            var result = await contactService.QueryContacts(accountId, perPage, pageNumber, searchTerm, sortOrder, sortField);
+            return new PaginatedResultDTO<ViewContactsDTO>()
             {
-                FirstName = conact.FirstName,
-                MiddleName = conact.MiddleName,
-                LastName = conact.LastName,
-                DateOfBirth = conact.DateOfBirth,
-            });
+                TotalRecords = result.TotalRecords,
+                Items = result.Items.Select(conact => new ViewContactsDTO
+                {
+                    FirstName = conact.FirstName,
+                    MiddleName = conact.MiddleName,
+                    LastName = conact.LastName,
+                    DateOfBirth = conact.DateOfBirth,
+                })
+            };
         }
 
         private ContactService contactService;

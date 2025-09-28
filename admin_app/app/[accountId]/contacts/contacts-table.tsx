@@ -26,16 +26,24 @@ export default function ContactsTable({
   const [effectiveSearchTerm, setEffectiveSearchTerm] = useState('');
   const [sortField, setSortField] = useState('firstName');
   const [sortOrder, setSortOrder] = useState(SortOrder.ASC as SortOrder | null | undefined);
+  const [totalRecords, setTotalRecords] = useState(0);
+  const [pageNumber, setPageNumber] = useState(0);
 
   useEffect(() => {
-    setLoading(true);
-    GetContacts(accountId, effectiveSearchTerm, sortOrder, sortField)
-      .then(contacts => contacts?.map(contact => ({...contact, dateOfBirth: contact.dateOfBirth?.split('T')[0] ?? ''})))
-      .then(contacts => {
-        setContacts(contacts ?? []);
-        setLoading(false);
-      })
-  }, [accountId, effectiveSearchTerm, sortOrder, sortField]);
+    console.log(pageNumber);
+    if (pageNumber >= 0) {
+      setLoading(true);
+      GetContacts(accountId, pageNumber, effectiveSearchTerm, sortOrder, sortField)
+        .then(contacts => {
+          setTotalRecords(contacts?.totalRecords!);
+          return contacts?.items?.map(contact => ({...contact, dateOfBirth: contact.dateOfBirth?.split('T')[0] ?? ''}))
+        })
+        .then(contacts => {
+          setContacts(contacts ?? []);
+          setLoading(false);
+        })
+    }
+  }, [accountId, effectiveSearchTerm, sortOrder, sortField, pageNumber]);
 
   const debouncedSearch = lodash.debounce(() => {
     setEffectiveSearchTerm(searchTerm);
@@ -55,9 +63,13 @@ export default function ContactsTable({
           onChange={e => setSearchTerm(e.target.value)}
         />
       </div>
-      <DataTable 
+      <DataTable lazy paginator
         loading={loading}
+        onPage={(event) => setPageNumber(event.page!)}
         value={contacts}
+        first={pageNumber*5}
+        rows={5}
+        totalRecords={totalRecords}
         onSort={e => {
           setSortOrder(e.sortOrder);
           setSortField(e.sortField);

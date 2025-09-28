@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
+using MemberPlus.Core.Model;
 using MemberPlus.Core.Model.Contact;
 
 namespace MemberPlus.Core.Services
@@ -20,9 +21,9 @@ namespace MemberPlus.Core.Services
             return await db.Connection.QuerySingleAsync<Guid>("EXEC sp_Contact_CreateContact @AccountId, @FirstName, @MiddleName, @LastName, @DateOfBirth", contact, transaction: db.Transaction);
         }
 
-        public async Task<IEnumerable<ViewContacts>> QueryContacts(Guid accountId, string? searchTerm, int? sortOrder, string? sortField)
+        public async Task<Page<ViewContacts>> QueryContacts(Guid accountId, int perPage, int pageNo, string? searchTerm, int? sortOrder, string? sortField)
         {
-            var sql = new StringBuilder("SELECT * FROM vwContacts WHERE AccountId = @AccountId ");
+            var sql = new StringBuilder("FROM vwContacts WHERE AccountId = @AccountId ");
             if (searchTerm is not null)
             {
                 sql.AppendLine("AND (");
@@ -31,27 +32,34 @@ namespace MemberPlus.Core.Services
                 sql.AppendLine("  OR LastName LIKE @SearchTerm");
                 sql.AppendLine(")");
             }
+            var sort = new StringBuilder();
             if (sortField is not null)
             {
-                sql.AppendLine("ORDER BY ");
+                sort.AppendLine("ORDER BY ");
                 switch (sortField)
                 {
                     case "firstName":
-                        sql.Append("FirstName"); break;
+                        sort.Append("FirstName"); break;
                     case "middleName":
-                        sql.Append("MiddleName"); break;
+                        sort.Append("MiddleName"); break;
                     case "lastName":
-                        sql.Append("LastName"); break;
+                        sort.Append("LastName"); break;
                     case "dateOfBirth":
-                        sql.Append("DateOfBirth"); break;
+                        sort.Append("DateOfBirth"); break;
                 }
                 if (sortOrder == -1)
                 {
-                    sql.Append(" DESC");
-                    sql.AppendLine();
+                    sort.Append(" DESC");
+                    sort.AppendLine();
                 }
             }
-            return await db.Connection.QueryAsync<ViewContacts>(sql.ToString(), new { AccountId = accountId, SearchTerm = $"%{searchTerm}%" }, transaction: db.Transaction);
+            var recordCount = await db.Connection.ExecuteScalarAsync<int>($"SELECT COUNT(*) {sql}", new { AccountId = accountId, SearchTerm = $"%{searchTerm}%" }, transaction: db.Transaction);
+            var results = await db.Connection.QueryAsync<ViewContacts>($"SELECT * {sql} {sort} OFFSET {(pageNo)*perPage} ROWS FETCH NEXT {perPage} ROWS ONLY", new { AccountId = accountId, SearchTerm = $"%{searchTerm}%" }, transaction: db.Transaction);
+            return new Page<ViewContacts>()
+            {
+                TotalRecords = recordCount,
+                Items = results
+            };
         }
 
         private readonly DatabaseProvider db;
