@@ -1,5 +1,6 @@
 ﻿using MemberPlus.AdminAPI.DTO;
 using MemberPlus.AdminAPI.DTO.Contact;
+using MemberPlus.Core.Model.Contact;
 using MemberPlus.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -51,17 +52,33 @@ namespace MemberPlus.AdminAPI.Controllers
         }
 
         [HttpGet("{contactId:guid}")]
-        public async Task<ActionResult<ReadContactDTO>> ReadContact([FromRoute] Guid accountId, [FromRoute] Guid contactId)
+        public async Task<ActionResult<ReadContactDTO>> ReadContact([FromRoute]Guid accountId, [FromRoute]Guid contactId)
         {
             var result = await contactService.ReadContact(accountId, contactId);
             return new ReadContactDTO()
             {
                 Id = result.Id,
+                Version = result.Version,
                 FirstName = result.FirstName,
                 MiddleName= result.MiddleName,
                 LastName = result.LastName,
                 DateOfBirth = result.DateOfBirth
             };
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateContant([FromRoute] Guid accountId, [FromBody]UpdateContactDTO request)
+        {
+            await contactService.UpdateContact(accountId, new Core.Model.Contact.UpdateContact
+            {
+                Id = request.Id,
+                FirstName = request.FirstName,
+                MiddleName = request.MiddleName,
+                LastName = request.LastName,
+                DateOfBirth = request.DateOfBirth,
+                Version = request.Version
+            });
+            return Ok();
         }
 
         [HttpDelete("{contactId:guid}")]

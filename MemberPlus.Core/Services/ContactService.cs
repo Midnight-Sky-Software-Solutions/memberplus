@@ -80,6 +80,27 @@ namespace MemberPlus.Core.Services
                 transaction: db.Transaction);
         }
 
+        public async Task UpdateContact(Guid accountId, UpdateContact contact)
+        {
+            var rowsAffected = await db.Connection.ExecuteAsync(
+                "EXEC sp_Contact_UpdateContact @AccountId, @ContactId, @Version, @FirstName, @MiddleName, @LastName, @DateOfBirth",
+                new
+                {
+                    AccountId = accountId,
+                    ContactId = contact.Id,
+                    Version = contact.Version,
+                    FirstName = contact.FirstName,
+                    MiddleName = contact.MiddleName,
+                    LastName = contact.LastName,
+                    DateOfBirth = contact.DateOfBirth,
+                },
+                transaction: db.Transaction);
+            if (rowsAffected < 1)
+            {
+                throw new EntityNotFoundException();
+            }
+        }
+
         public async Task DeleteContact(Guid accountId, Guid contactId)
         {
             var rowsAffected = await db.Connection.ExecuteAsync(
