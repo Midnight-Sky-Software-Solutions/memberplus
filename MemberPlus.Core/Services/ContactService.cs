@@ -18,7 +18,10 @@ namespace MemberPlus.Core.Services
 
         public async Task<Guid> CreateContact(CreateContact contact)
         {
-            return await db.Connection.QuerySingleAsync<Guid>("EXEC sp_Contact_CreateContact @AccountId, @FirstName, @MiddleName, @LastName, @DateOfBirth", contact, transaction: db.Transaction);
+            return await db.Connection.QuerySingleAsync<Guid>(
+                "EXEC sp_Contact_CreateContact @AccountId, @FirstName, @MiddleName, @LastName, @DateOfBirth", 
+                contact, transaction: 
+                db.Transaction);
         }
 
         public async Task<Page<ViewContacts>> QueryContacts(Guid accountId, int perPage, int pageNo, string? searchTerm, int? sortOrder, string? sortField)
@@ -53,8 +56,14 @@ namespace MemberPlus.Core.Services
                     sort.AppendLine();
                 }
             }
-            var recordCount = await db.Connection.ExecuteScalarAsync<int>($"SELECT COUNT(*) {sql}", new { AccountId = accountId, SearchTerm = $"%{searchTerm}%" }, transaction: db.Transaction);
-            var results = await db.Connection.QueryAsync<ViewContacts>($"SELECT * {sql} {sort} OFFSET {(pageNo)*perPage} ROWS FETCH NEXT {perPage} ROWS ONLY", new { AccountId = accountId, SearchTerm = $"%{searchTerm}%" }, transaction: db.Transaction);
+            var recordCount = await db.Connection.ExecuteScalarAsync<int>(
+                $"SELECT COUNT(*) {sql}", 
+                new { AccountId = accountId, SearchTerm = $"%{searchTerm}%" }, 
+                transaction: db.Transaction);
+            var results = await db.Connection.QueryAsync<ViewContacts>(
+                $"SELECT * {sql} {sort} OFFSET {(pageNo)*perPage} ROWS FETCH NEXT {perPage} ROWS ONLY", 
+                new { AccountId = accountId, SearchTerm = $"%{searchTerm}%" }, 
+                transaction: db.Transaction);
             return new Page<ViewContacts>()
             {
                 TotalRecords = recordCount,

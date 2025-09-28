@@ -18,7 +18,9 @@ namespace MemberPlus.Core.Services
 
         public async Task CreateAccount(CreateAccount account)
         {
-            await db.Connection.ExecuteAsync("sp_Account_CreateAccount @Id, @TenantId, @Name", account, transaction: db.Transaction);
+            await db.Connection.ExecuteAsync("sp_Account_CreateAccount @Id, @TenantId, @Name", 
+                account, 
+                transaction: db.Transaction);
         }
 
         private readonly DatabaseProvider db;

@@ -17,7 +17,10 @@ namespace MemberPlus.Core.Services
 
         public async Task<ReadDashboard> ReadDashboard(Guid tenantId)
         {
-            return await db.Connection.QuerySingleAsync<ReadDashboard>("EXEC sp_AdminDashboard_ReadDashboard @TenantId", new { TenantId = tenantId }, transaction: db.Transaction);
+            return await db.Connection.QuerySingleAsync<ReadDashboard>(
+                "EXEC sp_AdminDashboard_ReadDashboard @TenantId", 
+                new { TenantId = tenantId }, 
+                transaction: db.Transaction);
         }
 
         private readonly DatabaseProvider db;

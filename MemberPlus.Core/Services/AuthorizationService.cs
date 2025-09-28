@@ -16,7 +16,10 @@ namespace MemberPlus.Core.Services
 
         public async Task<bool> AuthorizeAccountForTenant(Guid tenantId, Guid accountId)
         {
-            return await db.Connection.ExecuteScalarAsync<bool>("EXEC sp_Authorization_AuthorizeAccountForTenant @TenantId, @AccountId", new { TenantId = tenantId, AccountId = accountId }, transaction: db.Transaction);
+            return await db.Connection.ExecuteScalarAsync<bool>(
+                "EXEC sp_Authorization_AuthorizeAccountForTenant @TenantId, @AccountId", 
+                new { TenantId = tenantId, AccountId = accountId }, 
+                transaction: db.Transaction);
         }
 
         private readonly DatabaseProvider db;
