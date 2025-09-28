@@ -1,6 +1,7 @@
-CREATE VIEW vwContacts
+CREATE OR ALTER VIEW vwContacts
 AS
 SELECT
+    ID,
     [FirstName],
     [MiddleName],
     [LastName],

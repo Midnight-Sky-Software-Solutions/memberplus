@@ -39,12 +39,13 @@ namespace MemberPlus.AdminAPI.Controllers
             return new PaginatedResultDTO<ViewContactsDTO>()
             {
                 TotalRecords = result.TotalRecords,
-                Items = result.Items.Select(conact => new ViewContactsDTO
+                Items = result.Items.Select(contact => new ViewContactsDTO
                 {
-                    FirstName = conact.FirstName,
-                    MiddleName = conact.MiddleName,
-                    LastName = conact.LastName,
-                    DateOfBirth = conact.DateOfBirth,
+                    Id = contact.Id,
+                    FirstName = contact.FirstName,
+                    MiddleName = contact.MiddleName,
+                    LastName = contact.LastName,
+                    DateOfBirth = contact.DateOfBirth,
                 })
             };
         }
