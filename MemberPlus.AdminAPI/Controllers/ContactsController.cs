@@ -50,6 +50,13 @@ namespace MemberPlus.AdminAPI.Controllers
             };
         }
 
+        [HttpDelete("{contactId:guid}")]
+        public async Task<ActionResult> DeleteContact([FromRoute]Guid accountId, [FromRoute]Guid contactId)
+        {
+            await contactService.DeleteContact(accountId, contactId);
+            return Ok();
+        }
+
         private ContactService contactService;
     }
 }

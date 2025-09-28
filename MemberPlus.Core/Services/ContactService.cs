@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
+using MemberPlus.Core.Errors;
 using MemberPlus.Core.Model;
 using MemberPlus.Core.Model.Contact;
 
@@ -69,6 +70,18 @@ namespace MemberPlus.Core.Services
                 TotalRecords = recordCount,
                 Items = results
             };
+        }
+
+        public async Task DeleteContact(Guid accountId, Guid contactId)
+        {
+            var rowsAffected = await db.Connection.ExecuteAsync(
+                "EXEC sp_Contact_DeleteContact @AccountId, @ContactId",
+                new { AccountId = accountId, ContactId = contactId },
+                transaction: db.Transaction);
+            if (rowsAffected < 1)
+            {
+                throw new EntityNotFoundException();
+            }
         }
 
         private readonly DatabaseProvider db;

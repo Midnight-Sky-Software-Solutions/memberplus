@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button } from "primereact/button";
+import ActionButtons from "./action-buttons";
 
 export default async function ViewContactPage({ params }: {
   params: Promise<{accountId: string, contactId: string}>
@@ -15,10 +15,7 @@ export default async function ViewContactPage({ params }: {
             <Link href={`/${accountId}/contacts`}>🠔 Back to contacts</Link>
           </div>
           <div className="grow" />
-          <div className="flex gap-3">
-            <Link href={`/${accountId}/contacts/${contactId}/edit`} className="p-button p-button-sm font-bold">Edit</Link>
-            <Button label='Delete' size="small" severity="secondary" />
-          </div>
+          <ActionButtons accountId={accountId} contactId={contactId} />
         </div>
         <div className="grid grid-cols-3">
           <div>
