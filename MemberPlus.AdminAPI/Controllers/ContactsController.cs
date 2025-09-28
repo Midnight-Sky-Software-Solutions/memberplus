@@ -50,6 +50,20 @@ namespace MemberPlus.AdminAPI.Controllers
             };
         }
 
+        [HttpGet("{contactId:guid}")]
+        public async Task<ActionResult<ReadContactDTO>> ReadContact([FromRoute] Guid accountId, [FromRoute] Guid contactId)
+        {
+            var result = await contactService.ReadContact(accountId, contactId);
+            return new ReadContactDTO()
+            {
+                Id = result.Id,
+                FirstName = result.FirstName,
+                MiddleName= result.MiddleName,
+                LastName = result.LastName,
+                DateOfBirth = result.DateOfBirth
+            };
+        }
+
         [HttpDelete("{contactId:guid}")]
         public async Task<ActionResult> DeleteContact([FromRoute]Guid accountId, [FromRoute]Guid contactId)
         {

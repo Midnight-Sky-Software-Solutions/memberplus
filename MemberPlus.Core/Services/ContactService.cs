@@ -72,6 +72,14 @@ namespace MemberPlus.Core.Services
             };
         }
 
+        public async Task<ReadContact> ReadContact(Guid accountId, Guid contactId)
+        {
+            return await db.Connection.QuerySingleAsync<ReadContact>(
+                "EXEC sp_Contact_GetContact @AccountId, @ContactId",
+                new { AccountId = accountId, ContactId = contactId },
+                transaction: db.Transaction);
+        }
+
         public async Task DeleteContact(Guid accountId, Guid contactId)
         {
             var rowsAffected = await db.Connection.ExecuteAsync(
