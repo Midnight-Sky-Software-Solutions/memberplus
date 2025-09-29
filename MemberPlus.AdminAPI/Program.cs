@@ -11,6 +11,7 @@ builder.Services.AddScoped<AuthorizationService>();
 builder.Services.AddScoped<AdminDashboardService>();
 builder.Services.AddScoped<ContactService>();
 builder.Services.AddScoped<TenantService>();
+builder.Services.AddScoped<MembershipLevelService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
