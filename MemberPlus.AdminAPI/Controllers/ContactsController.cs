@@ -67,7 +67,7 @@ namespace MemberPlus.AdminAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpdateContant([FromRoute] Guid accountId, [FromBody]UpdateContactDTO request)
+        public async Task<ActionResult> UpdateContant([FromRoute]Guid accountId, [FromBody]UpdateContactDTO request)
         {
             await contactService.UpdateContact(accountId, new Core.Model.Contact.UpdateContact
             {

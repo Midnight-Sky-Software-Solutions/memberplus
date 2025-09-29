@@ -22,10 +22,10 @@ export default async function EditContactPage({ params }: {
       <UpdateContactForm 
         accountId={accountId}
         contactId={contact.id!}
-        contactVersion={contact.version!}
-        contactFirstName={contact.firstName!}
+        contactVersion={contact.version}
+        contactFirstName={contact.firstName}
         contactMiddleName={contact.middleName}
-        contactLastName={contact.lastName!}
+        contactLastName={contact.lastName}
         contactDateOfBirth={contact.dateOfBirth ? new Date(contact.dateOfBirth) : undefined}
       />
     </div>

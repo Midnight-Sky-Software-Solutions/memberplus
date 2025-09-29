@@ -4,7 +4,9 @@ namespace MemberPlus.AdminAPI.DTO.Contact
 {
     public class UpdateContactDTO
     {
+        [Required]
         public Guid Id { get; set; }
+        [Required]
         public int Version { get; set; }
         [Required]
         [MaxLength(50)]

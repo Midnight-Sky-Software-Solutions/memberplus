@@ -11,6 +11,7 @@ BEGIN
 
 UPDATE [dbo].[Contact]
 SET
+    [Version] = @Version + 1,
     FirstName = @FirstName,
     MiddleName = @MiddleName,
     LastName = @LastName,
