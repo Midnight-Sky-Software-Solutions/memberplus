@@ -20,8 +20,20 @@ namespace MemberPlus.AdminAPI.Controllers
             this.membershipLevelService = membershipLevelService;
         }
 
+        [HttpPost]
+        public async Task<ActionResult<Guid>> CreateMembershipLevel([FromRoute]Guid accountId, CreateMembershipLevelDTO request)
+        {
+            return await membershipLevelService.CreateMembershipLevel(new Core.Model.MembershipLevel.CreateMembershipLevel
+            {
+                AccountId = accountId,
+                Name = request.Name,
+                Price = request.Price,
+                RenewalPeriodId = request.RenewalPeriodId,
+            });
+        }
+
         [HttpGet]
-        public async Task<IEnumerable<ViewMembershipLevelsDTO>> QueryMembershipLevels([FromRoute] Guid accountId)
+        public async Task<IEnumerable<ViewMembershipLevelsDTO>> QueryMembershipLevels([FromRoute]Guid accountId)
         {
             var result = await membershipLevelService.QueryMembershipLevels(accountId);
             return result.Select(membershipLevel => new ViewMembershipLevelsDTO

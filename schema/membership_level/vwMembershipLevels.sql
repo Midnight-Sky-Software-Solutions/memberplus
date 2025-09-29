@@ -9,4 +9,4 @@ SELECT
 FROM
     dbo.MembershipLevel ml
     INNER JOIN
-        dbo.RenewalPeriod rp ON rp.Id = ml.RenewalPeriod;
+        dbo.RenewalPeriod rp ON rp.Id = ml.RenewalPeriodId;

@@ -20,6 +20,7 @@ export async function createContact(prevState: CreateContactState, formData: For
   const { data, success, error } = CreateContact.safeParse(Object.fromEntries(formData))
 
   if (!success) {
+    console.error(error);
     return {
       message: error.message
     };
