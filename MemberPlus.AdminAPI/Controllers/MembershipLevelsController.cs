@@ -45,6 +45,34 @@ namespace MemberPlus.AdminAPI.Controllers
             });
         }
 
+        [HttpGet("{membershipLevelId:guid}")]
+        public async Task<ReadMembershipLevelDTO> ReadMembershipLevel([FromRoute] Guid accountId, [FromRoute] Guid membershipLevelId)
+        {
+            var result = await membershipLevelService.GetMembershipLevel(accountId, membershipLevelId);
+            return new ReadMembershipLevelDTO()
+            {
+                Id = result.Id,
+                Version = result.Version,
+                Name = result.Name,
+                Price = result.Price,
+                RenewalPeriodId = result.RenewalPeriodId,
+            };
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateMembershipLevel([FromRoute] Guid accountId, [FromBody] UpdateMembershipLevelDTO request)
+        {
+            await membershipLevelService.UpdateMembershipLevel(accountId, new Core.Model.MembershipLevel.UpdateMembershipLevel
+            {
+                Id = request.Id,
+                Version = request.Version,
+                Name = request.Name,
+                Price = request.Price,
+                RenewalPeriodId = request.RenewalPeriodId,
+            });
+            return Ok();
+        }
+
         private readonly MembershipLevelService membershipLevelService;
     }
 }

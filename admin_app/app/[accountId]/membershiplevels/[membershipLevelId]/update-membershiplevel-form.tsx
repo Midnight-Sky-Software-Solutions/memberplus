@@ -1,44 +1,41 @@
 'use client'
 
+import { Button } from "primereact/button";
+import { Dropdown } from "primereact/dropdown";
 import { FloatLabel } from "primereact/floatlabel";
 import { InputNumber } from "primereact/inputnumber";
 import { InputText } from "primereact/inputtext";
 import { useActionState, useState } from "react";
-import { createMembershipLevel } from "./action";
-import { Button } from "primereact/button";
-import { Dropdown } from "primereact/dropdown";
+import { updateMembershipLevel } from "./action";
+import { Message } from "primereact/message";
 
-type CreateMembershipLevelFormData = {
-  accountId: string,
-  name: string,
-  price: number,
-  renewalPeriodId: number,
-}
-
-export default function CreateMembershipLevelForm({
+export default function UpdateMembershipLevelForm({ 
   accountId,
-  renewalPeriods
+  renewalPeriods,
+  membershipLevel 
 }: {
   accountId: string,
   renewalPeriods: {
     id: number,
     name: string
-  }[]
+  }[],
+  membershipLevel: {
+    id: string,
+    version: number,
+    name: string,
+    price: number,
+    renewalPeriodId: number
+  }
 }) {
 
-  const initialCreateMembershipLevelFormData: CreateMembershipLevelFormData = {
-    accountId,
-    name: '',
-    price: 0.0,
-    renewalPeriodId: 1
-  };
-
-  const [formData, setFormData] = useState(initialCreateMembershipLevelFormData);
-  const [state, action, pending] = useActionState(createMembershipLevel, {});
+  const [formData, setFormData] = useState(membershipLevel);
+  const [state, action, pending] = useActionState(updateMembershipLevel, {});
 
   return (
     <form className="space-y-8" action={action}>
-      <input type="hidden" name="accountId" value={formData.accountId} />
+      <input type="hidden" name="accountId" value={accountId} />
+      <input type="hidden" id="id" name="id" value={formData.id} />
+      <input type="hidden" id="version" name="version" value={formData.version} />
       <FloatLabel>
         <InputText 
           id="name" 
@@ -50,6 +47,11 @@ export default function CreateMembershipLevelForm({
         />
         <label htmlFor="name">Name *</label>
       </FloatLabel>
+      {
+        state.message?.name && (
+          <Message severity="error" text={state.message.name} />
+        )
+      }
       <FloatLabel>
         <InputNumber 
           id="price" 
@@ -62,6 +64,11 @@ export default function CreateMembershipLevelForm({
         />
         <label htmlFor="price">Price *</label>
       </FloatLabel>
+      {
+        state.message?.price && (
+          <Message severity="error" text={state.message.price} />
+        )
+      }
       <FloatLabel>
         <Dropdown
           inputId="renewalPeriodId"
@@ -76,7 +83,12 @@ export default function CreateMembershipLevelForm({
         />
         <label htmlFor="renewalPeriodId">Renewal Period</label>
       </FloatLabel>
+      {
+        state.message?.renewalPeriodId && (
+          <Message severity="error" text={state.message.renewalPeriodId} />
+        )
+      }
       <Button type="submit" size="small" label="Save" disabled={pending} />
     </form>
-  )
+  );
 }
