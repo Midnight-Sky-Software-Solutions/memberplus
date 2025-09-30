@@ -6,18 +6,24 @@ import { InputText } from "primereact/inputtext";
 import { useActionState, useState } from "react";
 import { createMembershipLevel } from "./action";
 import { Button } from "primereact/button";
+import { Dropdown } from "primereact/dropdown";
 
 type CreateMembershipLevelFormData = {
   accountId: string,
   name: string,
   price: number,
-  renewalPeriodId: number
+  renewalPeriodId: number,
 }
 
 export default function CreateMembershipLevelForm({
-  accountId
+  accountId,
+  renewalPeriods
 }: {
-  accountId: string
+  accountId: string,
+  renewalPeriods: {
+    id: number,
+    name: string
+  }[]
 }) {
 
   const initialCreateMembershipLevelFormData: CreateMembershipLevelFormData = {
@@ -33,7 +39,6 @@ export default function CreateMembershipLevelForm({
   return (
     <form className="space-y-8" action={action}>
       <input type="hidden" name="accountId" value={formData.accountId} />
-      <input type="hidden" name="renewalPeriodId" value={formData.renewalPeriodId} onChange={() => undefined} />
       <FloatLabel>
         <InputText 
           id="name" 
@@ -57,6 +62,21 @@ export default function CreateMembershipLevelForm({
         />
         <label htmlFor="price">Price *</label>
       </FloatLabel>
+      <FloatLabel>
+        <Dropdown
+          inputId="renewalPeriodId"
+          name="renewalPeriodId"
+          options={renewalPeriods}
+          optionLabel="name"
+          optionValue="id"
+          value={formData.renewalPeriodId} 
+          onChange={(e) => setFormData({...formData, renewalPeriodId: e.value})}
+          className="w-61"
+          required
+        />
+        <label htmlFor="renewalPeriodId">Renewal Period</label>
+      </FloatLabel>
+      <p>{formData.renewalPeriodId}</p>
       <Button type="submit" size="small" label="Save" disabled={pending} />
     </form>
   )

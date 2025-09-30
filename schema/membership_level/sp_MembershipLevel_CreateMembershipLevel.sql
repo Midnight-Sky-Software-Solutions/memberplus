@@ -13,14 +13,16 @@ INSERT INTO [dbo].[MembershipLevel] (
     [AccountId],
     [Name],
     [Price],
-    [RenewalPeriodId]
+    [RenewalPeriodId],
+    [Version]
 )
 VALUES
     (@MembershipLevelId,
      @AccountId,
      @Name,
      @Price,
-     @RenewalPeriodId);
+     @RenewalPeriodId,
+     0);
 
 
 SELECT @MembershipLevelId [MembershipLevelId]
