@@ -9,9 +9,10 @@ namespace MemberPlus.Core.Model.Contact
     public class ViewContacts
     {
         public Guid Id { get; set; }
-        public string FirstName { get; set; } = string.Empty;
-        public string MiddleName { get; set; } = string.Empty;
-        public string LastName { get; set; } = string.Empty;
+        public string FirstName { get; set; } = default!;
+        public string MiddleName { get; set; } = default!;
+        public string LastName { get; set; } = default!;
         public DateTime? DateOfBirth { get; set; }
+        public string MemberStatus { get; set; } = default!;
     }
 }

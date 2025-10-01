@@ -48,6 +48,8 @@ namespace MemberPlus.Core.Services
                     sort.Append("MiddleName"); break;
                 case "lastName":
                     sort.Append("LastName"); break;
+                case "memberStatus":
+                    sort.Append("MemberStatus"); break;
                 case "dateOfBirth":
                     sort.Append("DateOfBirth"); break;
             }

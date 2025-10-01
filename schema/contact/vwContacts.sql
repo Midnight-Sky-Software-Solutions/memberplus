@@ -1,11 +1,13 @@
 CREATE OR ALTER VIEW vwContacts
 AS
 SELECT
-    ID,
-    [FirstName],
-    [MiddleName],
-    [LastName],
-    [DateOfBirth],
-    [AccountId]
+    c.ID,
+    c.[FirstName],
+    c.[MiddleName],
+    c.[LastName],
+    c.[DateOfBirth],
+    mst.[Name] [MemberStatus],
+    c.[AccountId]
 FROM
-    dbo.Contact;
+    dbo.Contact c
+    LEFT JOIN dbo.MemberStatusType mst ON mst.Id = c.MemberStatusId

@@ -84,6 +84,7 @@ export default function ContactsTable({
         <Column field="firstName" header="First Name" sortable></Column>
         <Column field="middleName" header="Middle Name" sortable></Column>
         <Column field="lastName" header="Last Name" sortable></Column>
+        <Column field="memberStatus" header="Member Status" sortable></Column>
         <Column field="dateOfBirth" header="Date of Birth" sortable></Column>
       </DataTable>
     </>

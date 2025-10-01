@@ -46,6 +46,7 @@ namespace MemberPlus.AdminAPI.Controllers
                     FirstName = contact.FirstName,
                     MiddleName = contact.MiddleName,
                     LastName = contact.LastName,
+                    MemberStatus = contact.MemberStatus,
                     DateOfBirth = contact.DateOfBirth,
                 })
             };

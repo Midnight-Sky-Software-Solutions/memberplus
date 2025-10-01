@@ -12,13 +12,23 @@ DECLARE @ContactId UNIQUEIDENTIFIER = NEWID();
 INSERT INTO [dbo].[Contact] (
     [Id],
     [Version],
+    [MemberStatusId],
     [AccountId],
     [FirstName],
     [MiddleName],
     [LastName],
     [DateOfBirth])
 VALUES
-    (@ContactId, 0, @AccountId, @FirstName, @MiddleName, @LastName, @DateOfBirth);
+    (
+        @ContactId, 
+        0,
+        (SELECT ID FROM dbo.MemberStatusType WHERE [Name] = 'New'),
+        @AccountId, 
+        @FirstName, 
+        @MiddleName, 
+        @LastName, 
+        @DateOfBirth
+    );
 
 SELECT @ContactId;
 
