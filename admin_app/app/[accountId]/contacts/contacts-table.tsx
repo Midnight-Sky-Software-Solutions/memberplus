@@ -26,13 +26,12 @@ export default function ContactsTable({
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [effectiveSearchTerm, setEffectiveSearchTerm] = useState('');
-  const [sortField, setSortField] = useState('firstName');
+  const [sortField, setSortField] = useState('id');
   const [sortOrder, setSortOrder] = useState(SortOrder.ASC as SortOrder | null | undefined);
   const [totalRecords, setTotalRecords] = useState(0);
   const [pageNumber, setPageNumber] = useState(0);
 
   useEffect(() => {
-    console.log(pageNumber);
     if (pageNumber >= 0) {
       setLoading(true);
       GetContacts(accountId, pageNumber, effectiveSearchTerm, sortOrder, sortField)

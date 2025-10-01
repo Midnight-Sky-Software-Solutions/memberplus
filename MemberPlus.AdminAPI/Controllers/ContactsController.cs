@@ -34,7 +34,7 @@ namespace MemberPlus.AdminAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<PaginatedResultDTO<ViewContactsDTO>> QueryContacts([FromRoute]Guid accountId, [FromQuery]int perPage, [FromQuery]int pageNumber, [FromQuery]string? searchTerm, [FromQuery]int? sortOrder, [FromQuery]string? sortField)
+        public async Task<PaginatedResultDTO<ViewContactsDTO>> QueryContacts([FromRoute]Guid accountId, [FromQuery]int perPage, [FromQuery]int pageNumber, [FromQuery]string? searchTerm, [FromQuery]int? sortOrder, [FromQuery]string sortField = "id")
         {
             var result = await contactService.QueryContacts(accountId, perPage, pageNumber, searchTerm, sortOrder, sortField);
             return new PaginatedResultDTO<ViewContactsDTO>()

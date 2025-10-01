@@ -1,5 +1,5 @@
 'use client'
-import Link from "next/link";
+import Link, { useLinkStatus } from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu } from "primereact/menu";
 import { MenuItem } from "primereact/menuitem";
@@ -60,7 +60,19 @@ function NavMenuItem({ children, active, href }: {
   active: boolean,
   href: string
 }) {
+
+  const { pending } = useLinkStatus()
+
   return (
-    <div className="p-menuitem-content font-bold"><Link className="p-menuitem-link" href={href}><span className={active ? 'text-blue-500' : ''}>{children}</span></Link></div>
+    <div className="p-menuitem-content font-bold">
+      <Link 
+        className="p-menuitem-link" 
+        href={href}
+      >
+        <span className={(active ? 'text-blue-500' : '') + (pending ? ' animate-pulse' : '')}>
+          {children}
+        </span>
+      </Link>
+    </div>
   );
 }

@@ -25,7 +25,7 @@ namespace MemberPlus.Core.Services
                 db.Transaction);
         }
 
-        public async Task<Page<ViewContacts>> QueryContacts(Guid accountId, int perPage, int pageNo, string? searchTerm, int? sortOrder, string? sortField)
+        public async Task<Page<ViewContacts>> QueryContacts(Guid accountId, int perPage, int pageNo, string? searchTerm, int? sortOrder, string sortField)
         {
             var sql = new StringBuilder("FROM vwContacts WHERE AccountId = @AccountId ");
             if (searchTerm is not null)
@@ -37,25 +37,24 @@ namespace MemberPlus.Core.Services
                 sql.AppendLine(")");
             }
             var sort = new StringBuilder();
-            if (sortField is not null)
+            sort.AppendLine("ORDER BY ");
+            switch (sortField)
             {
-                sort.AppendLine("ORDER BY ");
-                switch (sortField)
-                {
-                    case "firstName":
-                        sort.Append("FirstName"); break;
-                    case "middleName":
-                        sort.Append("MiddleName"); break;
-                    case "lastName":
-                        sort.Append("LastName"); break;
-                    case "dateOfBirth":
-                        sort.Append("DateOfBirth"); break;
-                }
-                if (sortOrder == -1)
-                {
-                    sort.Append(" DESC");
-                    sort.AppendLine();
-                }
+                case "id":
+                    sort.AppendLine("Id"); break;
+                case "firstName":
+                    sort.Append("FirstName"); break;
+                case "middleName":
+                    sort.Append("MiddleName"); break;
+                case "lastName":
+                    sort.Append("LastName"); break;
+                case "dateOfBirth":
+                    sort.Append("DateOfBirth"); break;
+            }
+            if (sortOrder == -1)
+            {
+                sort.Append(" DESC");
+                sort.AppendLine();
             }
             var recordCount = await db.Connection.ExecuteScalarAsync<int>(
                 $"SELECT COUNT(*) {sql}", 
