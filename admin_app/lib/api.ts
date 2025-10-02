@@ -41,10 +41,12 @@ const apiMiddleware: Middleware = {
       }
       const errorMessage = `API Client got a response with status code ${response.status}`;
       console.error(errorMessage);
-      const responseText = await response.text();
-      console.error(`API error with status code ${response.status}`);
-      console.error(responseText);
-      throw new ApiError(responseText, errorMessage, response.status);
+      if (response.status >= 500) {
+        const responseText = await response.text();
+        console.error(`API error with status code ${response.status}`);
+        console.error(responseText);
+        throw new ApiError(responseText, errorMessage, response.status);
+      }
     }
   }
 

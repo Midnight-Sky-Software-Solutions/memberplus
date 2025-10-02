@@ -21,6 +21,8 @@ namespace MemberPlus.AdminAPI.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(typeof(Guid), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Guid>> CreateContact([FromRoute]Guid accountId, CreateContactDTO request)
         {
             return await contactService.CreateContact(new Core.Model.Contact.CreateContact

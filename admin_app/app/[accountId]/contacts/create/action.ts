@@ -28,7 +28,7 @@ export async function createContact(prevState: CreateContactState, formData: For
 
   let id: string;
   try {
-    const { data: contactId } = await apiClient.POST('/api/accounts/{accountId}/Contacts', {
+    const { data:contactId, error } = await apiClient.POST('/api/accounts/{accountId}/Contacts', {
       body: data,
       params: {
         path: {
@@ -36,7 +36,12 @@ export async function createContact(prevState: CreateContactState, formData: For
         }
       }
     });
-    id = contactId!;
+    if (error) {
+      return {
+        message: 'A validation error occured.'
+      }
+    }
+    id = contactId;
   }
   catch (e) {
     console.error(e);
