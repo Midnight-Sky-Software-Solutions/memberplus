@@ -67,6 +67,8 @@ namespace MemberPlus.AdminAPI.Controllers
                 LastName = result.LastName,
                 DateOfBirth = result.DateOfBirth,
                 MemberStatus= result.MemberStatus,
+                SubscriptionStartDate = result.SubscriptionStartDate,
+                SubscriptionEndDate = result.SubscriptionEndDate,
             };
         }
 

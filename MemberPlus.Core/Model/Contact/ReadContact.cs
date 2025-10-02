@@ -17,5 +17,7 @@ namespace MemberPlus.Core.Model.Contact
         public DateTimeOffset? DateOfBirth { get; set; }
         [Required]
         public string MemberStatus { get; set; } = default!;
+        public DateTimeOffset? SubscriptionStartDate { get; set; }
+        public DateTimeOffset? SubscriptionEndDate { get; set; }
     }
 }

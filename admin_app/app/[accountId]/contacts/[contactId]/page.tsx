@@ -55,6 +55,16 @@ export default async function ViewContactPage({ params }: {
             accountId={accountId}
             membershipLevels={membershipLevels!}
           />
+          <div>
+            <h2 className="text-gray-600">Subscription</h2>
+            <p className="font-bold">
+              {
+                contact.subscriptionStartDate ?
+                  <>{new Date(contact.subscriptionStartDate!).toLocaleDateString()} - {new Date(contact.subscriptionEndDate!).toLocaleDateString()}</>
+                  : <>None</>
+              }
+            </p>
+          </div>
         </div>
       </div>
     </div>

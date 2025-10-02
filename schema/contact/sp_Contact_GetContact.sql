@@ -12,7 +12,9 @@ SELECT
     [MiddleName],
     [LastName],
     [DateOfBirth],
-    [MemberStatus]
+    [MemberStatus],
+    [SubscriptionStartDate],
+    [SubscriptionEndDate]
 FROM
     dbo.vwContacts
 WHERE
