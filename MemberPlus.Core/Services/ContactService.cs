@@ -114,6 +114,20 @@ namespace MemberPlus.Core.Services
             }
         }
 
+        public async Task ActivateMembership(ActivateMembership activateMembership)
+        {
+            await db.Connection.ExecuteAsync(
+                "EXEC sp_Contact_ActivateNewMembership @ContactId, @AccountId, @MembershipLevelId, @StartDate",
+                new
+                {
+                    ContactId = activateMembership.ContactId,
+                    AccountId = activateMembership.AccountId,
+                    MembershipLevelId = activateMembership.MembershipLevelId,
+                    StartDate = activateMembership.StartDate,
+                },
+                transaction: db.Transaction);
+        }
+
         private readonly DatabaseProvider db;
     }
 }

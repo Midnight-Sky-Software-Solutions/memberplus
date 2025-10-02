@@ -14,5 +14,7 @@ namespace MemberPlus.AdminAPI.DTO.Contact
         [Required]
         public string LastName { get; set; } = string.Empty;
         public DateTimeOffset? DateOfBirth { get; set; }
+        [Required]
+        public string MemberStatus { get; set; } = default!;
     }
 }

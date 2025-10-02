@@ -1,6 +1,7 @@
 import Link from "next/link";
 import ActionButtons from "./action-buttons";
 import apiClient from "@/lib/api";
+import ActivateMembership from "./activate-membership";
 
 
 export default async function ViewContactPage({ params }: {
@@ -17,6 +18,13 @@ export default async function ViewContactPage({ params }: {
     }
   });
   const contact = data!;
+  const { data: membershipLevels } = await apiClient.GET('/api/accounts/{accountId}/MembershipLevels', {
+    params: {
+      path: {
+        accountId
+      }
+    }
+  })
 
   return (
     <div className="w-full flex justify-center">
@@ -28,7 +36,7 @@ export default async function ViewContactPage({ params }: {
           <div className="grow" />
           <ActionButtons accountId={accountId} contactId={contactId} />
         </div>
-        <div className="grid grid-cols-3">
+        <div className="grid grid-cols-3 gap-y-3">
           <div>
             <h2 className="text-gray-600">First Name</h2>
             <p className="font-bold">{contact.firstName}</p>
@@ -41,6 +49,12 @@ export default async function ViewContactPage({ params }: {
             <h2 className="text-gray-600">Last Name</h2>
             <p className="font-bold">{contact.lastName}</p>
           </div>
+          <ActivateMembership 
+            memberStatus={contact.memberStatus} 
+            contactId={contactId}
+            accountId={accountId}
+            membershipLevels={membershipLevels!}
+          />
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@ SELECT
     c.[LastName],
     c.[DateOfBirth],
     mst.[Name] [MemberStatus],
+    c.[Version],
     c.[AccountId]
 FROM
     dbo.Contact c

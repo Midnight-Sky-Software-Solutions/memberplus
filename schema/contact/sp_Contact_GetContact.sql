@@ -11,9 +11,10 @@ SELECT
     [FirstName],
     [MiddleName],
     [LastName],
-    [DateOfBirth]
+    [DateOfBirth],
+    [MemberStatus]
 FROM
-    dbo.Contact
+    dbo.vwContacts
 WHERE
     ID = @ContactId
     AND AccountId = @AccountId;

@@ -34,7 +34,9 @@ namespace MemberPlus.AdminAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<PaginatedResultDTO<ViewContactsDTO>> QueryContacts([FromRoute]Guid accountId, [FromQuery]int perPage, [FromQuery]int pageNumber, [FromQuery]string? searchTerm, [FromQuery]int? sortOrder, [FromQuery]string sortField = "id")
+        public async Task<PaginatedResultDTO<ViewContactsDTO>> QueryContacts(
+            [FromRoute]Guid accountId, [FromQuery]int perPage, [FromQuery]int pageNumber, 
+            [FromQuery]string? searchTerm, [FromQuery]int? sortOrder, [FromQuery]string sortField = "id")
         {
             var result = await contactService.QueryContacts(accountId, perPage, pageNumber, searchTerm, sortOrder, sortField);
             return new PaginatedResultDTO<ViewContactsDTO>()
@@ -63,7 +65,8 @@ namespace MemberPlus.AdminAPI.Controllers
                 FirstName = result.FirstName,
                 MiddleName= result.MiddleName,
                 LastName = result.LastName,
-                DateOfBirth = result.DateOfBirth
+                DateOfBirth = result.DateOfBirth,
+                MemberStatus= result.MemberStatus,
             };
         }
 
@@ -87,6 +90,20 @@ namespace MemberPlus.AdminAPI.Controllers
         {
             await contactService.DeleteContact(accountId, contactId);
             return Ok();
+        }
+
+        [HttpPost("{contactId:guid}/membership")]
+        public async Task<ActionResult> ActivateMembership([FromRoute] Guid accountId, [FromRoute] Guid contactId, 
+            [FromBody] ActivateMembershipDTO request)
+        {
+            await contactService.ActivateMembership(new Core.Model.Contact.ActivateMembership
+            {
+                ContactId = contactId,
+                AccountId = accountId,
+                MembershipLevelId = request.MembershipLevelId,
+                StartDate = request.StartDate,
+            });
+            return Created();
         }
 
         private ContactService contactService;
