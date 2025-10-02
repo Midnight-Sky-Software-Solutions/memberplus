@@ -6,6 +6,7 @@ namespace MemberPlus.AdminAPI.DTO.Contact
     {
         [Required]
         [MaxLength(50)]
+        [MinLength(3)]
         public string FirstName { get; set; } = string.Empty;
         [MaxLength(50)]
         public string MiddleName { get; set; } = string.Empty;

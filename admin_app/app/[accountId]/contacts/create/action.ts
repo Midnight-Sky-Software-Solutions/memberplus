@@ -5,7 +5,10 @@ import { redirect } from 'next/navigation';
 import * as z from 'zod';
 
 export type CreateContactState = {
-  message?: string
+  message?: string,
+  errors?: {
+    [key: string]: string[]
+  }
 };
 
 const CreateContact = z.object({
@@ -37,8 +40,10 @@ export async function createContact(prevState: CreateContactState, formData: For
       }
     });
     if (error) {
+      console.log(error);
       return {
-        message: 'A validation error occured.'
+        message: 'A validation error occured.',
+        errors: error.errors ?? undefined
       }
     }
     id = contactId;

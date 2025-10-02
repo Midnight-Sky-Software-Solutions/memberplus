@@ -5,7 +5,7 @@ import { Calendar } from "primereact/calendar";
 import { FloatLabel } from "primereact/floatlabel";
 import { InputText } from "primereact/inputtext";
 import { Nullable } from "primereact/ts-helpers";
-import { useActionState, useState } from "react";
+import { ReactNode, useActionState, useState } from "react";
 import { createContact } from "./action";
 import { Message } from "primereact/message";
 
@@ -30,21 +30,49 @@ export default function CreateContactForm({ accountId }: {
       <input type="hidden" id="accountId" name="accountId" value={accountId} />
       <FloatLabel>
         <InputText id="firstName" name="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} required maxLength={50} />
+        {
+          state.errors && state.errors['FirstName'] && (
+            <ErrorText>{state?.errors['FirstName'][0]}</ErrorText>
+          )
+        }
         <label htmlFor="firstName">First Name *</label>
       </FloatLabel>
       <FloatLabel>
         <InputText id="middleName" name="middleName" value={middleName} onChange={(e) => setMiddleName(e.target.value)} maxLength={50} />
+        {
+          state.errors && state.errors['MiddleName'] && (
+            <ErrorText>{state?.errors['MiddleName'][0]}</ErrorText>
+          )
+        }
         <label htmlFor="middleName">Middle Name</label>
       </FloatLabel>
       <FloatLabel>
         <InputText id="lastName" name="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} maxLength={50} required />
+        {
+          state.errors && state.errors['LastName'] && (
+            <ErrorText>{state?.errors['LastName'][0]}</ErrorText>
+          )
+        }
         <label htmlFor="lastName">Last Name *</label>
       </FloatLabel>
       <FloatLabel>
         <Calendar id="dateOfBirth" name="dateOfBirth" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.value)} />
+        {
+          state.errors && state.errors['DateOfBirth'] && (
+            <ErrorText>{state?.errors['DateOfBirth'][0]}</ErrorText>
+          )
+        }
         <label htmlFor="dateOfBirth">Birth Date</label>
       </FloatLabel>
       <Button type="submit" size="small" label="Save" disabled={pending} />
     </form>
+  );
+}
+
+function ErrorText({ children } : {
+  children?: ReactNode
+}) {
+  return (
+    <p className="text-red-500">{children}</p>
   );
 }
