@@ -5,7 +5,10 @@ import { redirect } from 'next/navigation';
 import * as z from 'zod';
 
 export type UpdateContactState = {
-  message?: string
+  message?: string,
+  errors?: {
+    [key: string]: string[]
+  }
 };
 
 const UpdateContact = z.object({
@@ -19,7 +22,6 @@ const UpdateContact = z.object({
 });
 
 export async function updateContact(prevState: UpdateContactState, formData: FormData): Promise<UpdateContactState> {
-  console.log('updating...')
   const { data, success, error } = UpdateContact.safeParse(Object.fromEntries(formData));
   if (error) {
     return {
@@ -27,7 +29,7 @@ export async function updateContact(prevState: UpdateContactState, formData: For
     };
   }
   try {
-    await apiClient.PUT('/api/accounts/{accountId}/Contacts', {
+    const { error } = await apiClient.PUT('/api/accounts/{accountId}/Contacts', {
       params: {
         path: {
           accountId: data.accountId
@@ -35,6 +37,12 @@ export async function updateContact(prevState: UpdateContactState, formData: For
       },
       body: data
     });
+    if (error) {
+      return {
+        message: undefined,
+        errors: error.errors ?? undefined
+      }
+    }
   }
   catch (e) {
     console.error(e);

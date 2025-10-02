@@ -21,6 +21,8 @@ namespace MemberPlus.AdminAPI.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(typeof(Guid), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Guid>> CreateMembershipLevel([FromRoute]Guid accountId, CreateMembershipLevelDTO request)
         {
             return await membershipLevelService.CreateMembershipLevel(new Core.Model.MembershipLevel.CreateMembershipLevel
@@ -60,6 +62,7 @@ namespace MemberPlus.AdminAPI.Controllers
         }
 
         [HttpPut]
+        [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> UpdateMembershipLevel([FromRoute] Guid accountId, [FromBody] UpdateMembershipLevelDTO request)
         {
             await membershipLevelService.UpdateMembershipLevel(accountId, new Core.Model.MembershipLevel.UpdateMembershipLevel

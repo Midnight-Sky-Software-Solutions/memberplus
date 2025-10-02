@@ -48,18 +48,38 @@ export default function UpdateContactForm({
         <InputText id="firstName" name="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} required maxLength={50} />
         <label htmlFor="firstName">First Name *</label>
       </FloatLabel>
+      {
+        state.errors && state.errors["firstName"] && (
+          <p className="p-error">{state.errors["firstName"]}</p>
+        )
+      }
       <FloatLabel>
         <InputText id="middleName" name="middleName" value={middleName} onChange={(e) => setMiddleName(e.target.value)} maxLength={50} />
         <label htmlFor="middleName">Middle Name</label>
       </FloatLabel>
+      {
+        state.errors && state.errors["middleName"] && (
+          <p className="p-error">{state.errors["middleName"]}</p>
+        )
+      }
       <FloatLabel>
         <InputText id="lastName" name="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} maxLength={50} required />
         <label htmlFor="lastName">Last Name *</label>
       </FloatLabel>
+      {
+        state.errors && state.errors["lastName"] && (
+          <p className="p-error">{state.errors["lastName"]}</p>
+        )
+      }
       <FloatLabel>
         <Calendar id="dateOfBirth" name="dateOfBirth" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.value)} />
         <label htmlFor="dateOfBirth">Birth Date</label>
       </FloatLabel>
+      {
+        state.errors && state.errors["dateOfBirth"] && (
+          <p className="p-error">{state.errors["dateOfBirth"]}</p>
+        )
+      }
       <Button type="submit" size="small" label="Save" disabled={pending} />
     </form>
   );

@@ -26,6 +26,7 @@ namespace MemberPlus.AdminAPI.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
         public async Task Onboard(OnboardTenantDTO request)
         {
             var tenant = new CreateTenant()

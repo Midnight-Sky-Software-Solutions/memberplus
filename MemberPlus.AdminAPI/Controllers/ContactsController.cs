@@ -75,6 +75,7 @@ namespace MemberPlus.AdminAPI.Controllers
         }
 
         [HttpPut]
+        [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> UpdateContant([FromRoute]Guid accountId, [FromBody]UpdateContactDTO request)
         {
             await contactService.UpdateContact(accountId, new Core.Model.Contact.UpdateContact

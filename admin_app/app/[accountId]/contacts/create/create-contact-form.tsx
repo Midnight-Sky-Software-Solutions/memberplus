@@ -31,8 +31,8 @@ export default function CreateContactForm({ accountId }: {
       <FloatLabel>
         <InputText id="firstName" name="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} required maxLength={50} />
         {
-          state.errors && state.errors['FirstName'] && (
-            <ErrorText>{state?.errors['FirstName'][0]}</ErrorText>
+          state.errors && state.errors['firstName'] && (
+            <ErrorText>{state?.errors['firstName'][0]}</ErrorText>
           )
         }
         <label htmlFor="firstName">First Name *</label>
@@ -40,8 +40,8 @@ export default function CreateContactForm({ accountId }: {
       <FloatLabel>
         <InputText id="middleName" name="middleName" value={middleName} onChange={(e) => setMiddleName(e.target.value)} maxLength={50} />
         {
-          state.errors && state.errors['MiddleName'] && (
-            <ErrorText>{state?.errors['MiddleName'][0]}</ErrorText>
+          state.errors && state.errors['middleName'] && (
+            <ErrorText>{state?.errors['middleName'][0]}</ErrorText>
           )
         }
         <label htmlFor="middleName">Middle Name</label>
@@ -49,8 +49,8 @@ export default function CreateContactForm({ accountId }: {
       <FloatLabel>
         <InputText id="lastName" name="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} maxLength={50} required />
         {
-          state.errors && state.errors['LastName'] && (
-            <ErrorText>{state?.errors['LastName'][0]}</ErrorText>
+          state.errors && state.errors['lastName'] && (
+            <ErrorText>{state?.errors['lastName'][0]}</ErrorText>
           )
         }
         <label htmlFor="lastName">Last Name *</label>
@@ -58,8 +58,8 @@ export default function CreateContactForm({ accountId }: {
       <FloatLabel>
         <Calendar id="dateOfBirth" name="dateOfBirth" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.value)} />
         {
-          state.errors && state.errors['DateOfBirth'] && (
-            <ErrorText>{state?.errors['DateOfBirth'][0]}</ErrorText>
+          state.errors && state.errors['dateOfBirth'] && (
+            <ErrorText>{state?.errors['dateOfBirth'][0]}</ErrorText>
           )
         }
         <label htmlFor="dateOfBirth">Birth Date</label>
@@ -73,6 +73,6 @@ function ErrorText({ children } : {
   children?: ReactNode
 }) {
   return (
-    <p className="text-red-500">{children}</p>
+    <p className="p-error">{children}</p>
   );
 }
