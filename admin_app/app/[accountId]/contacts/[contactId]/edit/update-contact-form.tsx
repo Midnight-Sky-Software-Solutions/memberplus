@@ -38,7 +38,7 @@ export default function UpdateContactForm({
     firstName: contactFirstName,
     middleName: contactMiddleName || undefined,
     lastName: contactLastName,
-    dateOfBirth: contactDateOfBirth ? new Date(contactDateOfBirth) : undefined
+    dateOfBirth: contactDateOfBirth ? new Date(contactDateOfBirth) : null
   })
 
   const [state, action, pending] = useActionState(updateContact, {});
@@ -54,7 +54,14 @@ export default function UpdateContactForm({
       <input type="hidden" id="id" name="id" value={contactId} />
       <input type="hidden" id="version" name="version" value={contactVersion} />
       <FloatLabel>
-        <InputText id="firstName" name="firstName" value={contactState.firstName} onChange={(e) => setContactState({...contactState, firstName: e.target.value})} required maxLength={50} />
+        <InputText 
+          id="firstName" 
+          name="firstName" 
+          value={contactState.firstName} 
+          onChange={(e) => setContactState({...contactState, firstName: e.target.value})} 
+          required 
+          maxLength={50} 
+        />
         <label htmlFor="firstName">First Name *</label>
         {
           state.errors && state.errors["firstName"] && (
@@ -63,7 +70,13 @@ export default function UpdateContactForm({
         }
       </FloatLabel>
       <FloatLabel>
-        <InputText id="middleName" name="middleName" value={contactState.middleName} onChange={(e) => setContactState({...contactState, middleName: e.target.value})} maxLength={50} />
+        <InputText 
+          id="middleName" 
+          name="middleName" 
+          value={contactState.middleName} 
+          onChange={(e) => setContactState({...contactState, middleName: e.target.value})} 
+          maxLength={50} 
+        />
         <label htmlFor="middleName">Middle Name</label>
         {
           state.errors && state.errors["middleName"] && (
@@ -72,7 +85,14 @@ export default function UpdateContactForm({
         }
       </FloatLabel>
       <FloatLabel>
-        <InputText id="lastName" name="lastName" value={contactState.lastName} onChange={(e) => setContactState({...contactState, lastName: e.target.value})} maxLength={50} required />
+        <InputText 
+          id="lastName" 
+          name="lastName" 
+          value={contactState.lastName} 
+          onChange={(e) => setContactState({...contactState, lastName: e.target.value})} 
+          maxLength={50} 
+          required 
+        />
         <label htmlFor="lastName">Last Name *</label>
         {
           state.errors && state.errors["lastName"] && (
@@ -81,7 +101,12 @@ export default function UpdateContactForm({
         }
       </FloatLabel>
       <FloatLabel>
-        <Calendar id="dateOfBirth" name="dateOfBirth" value={contactState.dateOfBirth} onChange={(e) => setContactState({...contactState, dateOfBirth: e.value})} />
+        <Calendar 
+          id="dateOfBirth" 
+          name="dateOfBirth" 
+          value={contactState.dateOfBirth} 
+          onChange={(e) => setContactState({...contactState, dateOfBirth: e.value})} 
+        />
         <label htmlFor="dateOfBirth">Birth Date</label>
         {
           state.errors && state.errors["dateOfBirth"] && (
