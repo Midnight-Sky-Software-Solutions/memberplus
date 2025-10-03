@@ -12,7 +12,11 @@ export default function OnboardTenantForm() {
   const [state, formAction, isPending] = useActionState(onboardTenant, {});
 
   return (
-    <form className="space-y-10" action={formAction}>
+    <form className="space-y-8" action={formAction}>
+      <h1 className="text-4xl font-bold">Welcome to MemberPlus</h1>
+      <p className="text-gray-600">
+        We just need some basic information before getting started.
+      </p>
       <FloatLabel>
         <InputText id="name" name="name" value={organizationName} onChange={(e) => setOrganizatinoName(e.target.value)} />
         <label htmlFor="Organization Name">Organization Name</label>

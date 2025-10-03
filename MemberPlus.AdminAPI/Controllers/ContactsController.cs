@@ -9,7 +9,7 @@ using Microsoft.Identity.Client;
 
 namespace MemberPlus.AdminAPI.Controllers
 {
-    [Route("api/accounts/{accountId:guid}/[controller]/")]
+    [Route("api/Accounts/{accountId:guid}/[controller]/")]
     [ApiController]
     [Authorize]
     [AuthorizeAccount]
@@ -97,7 +97,7 @@ namespace MemberPlus.AdminAPI.Controllers
             return Ok();
         }
 
-        [HttpPost("{contactId:guid}/membership")]
+        [HttpPost("{contactId:guid}/Membership")]
         public async Task<ActionResult> ActivateMembership([FromRoute] Guid accountId, [FromRoute] Guid contactId, 
             [FromBody] ActivateMembershipDTO request)
         {

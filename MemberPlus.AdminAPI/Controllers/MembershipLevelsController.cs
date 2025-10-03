@@ -9,7 +9,7 @@ using Microsoft.Data.SqlClient;
 
 namespace MemberPlus.AdminAPI.Controllers
 {
-    [Route("api/accounts/{accountId:guid}/[controller]")]
+    [Route("api/Accounts/{accountId:guid}/[controller]")]
     [ApiController]
     [Authorize]
     [AuthorizeAccount]
