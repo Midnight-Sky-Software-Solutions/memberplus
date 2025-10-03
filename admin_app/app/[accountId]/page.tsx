@@ -1,10 +1,9 @@
-import WelcomeComponent from "./welcome-message";
 
 export default function Home() {
 
   return (
     <div className="">
-      <WelcomeComponent />
+      <h1 className="text-4xl font-bold mb-8">Welcome</h1>
     </div>  
   );
   
