@@ -9,6 +9,13 @@ import { Nullable } from "primereact/ts-helpers";
 import { useActionState, useState } from "react";
 import { updateContact } from "./action";
 
+type ContactFormState = {
+  firstName: string,
+  middleName?: string,
+  lastName: string,
+  dateOfBirth: Nullable<Date>
+}
+
 export default function UpdateContactForm({
   accountId,
   contactId,
@@ -27,10 +34,12 @@ export default function UpdateContactForm({
   contactDateOfBirth?: Date
 }) {
 
-  const [firstName, setFirstName] = useState(contactFirstName);
-  const [middleName, setMiddleName] = useState(contactMiddleName);
-  const [lastName, setLastName] = useState(contactLastName);
-  const [dateOfBirth, setDateOfBirth] = useState(contactDateOfBirth ? new Date(contactDateOfBirth) : undefined as Nullable<Date>);
+  const [contactState, setContactState] = useState<ContactFormState>({
+    firstName: contactFirstName,
+    middleName: contactMiddleName || undefined,
+    lastName: contactLastName,
+    dateOfBirth: contactDateOfBirth ? new Date(contactDateOfBirth) : undefined
+  })
 
   const [state, action, pending] = useActionState(updateContact, {});
 
@@ -45,41 +54,41 @@ export default function UpdateContactForm({
       <input type="hidden" id="id" name="id" value={contactId} />
       <input type="hidden" id="version" name="version" value={contactVersion} />
       <FloatLabel>
-        <InputText id="firstName" name="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} required maxLength={50} />
+        <InputText id="firstName" name="firstName" value={contactState.firstName} onChange={(e) => setContactState({...contactState, firstName: e.target.value})} required maxLength={50} />
         <label htmlFor="firstName">First Name *</label>
+        {
+          state.errors && state.errors["firstName"] && (
+            <p className="p-error">{state.errors["firstName"]}</p>
+          )
+        }
       </FloatLabel>
-      {
-        state.errors && state.errors["firstName"] && (
-          <p className="p-error">{state.errors["firstName"]}</p>
-        )
-      }
       <FloatLabel>
-        <InputText id="middleName" name="middleName" value={middleName} onChange={(e) => setMiddleName(e.target.value)} maxLength={50} />
+        <InputText id="middleName" name="middleName" value={contactState.middleName} onChange={(e) => setContactState({...contactState, middleName: e.target.value})} maxLength={50} />
         <label htmlFor="middleName">Middle Name</label>
+        {
+          state.errors && state.errors["middleName"] && (
+            <p className="p-error">{state.errors["middleName"]}</p>
+          )
+        }
       </FloatLabel>
-      {
-        state.errors && state.errors["middleName"] && (
-          <p className="p-error">{state.errors["middleName"]}</p>
-        )
-      }
       <FloatLabel>
-        <InputText id="lastName" name="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} maxLength={50} required />
+        <InputText id="lastName" name="lastName" value={contactState.lastName} onChange={(e) => setContactState({...contactState, lastName: e.target.value})} maxLength={50} required />
         <label htmlFor="lastName">Last Name *</label>
+        {
+          state.errors && state.errors["lastName"] && (
+            <p className="p-error">{state.errors["lastName"]}</p>
+          )
+        }
       </FloatLabel>
-      {
-        state.errors && state.errors["lastName"] && (
-          <p className="p-error">{state.errors["lastName"]}</p>
-        )
-      }
       <FloatLabel>
-        <Calendar id="dateOfBirth" name="dateOfBirth" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.value)} />
+        <Calendar id="dateOfBirth" name="dateOfBirth" value={contactState.dateOfBirth} onChange={(e) => setContactState({...contactState, dateOfBirth: e.value})} />
         <label htmlFor="dateOfBirth">Birth Date</label>
+        {
+          state.errors && state.errors["dateOfBirth"] && (
+            <p className="p-error">{state.errors["dateOfBirth"]}</p>
+          )
+        }
       </FloatLabel>
-      {
-        state.errors && state.errors["dateOfBirth"] && (
-          <p className="p-error">{state.errors["dateOfBirth"]}</p>
-        )
-      }
       <Button type="submit" size="small" label="Save" disabled={pending} />
     </form>
   );
