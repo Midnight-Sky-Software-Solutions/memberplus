@@ -38,5 +38,5 @@ export async function createMembershipLevel(prevState: CreateMembershipLevelStat
     body: data
   })
 
-  redirect('/'); // TODO: navigate to view membership page
+  redirect(`/${data.accountId}/membershiplevels`);
 }

@@ -8,6 +8,7 @@ import { InputText } from "primereact/inputtext";
 import { useActionState, useState } from "react";
 import { updateMembershipLevel } from "./action";
 import { Message } from "primereact/message";
+import { useRouter } from "next/navigation";
 
 export default function UpdateMembershipLevelForm({ 
   accountId,
@@ -30,6 +31,7 @@ export default function UpdateMembershipLevelForm({
 
   const [formData, setFormData] = useState(membershipLevel);
   const [state, action, pending] = useActionState(updateMembershipLevel, {});
+  const router = useRouter();
 
   return (
     <form className="space-y-8" action={action}>
@@ -88,7 +90,10 @@ export default function UpdateMembershipLevelForm({
           <Message severity="error" text={state.message.renewalPeriodId} />
         )
       }
-      <Button type="submit" size="small" label="Save" disabled={pending} />
+      <div className="flex gap-3">
+        <Button type="submit" size="small" label="Save" disabled={pending} />
+        <Button onClick={() => router.back()} severity="secondary" size="small" label="Cancel" />
+      </div>
     </form>
   );
 }

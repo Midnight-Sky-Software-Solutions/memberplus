@@ -7,6 +7,7 @@ import { useActionState, useState } from "react";
 import { createMembershipLevel } from "./action";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
+import { useRouter } from "next/navigation";
 
 type CreateMembershipLevelFormData = {
   accountId: string,
@@ -35,6 +36,8 @@ export default function CreateMembershipLevelForm({
 
   const [formData, setFormData] = useState(initialCreateMembershipLevelFormData);
   const [state, action, pending] = useActionState(createMembershipLevel, {});
+
+  const router = useRouter();
 
   return (
     <form className="space-y-8" action={action}>
@@ -76,7 +79,10 @@ export default function CreateMembershipLevelForm({
         />
         <label htmlFor="renewalPeriodId">Renewal Period</label>
       </FloatLabel>
-      <Button type="submit" size="small" label="Save" disabled={pending} />
+      <div className="flex gap-3">
+        <Button type="submit" size="small" label="Save" disabled={pending} />
+        <Button onClick={() => router.back()} severity="secondary" size="small" label="Cancel" />
+      </div>
     </form>
   )
 }

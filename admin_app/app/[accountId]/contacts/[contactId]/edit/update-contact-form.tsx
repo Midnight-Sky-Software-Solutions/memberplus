@@ -8,6 +8,7 @@ import { Message } from "primereact/message";
 import { Nullable } from "primereact/ts-helpers";
 import { useActionState, useState } from "react";
 import { updateContact } from "./action";
+import { useRouter } from "next/navigation";
 
 type ContactFormState = {
   firstName: string,
@@ -42,6 +43,8 @@ export default function UpdateContactForm({
   })
 
   const [state, action, pending] = useActionState(updateContact, {});
+
+  const router = useRouter();
 
   return (
     <form className="space-y-8" action={action}>
@@ -114,7 +117,10 @@ export default function UpdateContactForm({
           )
         }
       </FloatLabel>
-      <Button type="submit" size="small" label="Save" disabled={pending} />
+      <div className="flex gap-3">
+        <Button type="submit" size="small" label="Save" disabled={pending} />
+        <Button onClick={() => router.back()} severity="secondary" size="small" label="Cancel" />
+      </div>
     </form>
   );
 }

@@ -8,6 +8,7 @@ import { Nullable } from "primereact/ts-helpers";
 import { ReactNode, useActionState, useState } from "react";
 import { createContact } from "./action";
 import { Message } from "primereact/message";
+import { useRouter } from "next/navigation";
 
 type ContactFormState = {
   firstName: string,
@@ -28,6 +29,8 @@ export default function CreateContactForm({ accountId }: {
   })
 
   const [state, action, pending] = useActionState(createContact, {});
+
+  const router = useRouter();
 
   return (
     <form className="space-y-8" action={action}>
@@ -98,7 +101,10 @@ export default function CreateContactForm({ accountId }: {
         }
         <label htmlFor="dateOfBirth">Birth Date</label>
       </FloatLabel>
-      <Button type="submit" size="small" label="Save" disabled={pending} />
+      <div className="flex gap-3">
+        <Button type="submit" size="small" label="Save" disabled={pending} />
+        <Button onClick={() => router.back()} severity="secondary" size="small" label="Cancel" />
+      </div>
     </form>
   );
 }
