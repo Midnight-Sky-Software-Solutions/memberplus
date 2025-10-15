@@ -1,0 +1,6 @@
+@MemberPlus.OpenAPI_HostAddress = http://localhost:5117
+
+GET {{MemberPlus.OpenAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
