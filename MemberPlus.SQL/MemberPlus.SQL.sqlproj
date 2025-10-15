@@ -59,5 +59,9 @@
     <Folder Include="Stored Procedures" />
     <Folder Include="Functions" />
     <Folder Include="Views" />
+    <Folder Include="Migrations" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Migrations\2025-10-15 Initial Schema.sql" />
   </ItemGroup>
 </Project>
