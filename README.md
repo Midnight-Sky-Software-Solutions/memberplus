@@ -12,6 +12,8 @@ A cloud Association Management SaaS built on top of React and .NET.
 
 **MemberPlus.SQL** - Database schema and migration scripts.
 
+**tenant_app** - Front end tenant application.
+
 ## Getting Started
 
 ### Database
