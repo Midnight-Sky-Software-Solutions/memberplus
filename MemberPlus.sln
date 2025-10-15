@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36518.9 d17.14
+VisualStudioVersion = 17.14.36518.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemberPlus.Common", "MemberPlus.Common\MemberPlus.Common.csproj", "{53A723FE-7508-4E5C-B4C0-EA61B296F151}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemberPlus.ManagementAPI", "MemberPlus.ManagementAPI\MemberPlus.ManagementAPI.csproj", "{F242761F-5F81-4F40-9FAE-77C53FB17BA8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemberPlus.OpenAPI", "MemberPlus.OpenAPI\MemberPlus.OpenAPI.csproj", "{FAA8BDEC-B0FB-4880-97C8-61A2BB41792E}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MemberPlus.SQL", "MemberPlus.SQL\MemberPlus.SQL.sqlproj", "{419F4E5D-1BA0-427F-B516-D82827DAA98E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,12 @@ Global
 		{FAA8BDEC-B0FB-4880-97C8-61A2BB41792E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAA8BDEC-B0FB-4880-97C8-61A2BB41792E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAA8BDEC-B0FB-4880-97C8-61A2BB41792E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{419F4E5D-1BA0-427F-B516-D82827DAA98E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{419F4E5D-1BA0-427F-B516-D82827DAA98E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{419F4E5D-1BA0-427F-B516-D82827DAA98E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{419F4E5D-1BA0-427F-B516-D82827DAA98E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{419F4E5D-1BA0-427F-B516-D82827DAA98E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{419F4E5D-1BA0-427F-B516-D82827DAA98E}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
