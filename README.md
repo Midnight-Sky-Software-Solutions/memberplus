@@ -10,7 +10,7 @@ A cloud Association Management SaaS built on top of React and .NET.
 
 **MemberPlus.OpenAPI** - REST API used by the tenant to manage their account.
 
-**MemberPlus.SQL** - Database schema and migration scripts.
+**MemberPlus.Schema** - Database schema and migration scripts.
 
 **tenant_app** - Front end tenant application.
 
