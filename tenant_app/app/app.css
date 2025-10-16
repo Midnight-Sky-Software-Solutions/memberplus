@@ -13,3 +13,16 @@ body {
     color-scheme: dark;
   }
 }
+
+@layer tailwind-base, primereact, tailwind-utilities;
+
+@import "primereact/resources/themes/tailwind-light/theme.css";
+
+@layer tailwind-base {
+  @tailwind base;
+}
+
+@layer tailwind-utilities {
+  @tailwind components;
+  @tailwind utilities;
+}
