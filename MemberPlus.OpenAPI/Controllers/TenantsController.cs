@@ -20,16 +20,16 @@ namespace MemberPlus.OpenAPI.Controllers
         /// <summary>
         /// Get a Tenant record
         /// </summary>
-        /// <param name="id">Id of the Tenant</param>
-        /// <returns>The Tenant record matching the provided Id</returns>
-        [HttpGet("{id:guid}")]
-        public async Task<ActionResult<TenantDto>> GetTenant([FromRoute] Guid id)
+        /// <returns>The Tenant record matching the authenticated account</returns>
+        [HttpGet("me")]
+        public async Task<ActionResult<TenantDto>> GetTenant()
         {
-            using (var db = sql.CreateConnection())
-            {
-                var result = await tenantsService.ReadTenant(db, id);
-                return Ok(result);
-            }
+            return NotFound();
+            //using (var db = sql.CreateConnection())
+            //{
+            //    var result = await tenantsService.ReadTenant(db, id);
+            //    return Ok(result);
+            //}
         }
 
         private readonly ISQLConnectionFactory sql;
