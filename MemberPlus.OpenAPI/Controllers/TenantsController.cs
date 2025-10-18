@@ -1,6 +1,7 @@
 ﻿using MemberPlus.Common;
 using MemberPlus.Common.Services;
 using MemberPlus.OpenAPI.Model.Tenants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -9,6 +10,7 @@ namespace MemberPlus.OpenAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class TenantsController : ControllerBase
     {
         public TenantsController(ISQLConnectionFactory sql, TenantsService tenantsService)
@@ -24,12 +26,12 @@ namespace MemberPlus.OpenAPI.Controllers
         [HttpGet("me")]
         public async Task<ActionResult<TenantDto>> GetTenant()
         {
-            return NotFound();
-            //using (var db = sql.CreateConnection())
-            //{
-            //    var result = await tenantsService.ReadTenant(db, id);
-            //    return Ok(result);
-            //}
+            var id = HttpContext.GetTenantId();
+            using (var db = sql.CreateConnection())
+            {
+                var result = await tenantsService.ReadTenant(db, id);
+                return Ok(result);
+            }
         }
 
         private readonly ISQLConnectionFactory sql;

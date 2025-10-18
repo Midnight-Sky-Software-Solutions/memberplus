@@ -1,4 +1,5 @@
 using MemberPlus.Common;
+using MemberPlus.Common.Filters;
 using MemberPlus.Common.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
@@ -7,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddSingleton<ISQLConnectionFactory, LocalhostSQLConnectionFactory>();
 builder.Services.AddSingleton<TenantsService>();
+builder.Services.AddExceptionHandler<EntityNotFoundExceptionHandler>();
+builder.Services.AddProblemDetails();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -21,12 +24,12 @@ builder.Services.AddAuthentication(options =>
 }).AddJwtBearer(options =>
 {
     options.Authority = "https://dev-ywc4ezu2upingb1g.us.auth0.com/";
-    options.Audience = "https://localhost:7122";
+    options.Audience = "https://localhost:7179/";
 });
 
-builder.Services.AddAuthorization();
-
 var app = builder.Build();
+
+app.UseExceptionHandler();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
