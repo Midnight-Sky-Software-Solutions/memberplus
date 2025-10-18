@@ -2,9 +2,7 @@ import createClient, { type Middleware } from "openapi-fetch";
 import type { paths } from "./api.d";
 import { getAuth0Client } from "./auth0";
 
-const apiClient = createClient<paths>({
-  baseUrl: '/api',
-});
+const apiClient = createClient<paths>({});
 
 const apiMiddleware: Middleware = {
 
