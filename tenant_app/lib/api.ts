@@ -2,37 +2,66 @@ import createClient, { type Middleware } from "openapi-fetch";
 import type { paths } from "./api.d";
 import { getAuth0Client } from "./auth0";
 
+export class ApiError extends Error {
+
+  public body: string;
+  public statusCode: number;
+
+  constructor(body: string, message: string, statusCode: number) {
+    super(message);
+    this.body = body;
+    this.statusCode = statusCode;
+  }
+
+  getJSON() {
+    try {
+      return JSON.parse(this.body);
+    } catch {
+      return undefined;
+    }
+  }
+
+}
+
 const apiClient = createClient<paths>({});
 
 const apiMiddleware: Middleware = {
 
   async onRequest({ request }) {
     const auth0 = await getAuth0Client();
-    if (await auth0.isAuthenticated()) {
+    try {
       const token = await auth0.getTokenSilently();
       request.headers.set('Authorization', `Bearer ${token}`);
-    } else {
-      const query = window.location.search;
-      if (query.includes("code=") && query.includes("state=")) {
-        await auth0.handleRedirectCallback();
-      } else {
+    }
+    catch (error: any) {
+      if (error.error !== 'login_required') {
         await auth0.loginWithRedirect({
           authorizationParams: {
-            redirect_uri: window.origin,
+            redirect_uri: `${window.origin}/auth/redirect`,
             audience: 'https://localhost:7179/',
             grant_type: "client_credentials"
           }
         });
       }
-      const token = await auth0.getTokenSilently({
+    }
+    return request;
+  },
+
+  async onResponse({ response }) {
+    if (response.status === 401) {
+      const auth0 = await getAuth0Client();
+      await auth0.loginWithRedirect({
         authorizationParams: {
-          audience: 'https://localhost:7179/'
+          redirect_uri: `${window.origin}/auth/redirect`,
+          audience: 'https://localhost:7179/',
+          grant_type: "client_credentials"
         }
       });
-      request.headers.set('Authorization', `Bearer ${token}`);
     }
-
-    return request;
+    if (response.status >= 500) {
+      const body = await response.text();
+      throw new ApiError(body, "Response failed with 500 error", response.status);
+    }
   }
 
 }
