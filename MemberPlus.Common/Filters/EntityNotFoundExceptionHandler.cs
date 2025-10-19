@@ -12,7 +12,9 @@ namespace MemberPlus.Common.Filters
 {
     public class EntityNotFoundExceptionHandler : IExceptionHandler
     {
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public async ValueTask<bool> TryHandleAsync(
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
             HttpContext httpContext,
             Exception exception,
             CancellationToken cancellationToken)
