@@ -1,3 +1,4 @@
+import apiClient from "lib/api";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { useForm, type SubmitHandler } from "react-hook-form";
@@ -14,7 +15,9 @@ export default function Onboard() {
     formState: { errors }
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = (data) => apiClient.POST('/api/Onboarding', {
+    body: data
+  });
 
   return (
     <div>
