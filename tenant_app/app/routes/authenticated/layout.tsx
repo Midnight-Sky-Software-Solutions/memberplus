@@ -1,10 +1,10 @@
 import apiClient from "lib/api";
-import { Outlet } from "react-router";
+import { Outlet, redirect } from "react-router";
 
 export async function clientLoader() {
-  const { data, error } = await apiClient.GET("/api/Tenants/me");
-  if (error) {
-    throw error;
+  const { data, error, response } = await apiClient.GET("/api/Tenants/me");
+  if (response.status === 404) {
+    return redirect('/onboarding');
   }
   return {
     tenant: data
@@ -19,8 +19,6 @@ export default function AuthenticatedLayout({ loaderData }: {
     }
   }
 }) {
-  console.log('loader data:')
-
   return (
     <div>
       <Outlet />

@@ -34,7 +34,7 @@ const apiMiddleware: Middleware = {
       request.headers.set('Authorization', `Bearer ${token}`);
     }
     catch (error: any) {
-      if (error.error !== 'login_required') {
+      if (error.error === 'login_required') {
         await auth0.loginWithRedirect({
           authorizationParams: {
             redirect_uri: `${window.origin}/auth/redirect`,
@@ -42,6 +42,8 @@ const apiMiddleware: Middleware = {
             grant_type: "client_credentials"
           }
         });
+      } else {
+        throw error;
       }
     }
     return request;
