@@ -20,18 +20,27 @@ namespace MemberPlus.Common.Services
 
         public async Task<ReadTenant> ReadTenant(SqlConnection db, Guid id)
         {
-            var result = await db.QuerySingleOrDefaultAsync<ReadTenant>(
+            using (var multi = await db.QueryMultipleAsync(
                 "sp_ReadTenant",
                 new
                 {
-                    Id = id
+                    Id = id,
                 },
-                commandType: CommandType.StoredProcedure);
-            if (result == null)
+                commandType: CommandType.StoredProcedure))
             {
-                throw new EntityNotFoundException();
+                var tenant = await multi.ReadSingleOrDefaultAsync<ReadTenant>();
+                if (tenant == null)
+                {
+                    throw new EntityNotFoundException();
+                }
+                var accounts = await multi.ReadAsync<ReadTenantAccount>();
+                return new ReadTenant
+                {
+                    Id = tenant.Id,
+                    Name = tenant.Name,
+                    Accounts = accounts,
+                };
             }
-            return result;
         }
     }
 }

@@ -29,7 +29,13 @@ namespace MemberPlus.OpenAPI.Controllers
             var id = HttpContext.GetTenantId();
             using (var db = sql.CreateConnection())
             {
-                var result = await tenantsService.ReadTenant(db, id);
+                var tenant = await tenantsService.ReadTenant(db, id);
+                var result = new TenantDto()
+                {
+                    Id = tenant.Id,
+                    Name = tenant.Name,
+                    Accounts = tenant.Accounts.Select(a => new TenantAccountDto { Id = a.Id, Name = a.Name })
+                };
                 return Ok(result);
             }
         }
