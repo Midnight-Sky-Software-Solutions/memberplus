@@ -1,6 +1,6 @@
 ﻿namespace MemberPlus.OpenAPI.Model.Onboarding
 {
-    public record OnboardTenant
+    public record OnboardTenantDto
     {
         public required string Name { get; init; }
     }

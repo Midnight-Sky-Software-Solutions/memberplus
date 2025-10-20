@@ -13,6 +13,11 @@ namespace MemberPlus.Common.Services
 {
     public class TenantsService
     {
+        public async Task OnboardTenant(SqlConnection db, OnboardTenant tenant)
+        {
+            await db.ExecuteAsync("sp_OnboardTenant", tenant, commandType: CommandType.StoredProcedure);
+        }
+
         public async Task<ReadTenant> ReadTenant(SqlConnection db, Guid id)
         {
             var result = await db.QuerySingleOrDefaultAsync<ReadTenant>(
