@@ -3,6 +3,7 @@ import { Link, Outlet, redirect } from "react-router";
 import type { components } from "lib/api.d";
 import { Menubar } from "primereact/menubar";
 import type { MenuItem } from "primereact/menuitem";
+import { AccountContext } from "context/account-context";
 
 export async function clientLoader() {
   const { data, error, response } = await apiClient.GET("/api/Tenants/me");
@@ -30,9 +31,11 @@ export default function AuthenticatedLayout({ loaderData }: {
         model={menuItems}
         end={<span>{account.name}</span>}
       />
-      <div className="p-10">
-        <Outlet />
-      </div>
+      <AccountContext.Provider value={account}>
+        <div className="p-10">
+          <Outlet />
+        </div>
+      </AccountContext.Provider>
     </div>
   );
 }
