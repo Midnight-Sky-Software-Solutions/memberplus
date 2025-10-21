@@ -4,6 +4,8 @@ import type { components } from "lib/api.d";
 import { Menubar } from "primereact/menubar";
 import type { MenuItem } from "primereact/menuitem";
 import { AccountContext } from "context/account-context";
+import { Menu } from "primereact/menu";
+import type { ReactNode } from "react";
 
 export async function clientLoader() {
   const { data, error, response } = await apiClient.GET("/api/Tenants/me");
@@ -15,27 +17,69 @@ export async function clientLoader() {
   };
 }
 
+const topMenuItems: MenuItem[] = [];
+
+const sideMenuItems: MenuItem[] = [
+  {
+    id: 'Dashboard', 
+    label: 'Dashboard', 
+    template: (item) => (
+      <NavMenuItem
+        href={`/account`}
+        active={false}
+      >
+        {item.label}
+      </NavMenuItem>
+    )
+  }
+];
+
 export default function AuthenticatedLayout({ loaderData }: {
   loaderData: {
     tenant: components["schemas"]["TenantDto"]
   }
 }) {
   const account = loaderData.tenant.accounts[0];
-  const menuItems: MenuItem[] = [
-  ];
 
   return (
-    <div>
+    <div className="h-[100vh]">
       <Menubar 
         start={<Link to='/' className="font-bold text-2xl">MemberPlus</Link>}
-        model={menuItems}
+        model={topMenuItems}
         end={<span>{account.name}</span>}
       />
       <AccountContext.Provider value={account}>
-        <div className="p-10">
-          <Outlet />
+        <div className="flex h-full">
+          <Menu
+            className="h-full"
+            model={sideMenuItems}
+          />
+          <div className="p-10">
+            <Outlet />
+          </div>
         </div>
       </AccountContext.Provider>
+    </div>
+  );
+}
+
+function NavMenuItem({ children, active, href }: {
+  children?: ReactNode,
+  active: boolean,
+  href: string
+}) {
+  const pending = false;
+
+  return (
+    <div className="p-menuitem-content font-bold">
+      <Link
+        className="p-menuitem-link" 
+        to={href}
+      >
+        <span className={(active ? 'text-blue-500' : '') + (pending ? ' animate-pulse' : '')}>
+          {children}
+        </span>
+      </Link>
     </div>
   );
 }
