@@ -21,11 +21,11 @@ const topMenuItems: MenuItem[] = [];
 
 const sideMenuItems: MenuItem[] = [
   {
-    id: 'Dashboard', 
-    label: 'Dashboard', 
+    id: 'Account', 
+    label: 'Account', 
     template: (item) => (
       <NavMenuItem
-        href={`/account`}
+        href={`/`}
         active={false}
       >
         {item.label}
@@ -42,19 +42,19 @@ export default function AuthenticatedLayout({ loaderData }: {
   const account = loaderData.tenant.accounts[0];
 
   return (
-    <div className="h-[100vh]">
-      <Menubar 
+    <div className="h-full flex flex-col">
+      <Menubar
         start={<Link to='/' className="font-bold text-2xl">MemberPlus</Link>}
         model={topMenuItems}
         end={<span>{account.name}</span>}
       />
       <AccountContext.Provider value={account}>
-        <div className="flex h-full">
+        <div className="flex grow">
           <Menu
             className="h-full"
             model={sideMenuItems}
           />
-          <div className="p-10">
+          <div className="grow">
             <Outlet />
           </div>
         </div>
