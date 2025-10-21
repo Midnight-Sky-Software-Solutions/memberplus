@@ -11,10 +11,10 @@ const tabMenuItems: MenuItem[] = [
     id: 'Account details',
     label: 'Account details'
   },
-  {
-    id: 'Referrals',
-    label: 'Referrals'
-  }
+  // {
+  //   id: 'Referrals',
+  //   label: 'Referrals'
+  // }
 ];
 
 export default function Home() {
@@ -62,5 +62,4 @@ function TabMenuOutlet({ activeIndex }: {
   }
 
   return <></>;
-
 }
