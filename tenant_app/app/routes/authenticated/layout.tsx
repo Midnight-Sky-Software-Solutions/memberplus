@@ -42,13 +42,16 @@ export default function AuthenticatedLayout({ loaderData }: {
   const account = loaderData.tenant.accounts[0];
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-full flex flex-col relative">
       <div className="hidden md:block">
         <Menubar
           start={<Link to='/' className="font-bold text-2xl">MemberPlus</Link>}
           model={topMenuItems}
           end={<span>{account.name}</span>}
         />
+      </div>
+      <div className="md:hidden bg-white p-2 text-right sticky top-0 z-99 shadow-sm">
+        <i className="pi pi-bars" style={{ fontSize: '2rem' }}></i>
       </div>
       <AccountContext.Provider value={account}>
         <div className="flex grow">
