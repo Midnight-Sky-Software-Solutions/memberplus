@@ -5,7 +5,7 @@ import { Menubar } from "primereact/menubar";
 import type { MenuItem } from "primereact/menuitem";
 import { AccountContext } from "context/account-context";
 import { Menu } from "primereact/menu";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 
 export async function clientLoader() {
   const { data, error, response } = await apiClient.GET("/api/Tenants/me");
@@ -41,6 +41,11 @@ export default function AuthenticatedLayout({ loaderData }: {
 }) {
   const account = loaderData.tenant.accounts[0];
 
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const toggleMobileNav = () => {
+    setMobileNavOpen(!mobileNavOpen);
+  }
+
   return (
     <div className="h-full flex flex-col relative">
       <div className="hidden md:block">
@@ -51,7 +56,17 @@ export default function AuthenticatedLayout({ loaderData }: {
         />
       </div>
       <div className="md:hidden bg-white p-2 text-right sticky top-0 z-99 shadow-sm">
-        <i className="pi pi-bars" style={{ fontSize: '2rem' }}></i>
+        <i onClick={toggleMobileNav} className="pi pi-bars" style={{ fontSize: '2rem' }}></i>
+      </div>
+      {mobileNavOpen && (
+        <div className="md:hidden bg-black/50 h-[100vh] w-[100vw] z-100 fixed" onClick={toggleMobileNav}>
+        </div>
+      )}
+      <div className={`md:hidden fixed right-0 z-101 transform transition duration-300 ease-in-out  w-50 bg-white h-full ml-auto shadow-md flex justify-center ${mobileNavOpen ? '' : 'translate-x-50'}`}>
+        <Menu
+          className="h-full"
+          model={sideMenuItems}
+        />
       </div>
       <AccountContext.Provider value={account}>
         <div className="flex grow">
