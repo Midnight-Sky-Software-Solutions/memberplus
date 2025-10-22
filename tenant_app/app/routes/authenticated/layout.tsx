@@ -43,15 +43,17 @@ export default function AuthenticatedLayout({ loaderData }: {
 
   return (
     <div className="h-full flex flex-col">
-      <Menubar
-        start={<Link to='/' className="font-bold text-2xl">MemberPlus</Link>}
-        model={topMenuItems}
-        end={<span>{account.name}</span>}
-      />
+      <div className="hidden md:block">
+        <Menubar
+          start={<Link to='/' className="font-bold text-2xl">MemberPlus</Link>}
+          model={topMenuItems}
+          end={<span>{account.name}</span>}
+        />
+      </div>
       <AccountContext.Provider value={account}>
         <div className="flex grow">
           <Menu
-            className="h-full"
+            className="h-full hidden md:block"
             model={sideMenuItems}
           />
           <div className="grow">
