@@ -1,3 +1,5 @@
+import { Button } from "primereact/button";
+import { Card } from "primereact/card";
 import type { MenuItem } from "primereact/menuitem";
 import { TabMenu } from "primereact/tabmenu";
 import { useState } from "react"
@@ -39,9 +41,7 @@ function TabMenuOutlet({ activeIndex }: {
 
   if (activeIndex === 0) {
     return (
-      <div className="p-10">
-        <h1 className="font-bold text-4xl">Dashboard</h1>
-      </div>
+      <DashboardTab />
     );
   }
 
@@ -62,4 +62,34 @@ function TabMenuOutlet({ activeIndex }: {
   }
 
   return <></>;
+}
+
+function DashboardTab() {
+  return (
+    <div className="p-10">
+      <h1 className="font-bold text-4xl">Dashboard</h1>
+      <Card className="mt-5">
+        <div className="grid grid-cols-3">
+          <div className="space-y-5">
+            <h2 className="font-bold text-xl">Your account</h2>
+            <p>
+              Free trial is active until 20 Dec 2025
+            </p>
+            <div className="flex gap-2">
+              <a className="p-button font-bold">Upgrade to paid</a>
+              <a className="p-button font-bold p-button-outlined">Pricing</a>
+            </div>
+          </div>
+          <div className="space-y-5">
+            <h2 className="font-bold text-xl">Active members</h2>
+            <span className="text-4xl text-gray-500">0</span>
+          </div>
+          <div className="space-y-5">
+            <h2 className="font-bold text-xl">This month's revenue</h2>
+            <span className="text-4xl text-gray-500">$0.00</span>
+          </div>
+        </div>
+      </Card>
+    </div>
+  );
 }

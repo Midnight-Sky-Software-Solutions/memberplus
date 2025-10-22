@@ -8,6 +8,9 @@ export default function Redirect() {
   const [state, setState] = useState<LoginState>('pending');
   
   useEffect(() => {
+    if (state !== 'pending') {
+      return;
+    }
     const query = window.location.search;
     if (query.includes("code=") && query.includes("state=")) {
       getAuth0Client()
@@ -16,10 +19,11 @@ export default function Redirect() {
           setState('done');
         })
         .catch(e => {
+          console.error(e);
           setState('error');
         });
     } else {
-      setState('error')
+      setState('error');
     }
   }, []);
 

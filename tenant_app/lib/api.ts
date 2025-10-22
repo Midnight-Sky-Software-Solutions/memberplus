@@ -34,6 +34,7 @@ const apiMiddleware: Middleware = {
       request.headers.set('Authorization', `Bearer ${token}`);
     }
     catch (error: any) {
+      console.error('Error while getting Auth0 token');
       if (error.error === 'login_required') {
         await auth0.loginWithRedirect({
           authorizationParams: {
