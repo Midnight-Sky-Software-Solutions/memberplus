@@ -1,9 +1,7 @@
 import { parseAsIndex, useQueryState } from "nuqs";
-import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import type { MenuItem } from "primereact/menuitem";
 import { TabMenu } from "primereact/tabmenu";
-import { useState } from "react"
 
 const tabMenuItems: MenuItem[] = [
   {
