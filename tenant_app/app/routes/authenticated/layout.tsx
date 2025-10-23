@@ -1,5 +1,5 @@
 import apiClient from "lib/api";
-import { Link, Outlet, redirect } from "react-router";
+import { Link, Outlet, redirect, useLocation } from "react-router";
 import type { components } from "lib/api.d";
 import { Menubar } from "primereact/menubar";
 import type { MenuItem } from "primereact/menuitem";
@@ -19,20 +19,33 @@ export async function clientLoader() {
 
 const topMenuItems: MenuItem[] = [];
 
-const sideMenuItems: MenuItem[] = [
-  {
-    id: 'Account', 
-    label: 'Account', 
+function sideMenuItems(activeRoute: string): MenuItem[] {
+  return [{
+    id: 'Account',
+    label: 'Account',
     template: (item) => (
       <NavMenuItem
         href={`/`}
-        active={false}
+        active={activeRoute == '/'}
+      >
+        {item.label}
+      </NavMenuItem>
+    )
+  },
+  {
+    id: 'Contacts',
+    label: 'Contacts',
+    template: (item) => (
+      <NavMenuItem
+        href={`/contacts`}
+        active={activeRoute.startsWith('/contacts')}
       >
         {item.label}
       </NavMenuItem>
     )
   }
-];
+  ];
+}
 
 export default function AuthenticatedLayout({ loaderData }: {
   loaderData: {
@@ -40,6 +53,7 @@ export default function AuthenticatedLayout({ loaderData }: {
   }
 }) {
   const account = loaderData.tenant.accounts[0];
+  const { pathname: location } = useLocation();
 
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const toggleMobileNav = () => {
@@ -65,14 +79,14 @@ export default function AuthenticatedLayout({ loaderData }: {
       <div className={`md:hidden fixed right-0 z-101 transform transition duration-300 ease-in-out  w-50 bg-white h-full ml-auto shadow-md flex justify-center ${mobileNavOpen ? '' : 'translate-x-50'}`}>
         <Menu
           className="h-full"
-          model={sideMenuItems}
+          model={sideMenuItems(location)}
         />
       </div>
       <AccountContext.Provider value={account}>
         <div className="flex grow">
           <Menu
             className="h-full hidden md:block"
-            model={sideMenuItems}
+            model={sideMenuItems(location)}
           />
           <div className="grow">
             <Outlet />
@@ -93,7 +107,7 @@ function NavMenuItem({ children, active, href }: {
   return (
     <div className="p-menuitem-content font-bold">
       <Link
-        className="p-menuitem-link" 
+        className="p-menuitem-link"
         to={href}
       >
         <span className={(active ? 'text-blue-500' : '') + (pending ? ' animate-pulse' : '')}>
