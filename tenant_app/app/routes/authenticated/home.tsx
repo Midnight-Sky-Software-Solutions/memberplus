@@ -1,3 +1,4 @@
+import { parseAsIndex, useQueryState } from "nuqs";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import type { MenuItem } from "primereact/menuitem";
@@ -20,7 +21,7 @@ const tabMenuItems: MenuItem[] = [
 ];
 
 export default function Home() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useQueryState('tab', parseAsIndex.withDefault(0));
 
   return (
     <>
