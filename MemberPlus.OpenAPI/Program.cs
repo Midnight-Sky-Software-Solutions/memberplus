@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddSingleton<AuthorizationService>();
+builder.Services.AddSingleton<ContactsService>();
 builder.Services.AddSingleton<ISQLConnectionFactory, LocalhostSQLConnectionFactory>();
 builder.Services.AddSingleton<TenantsService>();
 builder.Services.AddExceptionHandler<EntityNotFoundExceptionHandler>();

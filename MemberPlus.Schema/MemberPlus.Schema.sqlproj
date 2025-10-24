@@ -64,6 +64,7 @@
     <Folder Include="Migrations" />
     <Folder Include="dbo\Stored Procedures\Tenant" />
     <Folder Include="dbo\Stored Procedures\Authorization" />
+    <Folder Include="dbo\Stored Procedures\Contact" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Tenant.sql" />
@@ -78,5 +79,6 @@
     <Build Include="dbo\Stored Procedures\Tenant\sp_OnboardTenant.sql" />
     <Build Include="dbo\Stored Procedures\Tenant\sp_ReadTenant.sql" />
     <Build Include="dbo\Stored Procedures\Authorization\AuthorizeAccountForTenant.sql" />
+    <Build Include="dbo\Stored Procedures\Contact\sp_CreateContact.sql" />
   </ItemGroup>
 </Project>
