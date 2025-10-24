@@ -31,7 +31,7 @@ export default function Home() {
       />
       <TabMenuOutlet activeIndex={activeIndex} />
     </>
-  )
+  );
 }
 
 function TabMenuOutlet({ activeIndex }: {

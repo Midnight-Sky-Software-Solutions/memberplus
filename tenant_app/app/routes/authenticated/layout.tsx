@@ -88,7 +88,7 @@ export default function AuthenticatedLayout({ loaderData }: {
             className="h-full hidden md:block"
             model={sideMenuItems(location)}
           />
-          <div className="grow">
+          <div className="flex flex-col grow">
             <Outlet />
           </div>
         </div>
