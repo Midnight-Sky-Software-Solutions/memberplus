@@ -1,4 +1,4 @@
-﻿CREATE OR ALTER PROCEDURE [dbo].[sp_OnboardTenant]
+﻿CREATE PROCEDURE [dbo].[sp_OnboardTenant]
 	@TenantId UNIQUEIDENTIFIER,
 	@TenantName NVARCHAR(100),
 	@ExternalId NVARCHAR(100)

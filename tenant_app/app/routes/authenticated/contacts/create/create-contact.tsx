@@ -1,5 +1,8 @@
+import { AccountContext } from "context/account-context";
+import apiClient from "lib/api";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
+import { useContext } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 
 type Inputs = {
@@ -12,13 +15,21 @@ type Inputs = {
 }
 
 export default function CreateContact() {
+  const { id: accountId } = useContext(AccountContext);
   const {
     register,
     handleSubmit,
     formState: { errors, isLoading }
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = (data) => apiClient.POST("/api/Accounts/{accountId}/Contacts", {
+    params: {
+      path: {
+        accountId
+      }
+    },
+    body: data
+  });
 
   return (
     <div className="p-8 grow bg-white">

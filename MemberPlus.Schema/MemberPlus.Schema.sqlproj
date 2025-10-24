@@ -63,6 +63,7 @@
     <Folder Include="dbo\Stored Procedures\" />
     <Folder Include="Migrations" />
     <Folder Include="dbo\Stored Procedures\Tenant" />
+    <Folder Include="dbo\Stored Procedures\Authorization" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Tenant.sql" />
@@ -76,5 +77,6 @@
     <Build Include="dbo\Tables\Invoice.sql" />
     <Build Include="dbo\Stored Procedures\Tenant\sp_OnboardTenant.sql" />
     <Build Include="dbo\Stored Procedures\Tenant\sp_ReadTenant.sql" />
+    <Build Include="dbo\Stored Procedures\Authorization\AuthorizeAccountForTenant.sql" />
   </ItemGroup>
 </Project>
