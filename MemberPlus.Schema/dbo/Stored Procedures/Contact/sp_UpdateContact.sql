@@ -12,6 +12,7 @@ AS
 UPDATE dbo.Contact
 SET
 	[Version] = @Version + 1,
+	DateUpdated = GETUTCDATE(),
 	FirstName = @FirstName,
 	LastName = @LastName,
 	Organization = @Organization,

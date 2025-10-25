@@ -36,7 +36,7 @@ export default function ViewContact({
       <div className="text-gray-700">
         <p>{contact.email}</p>
         <p>Last login {contact.lastLogin ? contact.lastLogin : 'Never'}</p>
-        <p>Profile last updated {contact.dateUpdated ? contact.dateUpdated : 'Never'}</p>
+        <p>Profile last updated {contact.dateUpdated ? (new Date(contact.dateUpdated)).toLocaleDateString() : 'Never'}</p>
       </div>
     </div>
   );
