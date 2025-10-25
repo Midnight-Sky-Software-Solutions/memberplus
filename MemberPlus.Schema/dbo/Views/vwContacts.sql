@@ -5,6 +5,7 @@ SELECT
 	AccountId,
 	FirstName,
 	LastName,
+	Email,
 	NULL [Membership],
 	NULL [Events],
 	NULL [Donations],

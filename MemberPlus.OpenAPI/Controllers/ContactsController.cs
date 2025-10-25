@@ -48,6 +48,7 @@ namespace MemberPlus.OpenAPI.Controllers
                         AccountId = item.AccountId,
                         FirstName = item.FirstName,
                         LastName = item.LastName,
+                        Email = item.Email,
                         Membership = item.Membership,
                         Events = item.Events,
                         Donations = item.Donations,
