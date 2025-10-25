@@ -8,6 +8,12 @@ import { Menu } from "primereact/menu";
 import { useState, type ReactNode } from "react";
 import { useLocalStorage } from "@uidotdev/usehooks";
 
+export function meta() {
+  return [
+    { title: 'MemberPlus' }
+  ]
+}
+
 export async function clientLoader() {
   const { data, error, response } = await apiClient.GET("/api/Tenants/me");
   if (response.status === 404) {

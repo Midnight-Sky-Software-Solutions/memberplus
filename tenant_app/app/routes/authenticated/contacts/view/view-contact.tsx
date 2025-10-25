@@ -1,9 +1,8 @@
 import apiClient from "lib/api";
 import type { Route } from "./+types/view-contact";
-import { AccountContext } from "context/account-context";
 
 export async function clientLoader({
-  params, context
+  params
 }: Route.ClientLoaderArgs) {
   const { id: account } = JSON.parse(localStorage.getItem("account")!);
   const { data: contact } = await apiClient.GET("/api/Accounts/{accountId}/Contacts/{id}", {
@@ -16,7 +15,7 @@ export async function clientLoader({
   });
   return {
     contact: contact!
-  }
+  };
 }
 
 export default function ViewContact({
