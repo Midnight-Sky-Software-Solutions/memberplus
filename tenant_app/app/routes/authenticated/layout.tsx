@@ -35,6 +35,7 @@ function sideMenuItems(activeRoute: string): MenuItem[] {
         href={`/`}
         active={activeRoute == '/'}
       >
+        <i className="pi pi-gauge pr-2" />
         {item.label}
       </NavMenuItem>
     )
@@ -47,6 +48,7 @@ function sideMenuItems(activeRoute: string): MenuItem[] {
         href={`/contacts`}
         active={activeRoute.startsWith('/contacts')}
       >
+        <i className="pi pi-user pr-2" />
         {item.label}
       </NavMenuItem>
     )
