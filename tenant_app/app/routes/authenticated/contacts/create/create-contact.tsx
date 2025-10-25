@@ -4,6 +4,7 @@ import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { useContext } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router";
 
 type Inputs = {
   password: string,
@@ -15,6 +16,7 @@ type Inputs = {
 }
 
 export default function CreateContact() {
+  const navigate = useNavigate();
   const { id: accountId } = useContext(AccountContext);
   const {
     register,
@@ -22,14 +24,17 @@ export default function CreateContact() {
     formState: { errors, isLoading }
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => apiClient.POST("/api/Accounts/{accountId}/Contacts", {
-    params: {
-      path: {
-        accountId
-      }
-    },
-    body: data
-  });
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const { data: res } = await apiClient.POST("/api/Accounts/{accountId}/Contacts", {
+      params: {
+        path: {
+          accountId
+        }
+      },
+      body: data
+    });
+    navigate(`/contacts/${res}`);
+  };
 
   return (
     <div className="p-8 grow bg-white">
@@ -80,7 +85,7 @@ export default function CreateContact() {
           <label htmlFor="phone">Phone</label>
           <InputText className="max-w-80" id="phone" {...register('phone', { required: false, maxLength: 50 })} invalid={!!errors.phone} />
         </div>
-        <Button label="Save" disabled={isLoading} />
+        <Button label="Save" type="submit" disabled={isLoading} />
       </form>
     </div>
   );
