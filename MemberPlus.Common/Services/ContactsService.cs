@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
+using MemberPlus.Common.Exceptions;
 using MemberPlus.Common.Model;
 using MemberPlus.Common.Model.Contacts;
 using Microsoft.Data.SqlClient;
@@ -49,6 +50,17 @@ namespace MemberPlus.Common.Services
                 "sp_ReadContact",
                 new { AccountId = accountId, Id = id },
                 commandType: System.Data.CommandType.StoredProcedure);
+        }
+
+        public async Task UpdateContact(SqlConnection db, UpdateContact contact)
+        {
+            var rowCount = await db.ExecuteAsync("sp_UpdateContact",
+                contact,
+                commandType: System.Data.CommandType.StoredProcedure);
+            if (rowCount == 0)
+            {
+                throw new EntityNotFoundException();
+            }
         }
     }
 }

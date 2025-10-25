@@ -67,6 +67,7 @@ namespace MemberPlus.OpenAPI.Controllers
                 var result = await contactsService.ReadContact(db, accountId, id);
                 return new ReadContactDto
                 {
+                    Version = result.Version,
                     Id = result.Id,
                     AccountId = result.AccountId,
                     FirstName = result.FirstName,
@@ -82,6 +83,27 @@ namespace MemberPlus.OpenAPI.Controllers
                     Balance = result.Balance,
                 };
             }
+        }
+
+        [HttpPut("{id:guid}")]
+        public async Task<ActionResult> UpdateContact(
+            [FromRoute] Guid accountId, [FromRoute] Guid id, [FromBody] UpdateContactDto request)
+        {
+            using (var db = sql.CreateConnection())
+            {
+                await contactsService.UpdateContact(db, new Common.Model.Contacts.UpdateContact()
+                {
+                    Version = request.Version,
+                    Id = id,
+                    AccountId = accountId,
+                    FirstName = request.FirstName,
+                    LastName = request.LastName,
+                    Organization = request.Organization,
+                    Email = request.Email,
+                    Phone = request.Phone,
+                });
+            }
+            return Created();
         }
     }
 }

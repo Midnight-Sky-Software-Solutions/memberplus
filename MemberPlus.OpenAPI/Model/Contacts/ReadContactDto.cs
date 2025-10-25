@@ -5,6 +5,8 @@ namespace MemberPlus.OpenAPI.Model.Contacts
     public class ReadContactDto
     {
         [Required]
+        public required int Version { get; init; }
+        [Required]
         public required Guid Id { get; init; }
         [Required]
         public required Guid AccountId { get; init; }

@@ -26,6 +26,7 @@ export async function clientLoader({
 }
 
 type Inputs = {
+  version: number,
   firstName: string,
   lastName: string,
   organization: string,
@@ -46,15 +47,19 @@ export default function EditContact({
   const { contact } = loaderData;
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    // const { data: res } = await apiClient.POST("/api/Accounts/{accountId}/Contacts", {
-    //   params: {
-    //     path: {
-    //       accountId
-    //     }
-    //   },
-    //   body: data
-    // });
-    // navigate(`/contacts/${res}`);
+    const { error } = await apiClient.PUT("/api/Accounts/{accountId}/Contacts/{id}", {
+      params: {
+        path: {
+          accountId,
+          id: params.id
+        }
+      },
+      body: data
+    });
+    if (error) {
+      throw error;
+    }
+    navigate(`/contacts/${params.id}`);
   };
 
   return (
@@ -62,6 +67,7 @@ export default function EditContact({
         <h1 className="font-bold text-4xl">Edit Contact</h1>
         <p>Some copy about contact records.</p>
         <form className="py-6 space-y-6" onSubmit={handleSubmit(onSubmit)}>
+          <input type="hidden" id="version" {...register('version', { value: contact.version })} />
           <div className="flex flex-col gap-2">
             <label htmlFor="firstName">First Name</label>
             <InputText className="max-w-80" id="firstName" {...register('firstName', { required: true, maxLength: 50, value: contact.firstName })} invalid={!!errors.firstName} />
