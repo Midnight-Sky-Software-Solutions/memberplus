@@ -6,7 +6,7 @@ import { DataTable } from "primereact/datatable";
 import type { MenuItem } from "primereact/menuitem";
 import { TabMenu } from "primereact/tabmenu";
 import { useContext, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import useSWR from "swr";
 
 const tabMenuItems: MenuItem[] = [
@@ -67,6 +67,7 @@ function ListTab() {
 }
 
 function ContactsDataTable() {
+  const navigate = useNavigate();
   const { id: accountId } = useContext(AccountContext);
   const perPage = 8;
   const fetcher = (pageNumber: string) => apiClient.GET("/api/Accounts/{accountId}/Contacts", {
@@ -97,6 +98,8 @@ function ContactsDataTable() {
       onPage={(event) => setPageNumber(event.page!)}
       first={pageNumber*perPage}
       totalRecords={data?.data?.totalRecords}
+      selectionMode="single"
+      onRowSelect={e => navigate(`/contacts/${e.data.id}`)}
     >
       <Column header="Contact" body={(data) => <>{data.lastName}, {data.firstName}<br />{data.id}</>} />
       <Column header="Membership" />
