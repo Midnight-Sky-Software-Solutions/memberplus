@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[sp_CreateContact]
 	@AccountId UNIQUEIDENTIFIER,
-	@Password NVARCHAR(50),
+	@Password NVARCHAR(100),
 	@FirstName NVARCHAR(50),
 	@LastName NVARCHAR(50),
 	@Organization NVARCHAR(50),
@@ -13,7 +13,7 @@ DECLARE @ContactId UNIQUEIDENTIFIER = NEWID();
 INSERT INTO dbo.Contact (
 	Id,
 	AccountId,
-	Password,
+	[Password],
 	FirstName,
 	LastName,
 	Organization,

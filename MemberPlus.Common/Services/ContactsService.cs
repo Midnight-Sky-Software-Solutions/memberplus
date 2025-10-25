@@ -7,6 +7,7 @@ using Dapper;
 using MemberPlus.Common.Exceptions;
 using MemberPlus.Common.Model;
 using MemberPlus.Common.Model.Contacts;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 
 namespace MemberPlus.Common.Services
@@ -15,6 +16,9 @@ namespace MemberPlus.Common.Services
     {
         public async Task<Guid> CreateContact(SqlConnection db, CreateContact contact)
         {
+            var passwordHasher = new PasswordHasher<Object>();
+            var pw = passwordHasher.HashPassword(null!, contact.Password);
+            contact.Password = pw;
             return await db.ExecuteScalarAsync<Guid>(
                 "sp_CreateContact",
                 contact,

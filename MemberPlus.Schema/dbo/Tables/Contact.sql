@@ -5,7 +5,7 @@
     [MiddleName] NVARCHAR (50)    NULL,
     [LastName]   NVARCHAR (50)    NOT NULL,
     [Version]    INT              NOT NULL DEFAULT 0,
-    [Password] NVARCHAR(50) NULL, 
+    [Password] NVARCHAR(100) NOT NULL DEFAULT '', 
     [Organization] NVARCHAR(50) NULL, 
     [Email] NVARCHAR(50) NOT NULL, 
     [Phone] NVARCHAR(50) NULL, 
