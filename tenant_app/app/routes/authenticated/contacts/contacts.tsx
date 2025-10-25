@@ -1,6 +1,6 @@
 import { AccountContext } from "context/account-context";
 import apiClient from "lib/api";
-import { parseAsIndex, useQueryState } from "nuqs";
+import { parseAsIndex, parseAsInteger, useQueryState } from "nuqs";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import type { MenuItem } from "primereact/menuitem";
@@ -81,7 +81,7 @@ function ContactsDataTable() {
       }
     }
   });
-  const [pageNumber, setPageNumber] = useState(0);
+  const [pageNumber, setPageNumber] = useQueryState('page', parseAsInteger.withDefault(0));
   const { data, error, isLoading } = useSWR(`${pageNumber}`, fetcher);
 
   if (error) {
