@@ -9,6 +9,7 @@ SELECT
 	LastName,
 	Email,
 	LastLogin,
+	DateUpdated,
 	[Membership],
 	[Events],
 	[Donations],

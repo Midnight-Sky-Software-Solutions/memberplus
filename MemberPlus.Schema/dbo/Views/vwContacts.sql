@@ -7,6 +7,7 @@ SELECT
 	LastName,
 	Email,
 	LastLogin,
+	DateUpdated,
 	NULL [Membership],
 	NULL [Events],
 	NULL [Donations],

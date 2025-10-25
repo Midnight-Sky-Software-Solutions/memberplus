@@ -10,6 +10,7 @@
     [Email] NVARCHAR(50) NOT NULL, 
     [Phone] NVARCHAR(50) NULL, 
     [LastLogin] DATETIMEOFFSET NULL, 
+    [DateUpdated] DATETIMEOFFSET NULL, 
     PRIMARY KEY CLUSTERED ([Id] ASC),
     FOREIGN KEY ([AccountId]) REFERENCES [dbo].[Account] ([Id]),
     FOREIGN KEY ([AccountId]) REFERENCES [dbo].[Account] ([Id])
