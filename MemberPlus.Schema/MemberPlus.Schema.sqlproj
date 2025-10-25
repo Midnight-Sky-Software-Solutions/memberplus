@@ -65,6 +65,7 @@
     <Folder Include="dbo\Stored Procedures\Tenant" />
     <Folder Include="dbo\Stored Procedures\Authorization" />
     <Folder Include="dbo\Stored Procedures\Contact" />
+    <Folder Include="dbo\Views" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Tenant.sql" />
@@ -80,5 +81,6 @@
     <Build Include="dbo\Stored Procedures\Tenant\sp_ReadTenant.sql" />
     <Build Include="dbo\Stored Procedures\Authorization\AuthorizeAccountForTenant.sql" />
     <Build Include="dbo\Stored Procedures\Contact\sp_CreateContact.sql" />
+    <Build Include="dbo\Views\vwContacts.sql" />
   </ItemGroup>
 </Project>

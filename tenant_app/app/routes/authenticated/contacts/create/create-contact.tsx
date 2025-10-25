@@ -38,7 +38,7 @@ export default function CreateContact() {
       <form className="py-6 space-y-6" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-2">
           <label htmlFor="password">Password</label>
-          <InputText className="max-w-80" id="password" {...register('password', { required: true, maxLength: 50 })} invalid={!!errors.password} />
+          <InputText className="max-w-80" id="password" type="password" {...register('password', { required: true, maxLength: 50 })} invalid={!!errors.password} />
           {errors.password && (
             <small>
               A password is required.

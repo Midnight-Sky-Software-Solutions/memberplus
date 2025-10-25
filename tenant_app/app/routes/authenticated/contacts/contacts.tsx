@@ -1,7 +1,13 @@
+import { AccountContext } from "context/account-context";
+import apiClient from "lib/api";
 import { parseAsIndex, useQueryState } from "nuqs";
+import { Column } from "primereact/column";
+import { DataTable } from "primereact/datatable";
 import type { MenuItem } from "primereact/menuitem";
 import { TabMenu } from "primereact/tabmenu";
+import { useContext, useState } from "react";
 import { Link } from "react-router";
+import useSWR from "swr";
 
 const tabMenuItems: MenuItem[] = [
   {
@@ -19,16 +25,16 @@ export default function Contacts() {
   const [activeIndex, setActiveIndex] = useQueryState('tab', parseAsIndex.withDefault(0));
 
   return (
-      <>
-        <TabMenu 
-          className="w-full" 
-          model={tabMenuItems}
-          onTabChange={e => setActiveIndex(e.index)}
-          activeIndex={activeIndex}
-        />
-        <TabMenuOutlet activeIndex={activeIndex} />
-      </>
-    );
+    <>
+      <TabMenu
+        className="w-full"
+        model={tabMenuItems}
+        onTabChange={e => setActiveIndex(e.index)}
+        activeIndex={activeIndex}
+      />
+      <TabMenuOutlet activeIndex={activeIndex} />
+    </>
+  );
 }
 
 function TabMenuOutlet({ activeIndex }: {
@@ -40,7 +46,7 @@ function TabMenuOutlet({ activeIndex }: {
   }
 
   if (activeIndex === 1) {
-    return <ImportTab />; 
+    return <ImportTab />;
   }
 
   return <></>;
@@ -49,15 +55,58 @@ function TabMenuOutlet({ activeIndex }: {
 function ListTab() {
   return (
     <div className="bg-white grow p-8">
-      <div className="flex gap-2 mb-5">
+      <div className="flex gap-2">
         <Link to="/contacts/create" className="p-button font-bold">Add contact</Link>
         <Link to="/" className="p-button font-bold p-button-outlined">Export</Link>
         <Link to="/" className="p-button font-bold p-button-outlined">Email contacts</Link>
       </div>
-      <h1 className="font-bold text-4xl">Contacts</h1>
+      <h1 className="font-bold text-4xl my-8">Contacts</h1>
+      <ContactsDataTable />
     </div>
   );
 }
+
+function ContactsDataTable() {
+  const { id: accountId } = useContext(AccountContext);
+  const perPage = 8;
+  const fetcher = (pageNumber: string) => apiClient.GET("/api/Accounts/{accountId}/Contacts", {
+    params: {
+      path: {
+        accountId
+      },
+      query: {
+        perPage,
+        pageNumber: +pageNumber
+      }
+    }
+  });
+  const [pageNumber, setPageNumber] = useState(0);
+  const { data, error, isLoading } = useSWR(`${pageNumber}`, fetcher);
+
+  if (error) {
+    return <p>Error loading the data table.</p>;
+  }
+
+  return (
+    <DataTable
+      lazy
+      paginator
+      value={data?.data?.items}
+      loading={isLoading}
+      rows={perPage}
+      onPage={(event) => setPageNumber(event.page!)}
+      first={pageNumber*perPage}
+      totalRecords={data?.data?.totalRecords}
+    >
+      <Column header="Contact" body={(data) => <>{data.lastName}, {data.firstName}<br />{data.id}</>} />
+      <Column header="Membership" />
+      <Column header="Events" />
+      <Column header="Donations" />
+      <Column header="Balance" field="balance" />
+    </DataTable>
+  );
+}
+
 
 function ImportTab() {
   return (
