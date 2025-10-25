@@ -1,5 +1,6 @@
 import apiClient from "lib/api";
 import type { Route } from "./+types/view-contact";
+import { Link } from "react-router";
 
 export async function clientLoader({
   params
@@ -19,12 +20,15 @@ export async function clientLoader({
 }
 
 export default function ViewContact({
-  loaderData
+  loaderData, params
 }: Route.ComponentProps) {
   const { contact } = loaderData;
 
   return (
     <div className="bg-white grow p-8">
+      <div className="flex gap-2">
+        <Link to={`/contacts/${params.id}/edit`} className="p-button font-bold">Edit contact</Link>
+      </div>
       <div className="my-8">
         <h1 className="font-bold text-4xl">{contact.firstName} {contact.lastName}</h1>
         <h2 className="text-gray-700">{contact.id}</h2>
