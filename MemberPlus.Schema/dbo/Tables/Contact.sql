@@ -11,6 +11,7 @@
     [Phone] NVARCHAR(50) NULL, 
     [LastLogin] DATETIMEOFFSET NULL, 
     [DateUpdated] DATETIMEOFFSET NULL, 
+    [DateCreated] DATETIMEOFFSET NULL DEFAULT GETUTCDATE(), 
     PRIMARY KEY CLUSTERED ([Id] ASC),
     FOREIGN KEY ([AccountId]) REFERENCES [dbo].[Account] ([Id]),
     FOREIGN KEY ([AccountId]) REFERENCES [dbo].[Account] ([Id])
