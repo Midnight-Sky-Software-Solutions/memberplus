@@ -12,7 +12,9 @@ namespace MemberPlus.Common.Model.Contacts
         public required Guid AccountId { get; init; }
         public required string FirstName { get; init; }
         public required string LastName { get; init; }
+        public string? Organization { get; init; }
         public required string Email { get; init; }
+        public string? Phone { get; init; }
         public DateTimeOffset? LastLogin { get; init; }
         public DateTimeOffset? DateUpdated { get; init; }
         public string? Membership { get; init; }

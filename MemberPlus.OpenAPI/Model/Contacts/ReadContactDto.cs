@@ -11,9 +11,11 @@ namespace MemberPlus.OpenAPI.Model.Contacts
         [Required]
         public required string FirstName { get; init; }
         [Required]
-        public required string Email { get; init; }
-        [Required]
         public required string LastName { get; init; }
+        [Required]
+        public required string Email { get; init; }
+        public string? Phone { get; init; }
+        public string? Organization { get; init; }
         public DateTimeOffset? LastLogin { get; init; }
         public DateTimeOffset? DateUpdated { get; init; }
         public string? Membership { get; init; }
