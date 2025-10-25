@@ -5,7 +5,7 @@ import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import type { MenuItem } from "primereact/menuitem";
 import { TabMenu } from "primereact/tabmenu";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router";
 import useSWR from "swr";
 
@@ -21,7 +21,6 @@ const tabMenuItems: MenuItem[] = [
 ];
 
 export default function Contacts() {
-
   const [activeIndex, setActiveIndex] = useQueryState('tab', parseAsIndex.withDefault(0));
 
   return (
@@ -40,7 +39,6 @@ export default function Contacts() {
 function TabMenuOutlet({ activeIndex }: {
   activeIndex: number
 }) {
-
   if (activeIndex === 0) {
     return <ListTab />;
   }
@@ -101,7 +99,7 @@ function ContactsDataTable() {
       selectionMode="single"
       onRowSelect={e => navigate(`/contacts/${e.data.id}`)}
     >
-      <Column header="Contact" body={(data) => <>{data.lastName}, {data.firstName} ({data.email})<br />{data.id}</>} />
+      <Column header="Contact" body={(data) => <><strong>{data.lastName}, {data.firstName}</strong> ({data.email})<br />{data.id}</>} />
       <Column header="Membership" />
       <Column header="Events" />
       <Column header="Donations" />

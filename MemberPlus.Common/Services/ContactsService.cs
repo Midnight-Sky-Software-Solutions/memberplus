@@ -42,5 +42,13 @@ namespace MemberPlus.Common.Services
                 Items = results
             };
         }
+
+        public async Task<ReadContact> ReadContact(SqlConnection db, Guid accountId, Guid id)
+        {
+            return await db.QuerySingleAsync<ReadContact>(
+                "sp_ReadContact",
+                new { AccountId = accountId, Id = id },
+                commandType: System.Data.CommandType.StoredProcedure);
+        }
     }
 }

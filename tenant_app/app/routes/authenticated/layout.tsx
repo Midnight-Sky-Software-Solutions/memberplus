@@ -6,6 +6,7 @@ import type { MenuItem } from "primereact/menuitem";
 import { AccountContext } from "context/account-context";
 import { Menu } from "primereact/menu";
 import { useState, type ReactNode } from "react";
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 export async function clientLoader() {
   const { data, error, response } = await apiClient.GET("/api/Tenants/me");
@@ -52,7 +53,7 @@ export default function AuthenticatedLayout({ loaderData }: {
     tenant: components["schemas"]["TenantDto"]
   }
 }) {
-  const account = loaderData.tenant.accounts[0];
+  const [account, setAccount] = useLocalStorage("account", loaderData.tenant.accounts[0]);
   const { pathname: location } = useLocation();
 
   const [mobileNavOpen, setMobileNavOpen] = useState(false);

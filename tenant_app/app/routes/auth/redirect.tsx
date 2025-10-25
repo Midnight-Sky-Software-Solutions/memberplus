@@ -8,6 +8,7 @@ export default function Redirect() {
   const [state, setState] = useState<LoginState>('pending');
   
   useEffect(() => {
+    localStorage.removeItem('account');
     if (state !== 'pending') {
       return;
     }

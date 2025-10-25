@@ -82,5 +82,6 @@
     <Build Include="dbo\Stored Procedures\Authorization\AuthorizeAccountForTenant.sql" />
     <Build Include="dbo\Stored Procedures\Contact\sp_CreateContact.sql" />
     <Build Include="dbo\Views\vwContacts.sql" />
+    <Build Include="dbo\Stored Procedures\Contact\sp_ReadContact.sql" />
   </ItemGroup>
 </Project>

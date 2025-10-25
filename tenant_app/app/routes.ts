@@ -6,6 +6,7 @@ export default [
     ...prefix("contacts", [
       index("routes/authenticated/contacts/contacts.tsx"),
       route("create", "routes/authenticated/contacts/create/create-contact.tsx"),
+      route(":id", "routes/authenticated/contacts/view/view-contact.tsx")
     ]),
   ]),
   layout("./routes/onboarding/layout.tsx", [

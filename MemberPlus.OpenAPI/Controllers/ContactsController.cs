@@ -57,5 +57,27 @@ namespace MemberPlus.OpenAPI.Controllers
                 };
             }
         }
+
+        [HttpGet("{id:guid}")]
+        public async Task<ReadContactDto> ReadContact(
+            [FromRoute] Guid accountId, [FromRoute] Guid id)
+        {
+            using (var db = sql.CreateConnection())
+            {
+                var result = await contactsService.ReadContact(db, accountId, id);
+                return new ReadContactDto
+                {
+                    Id = result.Id,
+                    AccountId = result.AccountId,
+                    FirstName = result.FirstName,
+                    LastName = result.LastName,
+                    Email = result.Email,
+                    Membership = result.Membership,
+                    Events = result.Events,
+                    Donations = result.Donations,
+                    Balance = result.Balance,
+                };
+            }
+        }
     }
 }
