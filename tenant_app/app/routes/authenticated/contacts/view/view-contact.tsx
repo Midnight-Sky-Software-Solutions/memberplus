@@ -29,6 +29,10 @@ export default function ViewContact({
         <h1 className="font-bold text-4xl">{contact.firstName} {contact.lastName}</h1>
         <h2 className="text-gray-700">{contact.id}</h2>
       </div>
+      <div className="text-gray-700">
+        <p>{contact.email}</p>
+        <p>Last login {contact.lastLogin ? contact.lastLogin : 'Never'}</p>
+      </div>
     </div>
   );
 }

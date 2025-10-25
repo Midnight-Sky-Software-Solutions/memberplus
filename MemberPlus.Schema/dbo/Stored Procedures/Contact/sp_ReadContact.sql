@@ -8,6 +8,7 @@ SELECT
 	FirstName,
 	LastName,
 	Email,
+	LastLogin,
 	[Membership],
 	[Events],
 	[Donations],

@@ -6,6 +6,7 @@ SELECT
 	FirstName,
 	LastName,
 	Email,
+	LastLogin,
 	NULL [Membership],
 	NULL [Events],
 	NULL [Donations],

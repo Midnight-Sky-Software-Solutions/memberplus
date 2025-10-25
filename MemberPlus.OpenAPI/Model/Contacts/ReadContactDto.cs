@@ -14,6 +14,7 @@ namespace MemberPlus.OpenAPI.Model.Contacts
         public required string Email { get; init; }
         [Required]
         public required string LastName { get; init; }
+        public DateTimeOffset? LastLogin { get; init; }
         public string? Membership { get; init; }
         public string? Events { get; init; }
         public string? Donations { get; init; }

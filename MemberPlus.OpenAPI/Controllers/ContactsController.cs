@@ -72,6 +72,7 @@ namespace MemberPlus.OpenAPI.Controllers
                     FirstName = result.FirstName,
                     LastName = result.LastName,
                     Email = result.Email,
+                    LastLogin = result.LastLogin,
                     Membership = result.Membership,
                     Events = result.Events,
                     Donations = result.Donations,
