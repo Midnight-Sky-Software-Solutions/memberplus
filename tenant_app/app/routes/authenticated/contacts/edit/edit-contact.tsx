@@ -63,48 +63,48 @@ export default function EditContact({
   };
 
   return (
-      <div className="p-8 grow bg-white">
-        <h1 className="font-bold text-4xl">Edit Contact</h1>
-        <p>Some copy about contact records.</p>
-        <form className="py-6 space-y-6" onSubmit={handleSubmit(onSubmit)}>
-          <input type="hidden" id="version" {...register('version', { value: contact.version })} />
-          <div className="flex flex-col gap-2">
-            <label htmlFor="firstName">First Name</label>
-            <InputText className="max-w-80" id="firstName" {...register('firstName', { required: true, maxLength: 50, value: contact.firstName })} invalid={!!errors.firstName} />
-            {errors.firstName && (
-              <small>
-                First name is required.
-              </small>
-            )}
-          </div>
-          <div className="flex flex-col gap-2">
-            <label htmlFor="lastName">Last Name</label>
-            <InputText className="max-w-80" id="lastName" {...register('lastName', { required: true, maxLength: 50, value: contact.lastName })} invalid={!!errors.lastName} />
-            {errors.lastName && (
-              <small>
-                Last name is required.
-              </small>
-            )}
-          </div>
-          <div className="flex flex-col gap-2">
-            <label htmlFor="organization">Organization</label>
-            <InputText className="max-w-80" id="organization" {...register('organization', { required: false, maxLength: 50, value: contact.organization ?? undefined })} invalid={!!errors.organization} />
-          </div>
-          <div className="flex flex-col gap-2">
-            <label htmlFor="email">Email</label>
-            <InputText className="max-w-80" id="email" {...register('email', { required: true, maxLength: 50, value: contact.email })} invalid={!!errors.email} />
-            {errors.email && (
-              <small>
-                Email is required.
-              </small>
-            )}
-          </div>
-          <div className="flex flex-col gap-2">
-            <label htmlFor="phone">Phone</label>
-            <InputText className="max-w-80" id="phone" {...register('phone', { required: false, maxLength: 50, value: contact.phone ?? undefined })} invalid={!!errors.phone} />
-          </div>
-          <Button label="Save" type="submit" disabled={isLoading} />
-        </form>
-      </div>
-    );
+    <div className="p-8 grow bg-white">
+      <h1 className="font-bold text-4xl">Edit Contact</h1>
+      <p>Some copy about contact records.</p>
+      <form className="py-6 space-y-6" onSubmit={handleSubmit(onSubmit)}>
+        <input type="hidden" id="version" {...register('version', { value: contact.version })} />
+        <div className="flex flex-col gap-2">
+          <label htmlFor="firstName">First Name</label>
+          <InputText className="max-w-80" id="firstName" {...register('firstName', { required: true, maxLength: 50, value: contact.firstName })} invalid={!!errors.firstName} />
+          {errors.firstName && (
+            <small>
+              First name is required.
+            </small>
+          )}
+        </div>
+        <div className="flex flex-col gap-2">
+          <label htmlFor="lastName">Last Name</label>
+          <InputText className="max-w-80" id="lastName" {...register('lastName', { required: true, maxLength: 50, value: contact.lastName })} invalid={!!errors.lastName} />
+          {errors.lastName && (
+            <small>
+              Last name is required.
+            </small>
+          )}
+        </div>
+        <div className="flex flex-col gap-2">
+          <label htmlFor="organization">Organization</label>
+          <InputText className="max-w-80" id="organization" {...register('organization', { required: false, maxLength: 50, value: contact.organization ?? undefined })} invalid={!!errors.organization} />
+        </div>
+        <div className="flex flex-col gap-2">
+          <label htmlFor="email">Email</label>
+          <InputText className="max-w-80" id="email" {...register('email', { required: true, maxLength: 50, value: contact.email })} invalid={!!errors.email} />
+          {errors.email && (
+            <small>
+              Email is required.
+            </small>
+          )}
+        </div>
+        <div className="flex flex-col gap-2">
+          <label htmlFor="phone">Phone</label>
+          <InputText className="max-w-80" id="phone" {...register('phone', { required: false, maxLength: 50, value: contact.phone ?? undefined })} invalid={!!errors.phone} />
+        </div>
+        <Button label="Save" type="submit" disabled={isLoading} />
+      </form>
+    </div>
+  );
 }
