@@ -1,7 +1,9 @@
 ﻿using MemberPlus.Common;
 using MemberPlus.Common.Services;
+using MemberPlus.OpenAPI.Filters;
 using MemberPlus.OpenAPI.Model;
 using MemberPlus.OpenAPI.Model.Contacts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +11,8 @@ namespace MemberPlus.OpenAPI.Controllers
 {
     [Route("api/Accounts/{accountId:guid}/[controller]")]
     [ApiController]
+    [Authorize]
+    [AuthorizeAccount]
     public class ContactsController(
         ISQLConnectionFactory sql,
         ContactsService contactsService) : ControllerBase

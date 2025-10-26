@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<AuthorizationService>();
 builder.Services.AddSingleton<ContactsService>();
 builder.Services.AddSingleton<ISQLConnectionFactory, LocalhostSQLConnectionFactory>();
+builder.Services.AddSingleton<MembershipLevelsService>();
 builder.Services.AddSingleton<TenantsService>();
 builder.Services.AddExceptionHandler<EntityNotFoundExceptionHandler>();
 builder.Services.AddProblemDetails();

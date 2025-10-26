@@ -13,7 +13,7 @@ namespace MemberPlus.Common.Services
         public async Task<bool> AuthorizeAccountForTenant(SqlConnection db, Guid tenantId, Guid accountId)
         {
             return await db.ExecuteScalarAsync<bool>(
-                "sp_Authorization_AuthorizeAccountForTenant",
+                "sp_AuthorizeAccountForTenant",
                 new { TenantId = tenantId, AccountId = accountId },
                 commandType: System.Data.CommandType.StoredProcedure);
         }
