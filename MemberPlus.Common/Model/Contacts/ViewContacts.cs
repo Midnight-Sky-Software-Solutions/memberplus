@@ -17,5 +17,7 @@ namespace MemberPlus.Common.Model.Contacts
         public string? Events { get; init; }
         public string? Donations { get; init; }
         public required decimal Balance { get; init; }
+        public required string MemberStatusName { get; init; }
+        public required string MemberStatusCode { get; init; }
     }
 }

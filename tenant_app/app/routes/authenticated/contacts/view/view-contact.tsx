@@ -92,7 +92,7 @@ export default function ViewContact({
               <small>Please specify a membership level.</small>
             )}
           </div>
-          <Button label="Save" />
+          <Button label="Save" loading={isLoading} />
         </form>
       </Dialog>
       <div className="my-8">

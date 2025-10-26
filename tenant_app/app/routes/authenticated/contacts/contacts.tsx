@@ -100,7 +100,7 @@ function ContactsDataTable() {
       onRowSelect={e => navigate(`/contacts/${e.data.id}`)}
     >
       <Column header="Contact" body={(data) => <><strong>{data.lastName}, {data.firstName}</strong> ({data.email})<br />{data.id}</>} />
-      <Column header="Membership" />
+      <Column header="Membership" field="memberStatusName" />
       <Column header="Events" />
       <Column header="Donations" />
       <Column header="Balance" field="balance" />

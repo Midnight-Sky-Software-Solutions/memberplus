@@ -57,6 +57,8 @@ namespace MemberPlus.OpenAPI.Controllers
                         Events = item.Events,
                         Donations = item.Donations,
                         Balance = item.Balance,
+                        MemberStatusCode = item.MemberStatusCode,
+                        MemberStatusName = item.MemberStatusName,
                     })
                 };
             }

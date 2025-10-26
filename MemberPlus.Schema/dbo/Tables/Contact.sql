@@ -12,8 +12,9 @@
     [LastLogin] DATETIMEOFFSET NULL, 
     [DateUpdated] DATETIMEOFFSET NULL, 
     [DateCreated] DATETIMEOFFSET NULL DEFAULT GETUTCDATE(), 
+    [MemberStatusId] INT NOT NULL DEFAULT 1, 
     PRIMARY KEY CLUSTERED ([Id] ASC),
     FOREIGN KEY ([AccountId]) REFERENCES [dbo].[Account] ([Id]),
-    FOREIGN KEY ([AccountId]) REFERENCES [dbo].[Account] ([Id])
+    FOREIGN KEY ([MemberStatusId]) REFERENCES [dbo].[MemberStatus] ([Id])
 );
 

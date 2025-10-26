@@ -1,19 +1,22 @@
 ﻿CREATE VIEW [dbo].[vwContacts]
 AS
 SELECT
-	Id,
-	AccountId,
-	FirstName,
-	LastName,
-	Organization,
-	[Version],
-	Email,
-	Phone,
-	LastLogin,
-	DateUpdated,
+	c.Id,
+	c.AccountId,
+	c.FirstName,
+	c.LastName,
+	c.Organization,
+	c.[Version],
+	c.Email,
+	c.Phone,
+	c.LastLogin,
+	c.DateUpdated,
 	NULL [Membership],
 	NULL [Events],
 	NULL [Donations],
-	0.0 [Balance]
+	0.0 [Balance],
+	ms.[Name] [MemberStatusName],
+	ms.[Code] [MemberStatusCode]
 FROM 
-	[dbo].[Contact]
+	[dbo].[Contact] c
+	INNER JOIN [dbo].[MemberStatus] ms ON ms.Id = c.MemberStatusId
