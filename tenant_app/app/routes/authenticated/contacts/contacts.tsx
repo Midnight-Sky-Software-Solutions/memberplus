@@ -56,7 +56,6 @@ function ListTab() {
       <div className="flex gap-2">
         <Link to="/contacts/create" className="p-button font-bold">Add contact</Link>
         <Link to="/" className="p-button font-bold p-button-outlined">Export</Link>
-        <Link to="/" className="p-button font-bold p-button-outlined">Email contacts</Link>
       </div>
       <h1 className="font-bold text-4xl my-8">Contacts</h1>
       <ContactsDataTable />
