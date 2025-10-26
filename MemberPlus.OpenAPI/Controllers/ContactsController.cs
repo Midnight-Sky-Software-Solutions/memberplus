@@ -111,5 +111,12 @@ namespace MemberPlus.OpenAPI.Controllers
             }
             return Created();
         }
+
+        [HttpPost("{id:guid}/membership")]
+        public async Task<ActionResult> ActivateMembership([FromRoute] Guid accountId, [FromRoute] Guid id, [FromBody] ActivateMembershipDto request)
+        {
+
+            return Created();
+        }
     }
 }

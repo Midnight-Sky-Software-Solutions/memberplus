@@ -2,11 +2,12 @@ import apiClient from "lib/api";
 import type { Route } from "./+types/view-contact";
 import { Link } from "react-router";
 import type { components } from "lib/api.d";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
 import { Controller, useForm, type SubmitHandler } from "react-hook-form";
+import { AccountContext } from "context/account-context";
 
 export async function clientLoader({
   params
@@ -38,7 +39,7 @@ type ViewContactState = {
   contact: components["schemas"]["ReadContactDto"]
 } & ({
   status: 'idle'
-}| {
+} | {
   status: 'assigning'
 });
 
@@ -50,6 +51,7 @@ export default function ViewContact({
   loaderData, params
 }: Route.ComponentProps) {
   const [state, setState] = useState<ViewContactState>({ contact: loaderData.contact, status: 'idle' });
+  const { id: accountId } = useContext(AccountContext);
   const {
     control,
     handleSubmit,
@@ -58,16 +60,34 @@ export default function ViewContact({
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
+    await apiClient.POST("/api/Accounts/{accountId}/Contacts/{id}/membership", {
+      params: {
+        path: {
+          accountId,
+          id: state.contact.id
+        }
+      },
+      body: data
+    });
+    const { data: contact } = await apiClient.GET("/api/Accounts/{accountId}/Contacts/{id}", {
+      params: {
+        path: {
+          accountId: accountId,
+          id: state.contact.id
+        }
+      }
+    });
+    setState({ ...state, status: 'idle', contact: contact! });
   }
 
   return (
     <div className="bg-white grow p-8">
       <div className="flex gap-2">
         <Link to={`/contacts/${params.id}/edit`} className="p-button font-bold">Edit contact</Link>
-        <Button outlined label="Assign membership" onClick={() => setState({...state, status: 'assigning'})} />
+        <Button outlined label="Assign membership" onClick={() => setState({ ...state, status: 'assigning' })} />
       </div>
       <Dialog
-        onHide={() => setState({...state, status: 'idle'})}
+        onHide={() => setState({ ...state, status: 'idle' })}
         visible={state.status == 'assigning'}
         header="Assign membership"
       >
@@ -78,7 +98,7 @@ export default function ViewContact({
               name="membershipLevelId"
               control={control}
               rules={{ required: true }}
-              render={({field}) => (
+              render={({ field }) => (
                 <Dropdown
                   id="membershipLevel"
                   options={loaderData.membershipLevels}
@@ -92,7 +112,7 @@ export default function ViewContact({
               <small>Please specify a membership level.</small>
             )}
           </div>
-          <Button label="Save" loading={isLoading} />
+          <Button label="Save" disabled={isLoading} />
         </form>
       </Dialog>
       <div className="my-8">
