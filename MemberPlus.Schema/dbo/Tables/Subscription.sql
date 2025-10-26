@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Subscription] (
-    [Id]                INT              NOT NULL,
+    [Id]                INT              IDENTITY(1,1) NOT NULL,
     [ContactId]         UNIQUEIDENTIFIER NOT NULL,
     [MembershipLevelId] UNIQUEIDENTIFIER NOT NULL,
     [Version]           INT              NULL,

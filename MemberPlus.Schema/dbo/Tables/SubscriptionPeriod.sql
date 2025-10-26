@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[SubscriptionPeriod] (
-    [Id]             INT                NOT NULL,
+    [Id]             INT                IDENTITY(1,1) NOT NULL,
     [SubscriptionId] INT                NOT NULL,
     [InvoiceId]      UNIQUEIDENTIFIER   NOT NULL,
     [StartDate]      DATETIMEOFFSET (7) NOT NULL,

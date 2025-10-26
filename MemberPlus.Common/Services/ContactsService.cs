@@ -66,5 +66,12 @@ namespace MemberPlus.Common.Services
                 throw new EntityNotFoundException();
             }
         }
+
+        public async Task ActivateMembership(SqlConnection db, ActivateMembership options)
+        {
+            await db.ExecuteAsync("sp_ActivateMembership",
+                options,
+                commandType: System.Data.CommandType.StoredProcedure);
+        }
     }
 }

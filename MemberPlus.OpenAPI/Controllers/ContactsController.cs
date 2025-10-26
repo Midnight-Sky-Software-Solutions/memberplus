@@ -115,7 +115,15 @@ namespace MemberPlus.OpenAPI.Controllers
         [HttpPost("{id:guid}/membership")]
         public async Task<ActionResult> ActivateMembership([FromRoute] Guid accountId, [FromRoute] Guid id, [FromBody] ActivateMembershipDto request)
         {
-
+            using (var db = sql.CreateConnection())
+            {
+                await contactsService.ActivateMembership(db, new Common.Model.Contacts.ActivateMembership()
+                {
+                    AccountId = accountId,
+                    ContactId = id,
+                    MembershipLevelId = request.MembershipLevelId,
+                });
+            }
             return Created();
         }
     }
