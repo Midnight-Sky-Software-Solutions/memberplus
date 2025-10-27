@@ -84,7 +84,9 @@ export default function ViewContact({
     <div className="bg-white grow p-8">
       <div className="flex gap-2">
         <Link to={`/contacts/${params.id}/edit`} className="p-button font-bold">Edit contact</Link>
-        <Button outlined label="Assign membership" onClick={() => setState({ ...state, status: 'assigning' })} />
+        {(state.contact.memberStatusCode === 'MS01' || state.contact.memberStatusCode === 'MS04') && (
+          <Button outlined label="Assign membership" onClick={() => setState({ ...state, status: 'assigning' })} />
+        )}
       </div>
       <Dialog
         onHide={() => setState({ ...state, status: 'idle' })}
