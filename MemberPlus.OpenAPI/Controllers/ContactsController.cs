@@ -87,6 +87,11 @@ namespace MemberPlus.OpenAPI.Controllers
                     Events = result.Events,
                     Donations = result.Donations,
                     Balance = result.Balance,
+                    MemberStatusName = result.MemberStatusName,
+                    MemberStatusCode = result.MemberStatusCode,
+                    MembershipLevelName = result.MembershipLevelName,
+                    SubscriptionStartDate = result.SubscriptionStartDate,
+                    SubscriptionEndDate = result.SubscriptionEndDate,
                 };
             }
         }

@@ -25,5 +25,12 @@ namespace MemberPlus.OpenAPI.Model.Contacts
         public string? Donations { get; init; }
         [Required]
         public required decimal Balance { get; init; }
+        [Required]
+        public required string MemberStatusName { get; init; }
+        [Required]
+        public required string MemberStatusCode { get; init; }
+        public string? MembershipLevelName { get; init; }
+        public DateTimeOffset? SubscriptionStartDate { get; init; }
+        public DateTimeOffset? SubscriptionEndDate { get; init; }
     }
 }

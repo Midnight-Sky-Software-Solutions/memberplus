@@ -16,7 +16,12 @@ SELECT
 	[Membership],
 	[Events],
 	[Donations],
-	[Balance]
+	[Balance],
+	[MemberStatusName],
+	[MemberStatusCode],
+	[MembershipLevelName],
+	[SubscriptionStartDate],
+	[SubscriptionEndDate]
 FROM 
 	[dbo].[vwContacts] c
 WHERE

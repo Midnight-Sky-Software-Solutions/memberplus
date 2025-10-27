@@ -124,6 +124,25 @@ export default function ViewContact({
         <p>Last login {state.contact.lastLogin ? state.contact.lastLogin : 'Never'}</p>
         <p>Profile last updated {state.contact.dateUpdated ? (new Date(state.contact.dateUpdated)).toLocaleDateString() : 'Never'}</p>
       </div>
+      <h2 className="text-2xl my-8 font-bold">Membership</h2>
+      <table className="border-separate border-spacing-x-3">
+        <tr>
+          <td className="text-right text-gray-500">Membership level</td>
+          <td>{state.contact.membershipLevelName}</td>
+        </tr>
+        <tr>
+          <td className="text-right text-gray-500">Membership status</td>
+          <td>{state.contact.memberStatusName}</td>
+        </tr>
+        <tr>
+          <td className="text-right text-gray-500">Start date</td>
+          <td>{state.contact.subscriptionStartDate ? new Date(state.contact.subscriptionStartDate).toLocaleDateString() : ''}</td>
+        </tr>
+        <tr>
+          <td className="text-right text-gray-500">End date</td>
+          <td>{state.contact.subscriptionEndDate ? new Date(state.contact.subscriptionEndDate).toLocaleDateString() : ''}</td>
+        </tr>
+      </table>
     </div>
   );
 }

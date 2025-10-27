@@ -31,12 +31,14 @@ THROW 50404, 'Not Found', 1;
 
 INSERT INTO dbo.Subscription (
     ContactId,
-    MembershipLevelId
+    MembershipLevelId,
+    IsActive
 )
 VALUES
     (
         @ContactId,
-        @MembershipLevelId
+        @MembershipLevelId,
+        1
     );
 
 DECLARE @SubscriptionId INT = SCOPE_IDENTITY();

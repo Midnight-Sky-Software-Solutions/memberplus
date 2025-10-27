@@ -3,6 +3,7 @@
     [ContactId]         UNIQUEIDENTIFIER NOT NULL,
     [MembershipLevelId] UNIQUEIDENTIFIER NOT NULL,
     [Version]           INT              NULL,
+    [IsActive] BIT NOT NULL DEFAULT 0, 
     PRIMARY KEY CLUSTERED ([Id] ASC),
     FOREIGN KEY ([ContactId]) REFERENCES [dbo].[Contact] ([Id]),
     FOREIGN KEY ([ContactId]) REFERENCES [dbo].[Contact] ([Id]),
