@@ -1,3 +1,4 @@
+import apiClient from "lib/api";
 import { getAuth0Client } from "lib/auth0";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router";
@@ -16,7 +17,11 @@ export default function Redirect() {
     if (query.includes("code=") && query.includes("state=")) {
       getAuth0Client()
         .then(auth0 => auth0.handleRedirectCallback())
-        .then(result => {
+        .then(() => {
+          return apiClient.GET("/api/Tenants/me");
+        })
+        .then(({ data }) => {
+          localStorage.setItem("account", JSON.stringify(data!.accounts[0]));
           setState('done');
         })
         .catch(e => {
