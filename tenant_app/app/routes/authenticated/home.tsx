@@ -1,7 +1,9 @@
+import apiClient from "lib/api";
 import { parseAsIndex, useQueryState } from "nuqs";
 import { Card } from "primereact/card";
 import type { MenuItem } from "primereact/menuitem";
 import { TabMenu } from "primereact/tabmenu";
+import type { Route } from "./+types/home";
 
 const tabMenuItems: MenuItem[] = [
   {
@@ -18,7 +20,21 @@ const tabMenuItems: MenuItem[] = [
   // }
 ];
 
-export default function Home() {
+export async function clientLoader() {
+  const { id: accountId } = JSON.parse(localStorage.getItem("account")!);
+  const { data } = await apiClient.GET("/api/Accounts/{accountId}", {
+    params: {
+      path: {
+        accountId
+      }
+    }
+  });
+  return {
+    account: data
+  };
+}
+
+export default function Home(props: Route.ComponentProps) {
   const [activeIndex, setActiveIndex] = useQueryState('tab', parseAsIndex.withDefault(0));
 
   return (
@@ -29,18 +45,22 @@ export default function Home() {
         onTabChange={e => setActiveIndex(e.index)}
         activeIndex={activeIndex}
       />
-      <TabMenuOutlet activeIndex={activeIndex} />
+      <TabMenuOutlet 
+        activeIndex={activeIndex}
+        {...props}
+      />
     </>
   );
 }
 
-function TabMenuOutlet({ activeIndex }: {
+function TabMenuOutlet(props: ({
   activeIndex: number
-}) {
+} & Route.ComponentProps)) {
+  const { activeIndex } = props;
 
   if (activeIndex === 0) {
     return (
-      <DashboardTab />
+      <DashboardTab {...props} />
     );
   }
 
@@ -63,7 +83,7 @@ function TabMenuOutlet({ activeIndex }: {
   return <></>;
 }
 
-function DashboardTab() {
+function DashboardTab({ loaderData: { account }}: Route.ComponentProps) {
   return (
     <div className="p-8">
       <h1 className="font-bold text-4xl">Dashboard</h1>
@@ -81,7 +101,7 @@ function DashboardTab() {
           </div>
           <div className="space-y-3">
             <h2 className="font-bold text-xl">Active members</h2>
-            <span className="text-4xl text-gray-500">0</span>
+            <span className="text-4xl text-gray-500">{account!.activeMembers}</span>
           </div>
           <div className="space-y-3">
             <h2 className="font-bold text-xl">This month's revenue</h2>

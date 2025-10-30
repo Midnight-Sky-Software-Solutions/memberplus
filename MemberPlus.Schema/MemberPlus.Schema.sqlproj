@@ -66,6 +66,7 @@
     <Folder Include="dbo\Stored Procedures\Authorization" />
     <Folder Include="dbo\Stored Procedures\Contact" />
     <Folder Include="dbo\Views" />
+    <Folder Include="dbo\Stored Procedures\Account" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Tenant.sql" />
@@ -86,5 +87,7 @@
     <Build Include="dbo\Stored Procedures\Contact\sp_UpdateContact.sql" />
     <Build Include="dbo\Views\vwMembershipLevels.sql" />
     <Build Include="dbo\Stored Procedures\Contact\sp_ActivateMembership.sql" />
+    <Build Include="dbo\Stored Procedures\Account\vwAccounts.sql" />
+    <Build Include="dbo\Stored Procedures\Account\sp_ReadAccount.sql" />
   </ItemGroup>
 </Project>

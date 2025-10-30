@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddSingleton<AccountsService>();
 builder.Services.AddSingleton<AuthorizationService>();
 builder.Services.AddSingleton<ContactsService>();
 builder.Services.AddSingleton<ISQLConnectionFactory, LocalhostSQLConnectionFactory>();

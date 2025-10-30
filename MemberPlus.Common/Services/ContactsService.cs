@@ -50,10 +50,15 @@ namespace MemberPlus.Common.Services
 
         public async Task<ReadContact> ReadContact(SqlConnection db, Guid accountId, Guid id)
         {
-            return await db.QuerySingleAsync<ReadContact>(
+            var result = await db.QuerySingleOrDefaultAsync<ReadContact>(
                 "sp_ReadContact",
                 new { AccountId = accountId, Id = id },
                 commandType: System.Data.CommandType.StoredProcedure);
+            if (result is null)
+            {
+                throw new EntityNotFoundException();
+            }
+            return result;
         }
 
         public async Task UpdateContact(SqlConnection db, UpdateContact contact)
