@@ -52,6 +52,19 @@ function sideMenuItems(activeRoute: string): MenuItem[] {
         {item.label}
       </NavMenuItem>
     )
+  },
+  {
+    id: 'Membership',
+    label: 'Membership',
+    template: (item) => (
+      <NavMenuItem
+        href={`/membership`}
+        active={activeRoute.startsWith('/membership')}
+      >
+        <i className="pi pi-receipt pr-2" />
+        {item.label}
+      </NavMenuItem>
+    )
   }
   ];
 }

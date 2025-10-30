@@ -9,6 +9,9 @@ export default [
       route(":id", "routes/authenticated/contacts/view/view-contact.tsx"),
       route(":id/edit", "routes/authenticated/contacts/edit/edit-contact.tsx"),
     ]),
+    ...prefix("membership", [
+      index("routes/authenticated/membership/membership.tsx")
+    ]),
   ]),
   layout("./routes/onboarding/layout.tsx", [
     route("/onboarding", "./routes/onboarding/onboarding.tsx"),
