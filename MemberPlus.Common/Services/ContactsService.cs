@@ -78,5 +78,16 @@ namespace MemberPlus.Common.Services
                 options,
                 commandType: System.Data.CommandType.StoredProcedure);
         }
+
+        public async Task CancelMembership(SqlConnection db,  CancelMembership options)
+        {
+            var rowCount = await db.ExecuteAsync("sp_CancelMembership",
+                options,
+                commandType: System.Data.CommandType.StoredProcedure);
+            if (rowCount == 0)
+            {
+                throw new EntityNotFoundException();
+            }
+        }
     }
 }

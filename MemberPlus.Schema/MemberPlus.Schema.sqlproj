@@ -89,5 +89,6 @@
     <Build Include="dbo\Stored Procedures\Contact\sp_ActivateMembership.sql" />
     <Build Include="dbo\Stored Procedures\Account\vwAccounts.sql" />
     <Build Include="dbo\Stored Procedures\Account\sp_ReadAccount.sql" />
+    <Build Include="dbo\Stored Procedures\Contact\sp_CancelMembership.sql" />
   </ItemGroup>
 </Project>

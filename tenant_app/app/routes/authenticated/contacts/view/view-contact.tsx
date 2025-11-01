@@ -41,6 +41,8 @@ type ViewContactState = {
   status: 'idle'
 } | {
   status: 'assigning'
+}| {
+  status: 'canceling'
 });
 
 type Inputs = {
@@ -80,12 +82,35 @@ export default function ViewContact({
     setState({ ...state, status: 'idle', contact: contact! });
   }
 
+  const onCancel = async() => {
+    setState({...state, status: 'canceling'});
+    await apiClient.DELETE('/api/Accounts/{accountId}/Contacts/{id}/membership', {
+      params: {
+        path: {
+          accountId,
+          id: state.contact.id
+        }
+      },
+    });
+    const { data: contact } = await apiClient.GET("/api/Accounts/{accountId}/Contacts/{id}", {
+      params: {
+        path: {
+          accountId: accountId,
+          id: state.contact.id
+        }
+      }
+    });
+    setState({ ...state, status: 'idle', contact: contact! });
+  }
+
   return (
     <div className="bg-white grow p-8">
       <div className="flex gap-2">
         <Link to={`/contacts/${params.id}/edit`} className="p-button font-bold">Edit contact</Link>
-        {(state.contact.memberStatusCode === 'MS01' || state.contact.memberStatusCode === 'MS04') && (
+        {(state.contact.memberStatusCode === 'MS01' || state.contact.memberStatusCode === 'MS04' || state.contact.memberStatusCode === 'MS05') ? (
           <Button outlined label="Assign membership" onClick={() => setState({ ...state, status: 'assigning' })} />
+        ) : (
+          <Button outlined label="Cancel membership" onClick={onCancel} disabled={state.status === 'canceling'} />
         )}
       </div>
       <Dialog

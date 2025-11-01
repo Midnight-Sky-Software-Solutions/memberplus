@@ -131,5 +131,19 @@ namespace MemberPlus.OpenAPI.Controllers
             }
             return Created();
         }
+
+        [HttpDelete("{id:guid}/membership")]
+        public async Task<ActionResult> CancelMembership([FromRoute] Guid accountId, [FromRoute] Guid id)
+        {
+            using (var db = sql.CreateConnection())
+            {
+                await contactsService.CancelMembership(db, new Common.Model.Contacts.CancelMembership()
+                {
+                    AccountId = accountId,
+                    ContactId = id,
+                });
+            }
+            return NoContent();
+        }
     }
 }
