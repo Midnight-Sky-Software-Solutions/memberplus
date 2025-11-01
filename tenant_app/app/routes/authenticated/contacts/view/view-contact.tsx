@@ -8,6 +8,7 @@ import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
 import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import { AccountContext } from "context/account-context";
+import { Calendar } from "primereact/calendar";
 
 export async function clientLoader({
   params
@@ -46,7 +47,8 @@ type ViewContactState = {
 });
 
 type Inputs = {
-  membershipLevelId: string
+  membershipLevelId: string,
+  startDate: Date
 };
 
 export default function ViewContact({
@@ -61,7 +63,6 @@ export default function ViewContact({
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log(data);
     await apiClient.POST("/api/Accounts/{accountId}/Contacts/{id}/membership", {
       params: {
         path: {
@@ -69,7 +70,10 @@ export default function ViewContact({
           id: state.contact.id
         }
       },
-      body: data
+      body: {
+        ...data,
+        startDate: data.startDate.toJSON()
+      }
     });
     const { data: contact } = await apiClient.GET("/api/Accounts/{accountId}/Contacts/{id}", {
       params: {
@@ -137,6 +141,21 @@ export default function ViewContact({
             />
             {errors.membershipLevelId && (
               <small>Please specify a membership level.</small>
+            )}
+            <label htmlFor="startDate">Start Date</label>
+            <Controller
+              name="startDate"
+              control={control}
+              rules={{ required: true }}
+              render={({field}) => (
+                <Calendar
+                  id="startDate"
+                  {...field}
+                />
+              )}
+            />
+            {errors.startDate && (
+              <small>Please specify a start date.</small>
             )}
           </div>
           <Button label="Save" disabled={isLoading} />

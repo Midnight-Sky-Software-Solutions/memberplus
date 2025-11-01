@@ -127,6 +127,7 @@ namespace MemberPlus.OpenAPI.Controllers
                     AccountId = accountId,
                     ContactId = id,
                     MembershipLevelId = request.MembershipLevelId,
+                    StartDate = request.StartDate
                 });
             }
             return Created();

@@ -6,5 +6,7 @@ namespace MemberPlus.OpenAPI.Model.Contacts
     {
         [Required]
         public required Guid MembershipLevelId { get; set; }
+        [Required]
+        public required DateTimeOffset StartDate { get; set; }
     }
 }
